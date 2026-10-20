@@ -529,32 +529,3 @@ body::before {
 .eventos--resumen .mesa { width: min(260px, 60vw); }
 .plato__precio { white-space: nowrap; font-weight: 500; color: var(--texto); }
 @media (max-width: 859px) { .eventos--resumen .mesa { display: none; } }
-
-/* Historia: carrusel horizontal (relato) */
-.relato { border-top: 1px solid rgba(245, 238, 220, .3); padding-top: 24px; }
-.relato__barra { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
-.relato__contador { margin: 0; font-family: var(--f-titulos); font-weight: 800; font-size: 1.3rem; letter-spacing: .06em; color: var(--mostaza); }
-.relato__flechas { display: flex; gap: 10px; }
-.relato__flecha {
-  width: 48px; height: 48px; border-radius: 999px; border: 1.5px solid var(--crema);
-  background: transparent; color: var(--crema); font: 500 1.3rem/1 var(--f-texto); cursor: pointer;
-}
-.relato__flecha:hover:not([disabled]) { background: var(--crema); color: var(--teja); }
-.relato__flecha[disabled] { opacity: .35; cursor: default; }
-.relato__pista {
-  list-style: none; margin: 0 calc(-1 * var(--pad)); padding: 4px var(--pad) 8px;
-  display: grid; grid-auto-flow: column; grid-auto-columns: min(82%, 340px); gap: 16px;
-  overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 var(--pad); scrollbar-width: none;
-  overscroll-behavior-x: contain;
-}
-.relato__pista::-webkit-scrollbar { display: none; }
-.relato__pista:focus-visible { outline: 2px solid var(--mostaza); outline-offset: 4px; }
-.relato__tarjeta {
-  scroll-snap-align: start; background: rgba(245, 238, 220, .08); border: 1.5px solid rgba(245, 238, 220, .22);
-  border-radius: var(--radio); padding: 22px; display: flex; flex-direction: column; gap: 8px; min-height: 230px;
-}
-.relato__tarjeta .ilu { width: 56px; color: var(--mostaza); margin-bottom: 6px; }
-.relato__tarjeta h3 { margin: 0; font-size: 1.2rem; font-weight: 500; color: var(--crema); }
-.relato__tarjeta p { margin: 0; opacity: .88; line-height: 1.5; }
-.relato__foto { width: calc(100% + 44px); margin: -22px -22px 10px; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radio) var(--radio) 0 0; }
-@media (min-width: 1000px) { .relato__pista { margin: 0; padding-left: 0; padding-right: 0; scroll-padding: 0; } }

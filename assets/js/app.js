@@ -94,29 +94,6 @@
     });
   }
 
-  /* ---------- Historia: carrusel con flechas ---------- */
-  var pista = $(".relato__pista");
-  if (pista) {
-    var tarjetas = $$(".relato__tarjeta", pista);
-    $("[data-relato-total]").textContent = tarjetas.length;
-    var actualizarRelato = function () {
-      var i = Math.round(pista.scrollLeft / (tarjetas[0].offsetWidth + 16));
-      var fin = pista.scrollLeft + pista.clientWidth >= pista.scrollWidth - 4;
-      $("[data-relato-actual]").textContent = fin ? tarjetas.length : Math.min(i + 1, tarjetas.length);
-      $('[data-relato="-1"]').disabled = pista.scrollLeft <= 4;
-      $('[data-relato="1"]').disabled = fin;
-    };
-    $$("[data-relato]").forEach(function (b) {
-      b.addEventListener("click", function () {
-        pista.scrollBy({ left: +b.dataset.relato * (tarjetas[0].offsetWidth + 16), behavior: "smooth" });
-      });
-    });
-    var esperaRelato;
-    pista.addEventListener("scroll", function () { clearTimeout(esperaRelato); esperaRelato = setTimeout(actualizarRelato, 60); }, { passive: true });
-    window.addEventListener("resize", actualizarRelato);
-    actualizarRelato();
-  }
-
   /* ---------- Carta ---------- */
   // pedido: clave -> { nombre, precio, cantidad, unidad }
   var pedido = {};
