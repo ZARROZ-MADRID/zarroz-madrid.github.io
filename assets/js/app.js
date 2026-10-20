@@ -45,8 +45,8 @@
   /* ---------- Carta ---------- */
   // pedido: clave -> { nombre, precio, cantidad, unidad }
   var pedido = {};
-  var listaArroces = $("#lista-arroces"), listaEntrantes = $("#lista-entrantes");
-  if (!listaArroces) return; // páginas legales
+  var listaEntrantes = $("#lista-entrantes");
+  if (!listaEntrantes) return; // páginas legales
 
   function contador(clave, etiqueta) {
     return '<div class="contador" role="group" aria-label="' + etiqueta + '">' +
@@ -56,15 +56,22 @@
   }
   function esc(t) { var d = document.createElement("div"); d.textContent = t; return d.innerHTML; }
 
-  (C.arroces || []).forEach(function (a, i) {
-    var k = "a" + i;
+  // Arroces y fideuà van en paellera (tipo "arroz": mínimo y máximo de raciones)
+  function platoPaellera(a, k, lista) {
     pedido[k] = { nombre: a.nombre, precio: a.precio, cantidad: 0, tipo: "arroz" };
     var li = document.createElement("li");
     li.className = "plato"; li.dataset.fila = k;
     li.innerHTML = '<div><p class="plato__nombre">' + esc(a.nombre) + '</p><p class="plato__info">' + euros(a.precio) + ' por ración</p></div>' +
       '<div class="plato__opciones"><div class="opcion">' + contador(k, "Raciones de " + esc(a.nombre)) + '</div></div>';
-    listaArroces.appendChild(li);
+    lista.appendChild(li);
+  }
+  (C.arroces || []).forEach(function (a, i) {
+    var lista = $("#lista-" + (a.grupo || "carne")) || $("#lista-carne");
+    platoPaellera(a, "a" + i, lista);
   });
+  (C.fideuas || []).forEach(function (a, i) { platoPaellera(a, "f" + i, $("#lista-fideua")); });
+  // Oculta los apartados de la carta que se queden vacíos
+  $$(".carta__grupo").forEach(function (g) { var ul = $("ul", g); if (ul && !ul.children.length && ul.id !== "lista-entrantes") g.hidden = true; });
 
   (C.entrantes || []).forEach(function (e, i) {
     var li = document.createElement("li");
@@ -112,6 +119,16 @@
   }
   function total() { return lineas().reduce(function (s, p) { return s + p.precio * p.cantidad; }, 0); }
 
+  // Envío según código postal: número = precio, null = no repartimos, undefined = aún sin CP válido
+  var cpEl = $("#f-cp");
+  function envioDe(cp) {
+    cp = (cp || "").trim();
+    if (!/^\d{5}$/.test(cp)) return undefined;
+    for (var i = 0; i < (C.envio || []).length; i++) if (C.envio[i].cps.indexOf(cp) >= 0) return C.envio[i].precio;
+    return null;
+  }
+  function precioEnvio(e) { return e === 0 ? "Gratis" : euros(e); }
+
   function pintar() {
     Object.keys(pedido).forEach(function (k) {
       var p = pedido[k];
@@ -133,11 +150,24 @@
     }).join("");
     vacioEl.hidden = ls.length > 0;
     resumenEl.hidden = ls.length === 0;
+    var cp = cpEl.value.trim(), env = envioDe(cp), conEnvio = typeof env === "number";
+    $("#pedido-subtotal-fila").hidden = !conEnvio;
+    $("#pedido-envio-fila").hidden = !conEnvio;
+    $("#pedido-subtotal").textContent = euros(t);
+    $("#pedido-envio-precio").textContent = conEnvio ? precioEnvio(env) : "";
+    $("#pedido-envio").textContent = conEnvio ? "Envío al " + cp + "." : env === null
+      ? "De momento no repartimos en el " + cp + "."
+      : "Más el envío: gratis, 6 € o 9 € según tu código postal.";
+    var aviso = $("#cp-aviso");
+    aviso.className = "campo__aviso" + (conEnvio ? " campo__aviso--ok" : env === null ? " campo__aviso--no" : "");
+    aviso.textContent = conEnvio ? (env === 0 ? "✓ Envío gratis a tu zona" : "Envío a tu zona: " + euros(env))
+      : env === null ? "De momento no llegamos a tu zona" : "";
+    if (conEnvio) t += env;
     totalEl.textContent = euros(t);
 
     var raciones = ls.filter(function (p) { return p.tipo === "arroz"; }).reduce(function (s, p) { return s + p.cantidad; }, 0);
     $("#barra-total").textContent = euros(t);
-    $("#barra-resumen").textContent = raciones ? raciones + " raciones de arroz" : "Sin arroz todavía";
+    $("#barra-resumen").textContent = raciones ? raciones + " raciones" : "Sin arroz todavía";
     var visible = ls.length > 0 && !pedidoEnPantalla;
     barra.classList.toggle("visible", visible);
     barra.setAttribute("aria-hidden", !visible);
@@ -150,6 +180,8 @@
     new IntersectionObserver(function (es) { pedidoEnPantalla = es[0].isIntersecting; pintar(); }, { threshold: 0.15 })
       .observe($("#pedido"));
   }
+
+  cpEl.addEventListener("input", pintar);
 
   /* ---------- Formulario ---------- */
   var form = $("#pedido-form"), errorEl = $("#pedido-error"), okEl = $("#pedido-ok");
@@ -168,12 +200,14 @@
     var errores = [];
     $$("[aria-invalid]", form).forEach(function (e) { e.removeAttribute("aria-invalid"); });
     if (!lineas().length) errores.push("Elige al menos un plato de la carta.");
-    else if (!lineas().some(function (p) { return p.tipo === "arroz"; })) errores.push("Añade al menos un arroz.");
+    else if (!lineas().some(function (p) { return p.tipo === "arroz"; })) errores.push("Añade al menos un arroz o una fideuà.");
     var faltan = $$("[required]", form).filter(function (i) { return !i.value.trim(); });
     faltan.forEach(function (i) { i.setAttribute("aria-invalid", "true"); });
     if (faltan.length) errores.push("Completa: " + faltan.map(function (i) { return $('label[for="' + i.id + '"]').textContent.toLowerCase(); }).join(", ") + ".");
     var cp = $("#f-cp");
-    if (cp.value && !/^28\d{3}$/.test(cp.value.trim())) { cp.setAttribute("aria-invalid", "true"); errores.push("El código postal debe ser de Madrid (empieza por 28)."); }
+    var env = envioDe(cp.value);
+    if (cp.value.trim() && env === undefined) { cp.setAttribute("aria-invalid", "true"); errores.push("Escribe un código postal de 5 cifras."); }
+    else if (env === null) { cp.setAttribute("aria-invalid", "true"); errores.push("De momento no repartimos en el código postal " + cp.value.trim() + ". Si quieres, llámanos y lo vemos."); }
     if (fecha.value && fecha.value < fecha.min) { fecha.setAttribute("aria-invalid", "true"); errores.push("El día no puede ser anterior a hoy."); }
     errorEl.hidden = !errores.length;
     errorEl.textContent = errores.join(" ");
@@ -193,9 +227,10 @@
         ? "- " + p.nombre + ": " + p.cantidad + " raciones (" + euros(p.precio * p.cantidad) + ")\n"
         : "- " + p.cantidad + " x " + p.nombre + " (" + euros(p.precio * p.cantidad) + ")\n";
     });
-    t += "\nTotal: " + euros(total()) + " (más envío según zona)\n\n";
+    var env = envioDe(d.cp);
+    t += "\nPlatos: " + euros(total()) + "\nEnvío: " + precioEnvio(env) + "\nTotal: " + euros(total() + env) + "\n\n";
     t += "Día: " + fechaBonita(d.fecha) + "\nHora: " + d.hora + "\n";
-    t += "Dirección: " + d.direccion + ", " + d.cp + " Madrid\n";
+    t += "Dirección: " + d.direccion + ", " + d.cp + (d.cp === "28109" ? " La Moraleja (Alcobendas)" : " Madrid") + "\n";
     t += "Nombre: " + d.nombre + "\nTeléfono: " + d.telefono + "\n";
     if (d.notas) t += "Comentarios: " + d.notas + "\n";
     t += "\nPago al recibir el pedido.";
@@ -229,4 +264,66 @@
   }
 
   pintar();
+
+  /* ---------- Eventos ---------- */
+  var evForm = $("#evento-form");
+  if (evForm) {
+    var rango = $("#ev-rango"), evPersonas = $("#f-ev-personas"), evError = $("#ev-error"), evOk = $("#ev-ok");
+    var precios = (C.arroces || []).concat(C.fideuas || []).map(function (p) { return p.precio; });
+    var precioMin = precios.length ? Math.min.apply(null, precios) : 0;
+    var evFecha = $("#f-ev-fecha"); evFecha.min = fecha.min;
+
+    function calcular(n) {
+      n = Math.max(1, parseInt(n, 10) || 0);
+      var pae = Math.ceil(n / MAX);
+      $("#ev-personas-txt").textContent = n;
+      $("#ev-paelleras").textContent = pae + (pae === 1 ? " paellera" : " paelleras");
+      $("#ev-raciones").textContent = n + " raciones";
+      $("#ev-precio").textContent = "desde " + euros(n * precioMin);
+    }
+    rango.addEventListener("input", function () { evPersonas.value = rango.value; calcular(rango.value); });
+    evPersonas.addEventListener("input", function () { rango.value = evPersonas.value; calcular(evPersonas.value); });
+    calcular(rango.value);
+
+    function evDatos() {
+      var o = {};
+      new FormData(evForm).forEach(function (v, k) { o[k] = String(v).trim(); });
+      return o;
+    }
+    function evValidar() {
+      $$("[aria-invalid]", evForm).forEach(function (e) { e.removeAttribute("aria-invalid"); });
+      var faltan = $$("[required]", evForm).filter(function (i) { return !i.value.trim(); });
+      faltan.forEach(function (i) { i.setAttribute("aria-invalid", "true"); });
+      var errores = [];
+      if (faltan.length) errores.push("Completa: " + faltan.map(function (i) { return $('label[for="' + i.id + '"]').textContent.toLowerCase(); }).join(", ") + ".");
+      if (evFecha.value && evFecha.value < evFecha.min) { evFecha.setAttribute("aria-invalid", "true"); errores.push("La fecha no puede ser anterior a hoy."); }
+      evError.hidden = !errores.length;
+      evError.textContent = errores.join(" ");
+      if (faltan.length) faltan[0].focus();
+      return !errores.length;
+    }
+    function textoEvento() {
+      var d = evDatos();
+      var t = "Hola, Zarroz. Quiero pedir presupuesto para un evento:\n\n";
+      t += "Fecha: " + fechaBonita(d.fecha) + "\nInvitados: " + d.personas + "\nFormato: " + d.formato + "\nLugar: " + d.lugar + "\n";
+      t += "Alergias o intolerancias: " + (d.alergias ? "sí" : "no") + "\n";
+      t += "Nombre: " + d.nombre + "\nContacto: " + d.contacto + "\n";
+      if (d.notas) t += "Comentarios: " + d.notas + "\n";
+      return t;
+    }
+    function evAsunto() { var d = evDatos(); return "Evento Zarroz · " + fechaBonita(d.fecha) + " · " + d.personas + " invitados"; }
+
+    if (C.whatsapp) $('[data-ev-canal="whatsapp"]').hidden = false;
+    $('[data-ev-canal="whatsapp"]').addEventListener("click", function () {
+      if (!evValidar()) return;
+      window.open("https://wa.me/" + C.whatsapp + "?text=" + encodeURIComponent(textoEvento()), "_blank", "noopener");
+    });
+    evForm.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      if (!evValidar()) return;
+      window.location.href = "mailto:" + C.email + "?subject=" + encodeURIComponent(evAsunto()) + "&body=" + encodeURIComponent(textoEvento());
+      evOk.innerHTML = "<p><strong>Se ha abierto tu correo con los datos del evento.</strong> Revísalo y pulsa enviar.</p><p>Si no se ha abierto, escríbenos a " + esc(C.email) + ".</p>";
+      evOk.hidden = false;
+    });
+  }
 })();
