@@ -62,12 +62,12 @@
 
   // Si todos los arroces y fideuàs cuestan lo mismo, el precio se dice una vez arriba
   var paelleras = (C.arroces || []).concat(C.fideuas || []);
-  var precioUnico = paelleras.length && paelleras.every(function (a) { return a.precio === paelleras[0].precio; }) ? paelleras[0].precio : null;
+  var pu = $("[data-precio-unico]");
+  var precioUnico = pu && paelleras.length && paelleras.every(function (a) { return a.precio === paelleras[0].precio; }) ? paelleras[0].precio : null;
   if (precioUnico !== null) {
-    var pu = $("[data-precio-unico]");
     pu.innerHTML = "Todos nuestros arroces y fideuàs a <strong>" + euros(precioUnico) + "</strong> la ración";
     pu.hidden = false;
-    $("[data-precio-nota]").textContent = "";
+    $$("[data-precio-nota]").forEach(function (e) { e.textContent = ""; });
   }
 
   // Arroces y fideuà van en paellera (tipo "arroz": mínimo y máximo de raciones)
