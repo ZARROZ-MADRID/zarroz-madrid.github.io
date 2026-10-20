@@ -529,3 +529,8 @@ body::before {
 .eventos--resumen .mesa { width: min(260px, 60vw); }
 .plato__precio { white-space: nowrap; font-weight: 500; color: var(--texto); }
 @media (max-width: 859px) { .eventos--resumen .mesa { display: none; } }
+
+/* Carta filtrada: solo se ve el apartado de la pestaña elegida */
+.carta--filtrada .carta__grupo:not(.visible) { display: none; }
+.carta--filtrada .carta__grupo + .carta__grupo { margin-top: 0; }
+.carta--filtrada .carta__pestanas { position: static; margin-bottom: 24px; }

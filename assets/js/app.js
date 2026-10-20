@@ -143,22 +143,25 @@
     }
   });
 
-  // Pestañas de la carta: marca el apartado que se está viendo
-  var grupos = $$(".carta__grupo").filter(function (g) { return !g.hidden; }), pestanaActual = null, pendiente = false;
-  function marcarPestana() {
-    pendiente = false;
-    var actual = null, nav = $(".carta__pestanas"), lim = nav ? nav.getBoundingClientRect().bottom + 40 : 170;
-    grupos.forEach(function (g) { var r = g.getBoundingClientRect(); if (r.top <= lim && r.bottom > lim) actual = g.id; });
-    if (actual === pestanaActual) return;
-    pestanaActual = actual;
+  // Pestañas de la carta: filtran y muestran un apartado cada vez
+  var grupos = $$(".carta__grupo").filter(function (g) { return !g.hidden; });
+  function mostrarApartado(id) {
+    grupos.forEach(function (g) { g.classList.toggle("visible", g.id === id); });
     $$("[data-pestana]").forEach(function (a) {
-      var on = a.dataset.pestana === actual;
+      var on = a.dataset.pestana === id;
       a.classList.toggle("activa", on);
+      a.setAttribute("aria-selected", on);
       if (on) a.parentNode.scrollTo({ left: a.offsetLeft - 16, behavior: "smooth" });
     });
   }
-  window.addEventListener("scroll", function () { if (!pendiente) { pendiente = true; setTimeout(marcarPestana, 60); } }, { passive: true });
-  marcarPestana();
+  $$("[data-pestana]").forEach(function (a) {
+    a.setAttribute("role", "tab");
+    a.addEventListener("click", function (ev) { ev.preventDefault(); mostrarApartado(a.dataset.pestana); });
+  });
+  if (grupos.length) {
+    $("#carta").classList.add("carta--filtrada");
+    mostrarApartado(grupos[0].id);
+  }
 
   (C.entrantes || []).forEach(function (e, i) {
     var li = document.createElement("li");
