@@ -13,13 +13,13 @@ window.ZARROZ = {
 
   // ---- Contacto ----
   email: "pedidos@zarroz.com",
-  telefono: "",        // Ejemplo: "+34 600 000 000"
-  whatsapp: "",        // Solo números con prefijo, sin + ni espacios. Ejemplo: "34600000000"
+  telefono: "649 119 997",   // Ejemplo: "600 000 000"
+  whatsapp: "34649119997",    // Solo números con prefijo, sin + ni espacios. Ejemplo: "34600000000"
   instagram: "",       // Ejemplo: "https://www.instagram.com/zarroz"
 
   // ---- Reglas de pedido ----
   racionesMin: 3,      // mínimo de raciones por arroz (una paellera)
-  racionesMax: 14,     // máximo por paellera
+  racionesMax: 8,      // máximo por paellera
   recogidaPaellera: "entre las 16:30 y las 18:00",
 
   // ---- Carta: arroces (precio por ración) ----

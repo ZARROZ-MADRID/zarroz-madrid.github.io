@@ -20,7 +20,12 @@
   ["telefono", "whatsapp", "instagram"].forEach(function (k) {
     if (C[k]) $$('[data-si="' + k + '"]').forEach(function (e) { e.hidden = false; });
   });
-  if (C.telefono) $$("[data-tel]").forEach(function (a) { a.href = "tel:" + C.telefono.replace(/\s/g, ""); a.textContent = C.telefono; });
+  var telHref = C.telefono ? "tel:" + (C.telefono.trim().charAt(0) === "+" ? "" : "+34") + C.telefono.replace(/[^\d+]/g, "") : "";
+  if (C.telefono) {
+    $$("[data-tel]").forEach(function (a) { a.href = telHref; a.textContent = C.telefono; });
+    $$("[data-tel-box]").forEach(function (a) { a.href = telHref; });
+    $$("[data-tel-texto]").forEach(function (e) { e.textContent = "Llámanos al " + C.telefono; });
+  }
   if (C.whatsapp) $$("[data-wa]").forEach(function (a) { a.href = "https://wa.me/" + C.whatsapp; a.target = "_blank"; a.rel = "noopener"; });
   if (C.instagram) $$("[data-ig]").forEach(function (a) { a.href = C.instagram; a.target = "_blank"; a.rel = "noopener"; });
 

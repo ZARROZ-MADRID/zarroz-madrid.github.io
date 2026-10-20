@@ -29,7 +29,6 @@
       <nav class="menu" aria-label="Principal">
         <div class="menu__enlaces" id="menu-enlaces">
           <a href="#carta">Carta</a>
-          <a href="#como-funciona">Cómo funciona</a>
           <a href="#grupos">Grupos</a>
           <a href="#historia">Nuestra historia</a>
           <a href="#preguntas">Preguntas</a>
@@ -51,8 +50,8 @@
         <p class="portada__texto">Arroces valencianos hechos al momento y llevados a tu casa en Madrid, en su paellera. Tú pones la mesa.</p>
         <div class="portada__acciones">
           <a class="boton boton--mostaza" href="#carta">Elige tu arroz</a>
-          <a class="boton boton--borde" href="#como-funciona">Cómo funciona</a>
         </div>
+        <p class="portada__llamar" data-si="telefono" hidden>O llámanos al <a data-tel href="#"></a></p>
       </div>
     </section>
 
@@ -77,10 +76,10 @@
       <div class="contenedor">
         <h2 class="titulo">Cómo funciona</h2>
         <ol class="pasos">
-          <li><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/ilustraciones/mano-gamba.svg);mask-image:url(assets/img/ilustraciones/mano-gamba.svg)"></span><h3>Elige</h3><p>Escoge tu arroz y cuántas raciones quieres: de 3 a 14 por paellera. Añade algo para empezar si te apetece.</p></li>
-          <li><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/ilustraciones/mano-limon.svg);mask-image:url(assets/img/ilustraciones/mano-limon.svg)"></span><h3>Pide</h3><p>Envíanos el pedido con el día, la hora y la dirección. Mejor con un día de antelación.</p></li>
+          <li><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/ilustraciones/mano-gamba.svg);mask-image:url(assets/img/ilustraciones/mano-gamba.svg)"></span><h3>Elige</h3><p>Escoge tu arroz y cuántas raciones quieres: de <span data-min>3</span> a <span data-max>8</span> por paellera. Añade algo para empezar si te apetece.</p></li>
+          <li><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/ilustraciones/mano-limon.svg);mask-image:url(assets/img/ilustraciones/mano-limon.svg)"></span><h3>Pide</h3><p>Envíanos el pedido por email o WhatsApp, o llámanos. Mejor con un día de antelación.</p></li>
           <li><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/ilustraciones/furgoneta.svg);mask-image:url(assets/img/ilustraciones/furgoneta.svg)"></span><h3>Recibe</h3><p>Te confirmamos el pedido y el envío. Llega a tu casa listo para servir, y pagas en efectivo o con tarjeta al recibirlo.</p></li>
-          <li><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/ilustraciones/jarra.svg);mask-image:url(assets/img/ilustraciones/jarra.svg)"></span><h3>Disfruta</h3><p>Sin fregar: pasamos a recoger la paellera esa misma tarde, <span data-recogida>entre las 16:30 y las 18:00</span>.</p></li>
+          <li><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/ilustraciones/paella.svg);mask-image:url(assets/img/ilustraciones/paella.svg)"></span><h3>Disfruta</h3><p>Sin fregar: pasamos a recoger la paellera esa misma tarde, <span data-recogida>entre las 16:30 y las 18:00</span>.</p></li>
         </ol>
       </div>
     </section>
@@ -90,7 +89,7 @@
       <div class="contenedor carta">
         <div>
           <h2 class="titulo">La carta</h2>
-          <p class="carta__nota">Precios por ración. Cada arroz se hace en su propia paellera, de <span data-min>3</span> a <span data-max>14</span> raciones. Para más personas, pide varias paelleras.</p>
+          <p class="carta__nota">Precios por ración. Cada arroz se hace en su propia paellera, de <span data-min>3</span> a <span data-max>8</span> raciones. Para más personas, pide varias paelleras.</p>
 
           <div class="carta__grupo">
             <h3 class="titulo titulo--peq">Arroces</h3>
@@ -104,6 +103,10 @@
 
         <aside class="pedido" id="pedido" aria-labelledby="pedido-titulo">
           <h3 class="titulo titulo--peq pedido__titulo" id="pedido-titulo">Tu pedido</h3>
+          <a class="pedido__llamar" data-si="telefono" hidden data-tel-box href="#">
+            <span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/telefono.svg);mask-image:url(assets/img/telefono.svg)"></span>
+            <span>¿Prefieres pedir por teléfono?<strong data-tel-texto></strong></span>
+          </a>
           <p class="pedido__vacio" id="pedido-vacio">Todavía no has elegido nada. Usa los botones + de la carta.</p>
           <ul class="pedido__lineas" id="pedido-lineas" aria-live="polite"></ul>
           <div id="pedido-resumen" hidden>
@@ -123,8 +126,8 @@
             </div>
             <p class="pedido__error" id="pedido-error" role="alert" hidden></p>
             <div class="pedido__acciones">
-              <button class="boton" type="submit" data-canal="email">Enviar pedido por email</button>
-              <button class="boton boton--borde" type="button" data-canal="whatsapp" hidden>Enviar por WhatsApp</button>
+              <button class="boton boton--wa" type="button" data-canal="whatsapp" hidden><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/whatsapp.svg);mask-image:url(assets/img/whatsapp.svg)"></span>Enviar por WhatsApp</button>
+              <button class="boton" type="submit" data-canal="email">Enviar por email</button>
               <button class="boton boton--borde" type="button" data-canal="copiar">Copiar el pedido</button>
             </div>
             <p class="pedido__ayuda">El pedido queda confirmado cuando te respondemos. Si no se abre tu correo, copia el pedido y envíalo a <a href="mailto:pedidos@zarroz.com" data-email>pedidos@zarroz.com</a><span data-si="telefono" hidden> o llámanos al <a data-tel href="#"></a></span>.</p>
@@ -141,7 +144,7 @@
           <h2 class="titulo">Grupos y celebraciones</h2>
           <p>Cumpleaños, comidas de empresa, la familia entera un domingo. Preparamos tantas paelleras como necesites para que nadie se quede sin su ración.</p>
           <ul class="grupos__datos">
-            <li><strong>3–14</strong><span>raciones por paellera</span></li>
+            <li><strong><span data-min>3</span>–<span data-max>8</span></strong><span>raciones por paellera</span></li>
             <li><strong>24 h</strong><span>de antelación recomendada</span></li>
           </ul>
           <a class="boton boton--mostaza" href="mailto:pedidos@zarroz.com?subject=Pedido%20para%20un%20grupo" data-email-grupo>Cuéntanos tu celebración</a>
@@ -151,25 +154,27 @@
     </section>
 
     <!-- HISTORIA -->
-    <section class="seccion seccion--crema2" id="historia">
-      <div class="contenedor historia">
-        <div>
-          <h2 class="titulo">Nuestra historia</h2>
-          <div class="historia__poema">
-            <p>En cada mesa hay alguien que cuida, alguien que une y alguien que sorprende.</p>
-            <p>Como en cada arroz, todo depende del equilibrio.</p>
-          </div>
-          <span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/isotipo.svg);mask-image:url(assets/img/isotipo.svg);aspect-ratio:836/795"></span>
+    <section class="historia" id="historia">
+      <div class="contenedor">
+        <h2 class="historia__titulo">Nuestra historia</h2>
+        <div class="historia__cabecera">
+          <p class="historia__frase">En Valencia, el arroz no es un plato. Es tiempo.</p>
+          <span class="ilu historia__isotipo" aria-hidden="true" style="-webkit-mask-image:url(assets/img/isotipo-circulo.svg);mask-image:url(assets/img/isotipo-circulo.svg)"></span>
         </div>
-        <div class="historia__texto">
-          <p>En Valencia, el arroz no es un plato: es tiempo. Es una casa que se llena, una mesa que se alarga y una conversación sin prisa. Desde siempre, el arroz ha sido la excusa para reunirse.</p>
-          <p>Zarroz nace de esa idea. Hacemos arroces de restaurante, con el cuidado que pondrías en tu propia cocina, para que tú solo tengas que disfrutar de los tuyos.</p>
-          <h3 class="titulo titulo--peq" style="margin-top:1.6em">El ritual</h3>
-          <ol class="ritual">
-            <li><div><h3>El aperitivo</h3><p>El primer gesto de bienvenida, mientras la mesa se prepara.</p></div></li>
-            <li><div><h3>La cuchara</h3><p>El primer contacto con el sabor: el caldo, el punto del grano.</p></div></li>
-            <li><div><h3>La paella</h3><p>En el centro de la mesa, para servir y compartir.</p></div></li>
-          </ol>
+        <div class="historia__cuerpo">
+          <div class="historia__texto">
+            <p>Es una casa que se llena, una mesa que se alarga y una conversación sin prisa. Desde siempre, el arroz ha sido la excusa para reunirse.</p>
+            <p>Zarroz nace de esa idea: arroces de restaurante, hechos con el cuidado que pondrías en tu propia cocina, para que tú solo tengas que disfrutar de los tuyos.</p>
+            <p class="historia__poema">En cada mesa hay alguien que cuida, alguien que une y alguien que sorprende. Como en cada arroz, todo depende del equilibrio.</p>
+          </div>
+          <div>
+            <h3 class="historia__sub">El ritual</h3>
+            <ol class="ritual">
+              <li><div><h4>El aperitivo</h4><p>El primer gesto de bienvenida, mientras la mesa se prepara.</p></div></li>
+              <li><div><h4>La cuchara</h4><p>El primer contacto con el sabor: el caldo, el punto del grano.</p></div></li>
+              <li><div><h4>La paella</h4><p>En el centro de la mesa, para servir y compartir.</p></div></li>
+            </ol>
+          </div>
         </div>
       </div>
     </section>
@@ -178,7 +183,7 @@
     <section class="seccion" id="preguntas">
       <div class="contenedor preguntas">
         <h2 class="titulo">Preguntas frecuentes</h2>
-        <details><summary>¿De qué tamaño son los arroces?</summary><p>Cada arroz se prepara en su paellera, de <span data-min>3</span> a <span data-max>14</span> raciones. Si sois más, pide varias paelleras del mismo arroz o de distintos.</p></details>
+        <details><summary>¿De qué tamaño son los arroces?</summary><p>Cada arroz se prepara en su paellera, de <span data-min>3</span> a <span data-max>8</span> raciones. Si sois más, pide varias paelleras del mismo arroz o de distintos.</p></details>
         <details><summary>¿Con cuánta antelación tengo que pedir?</summary><p>Puedes pedir para el mismo día, pero te recomendamos hacerlo el día anterior, porque tenemos mucha demanda.</p></details>
         <details><summary>¿Enviáis a toda Madrid?</summary><p>Sí, a toda la ciudad de Madrid. Según la zona puede haber un suplemento de envío, que te confirmamos al responder a tu pedido.</p></details>
         <details><summary>¿Cómo se paga?</summary><p>Al recibir el pedido, en efectivo o con tarjeta. No hay que pagar nada por adelantado.</p></details>
