@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Eventos · Zarroz · Arroces valencianos para celebraciones en Madrid</title>
+  <meta name="description" content="Arroces valencianos para cumpleaños, comidas de empresa y celebraciones en Madrid: entrega en paellera, show cooking o menú completo. Pide presupuesto sin compromiso.">
+  <!-- WEB EN PRUEBAS: impide que Google la indexe. Borrar esta línea al lanzar. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#f5eedc">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/big-shoulders-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/styles.css?v=7">
+  <meta property="og:title" content="Zarroz · Tu mesa. Nuestro arroz.">
+  <meta property="og:description" content="Arroces valencianos a domicilio en Madrid, para anfitriones que quieren estar presentes.">
+  <meta property="og:type" content="website">
+</head>
+<body>
+  <a class="sr-only" href="#evento-form">Ir al formulario</a>
+
+  <div class="aviso-pruebas" data-pruebas hidden>Web en pruebas: los precios y algunos datos son provisionales.</div>
+
+  <header class="cabecera">
+    <div class="contenedor cabecera__fila">
+      <a class="cabecera__logo" href="index.html#inicio" aria-label="Zarroz, inicio">
+        <img src="assets/img/logo-rojo.svg" alt="Zarroz" width="132" height="37">
+      </a>
+      <nav class="menu" aria-label="Principal">
+        <div class="menu__enlaces" id="menu-enlaces">
+          <a href="index.html#carta">Carta</a>
+          <a href="eventos.html">Eventos</a>
+          <a href="index.html#historia">Nuestra historia</a>
+          <a href="index.html#preguntas">Preguntas</a>
+        </div>
+        <a class="boton" href="index.html#carta">Pedir</a>
+        <button class="menu__abrir" type="button" aria-expanded="false" aria-controls="menu-enlaces" aria-label="Abrir menú">
+          <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><path d="M3 7h20M3 13h20M3 19h20" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- EVENTOS -->
+    <section class="seccion grupos eventos" id="eventos">
+      <div class="contenedor">
+        <div class="grupos__fila">
+          <div>
+            <h2 class="eventos__antetitulo">Eventos</h2>
+            <p class="eventos__frase">Tu celebración. Nuestro arroz.</p>
+            <p class="eventos__intro">Cumpleaños, comidas de empresa o la familia entera un domingo. Tú disfrutas de tus invitados; los arroces corren de nuestra cuenta.</p>
+            <ul class="eventos__ventajas">
+              <li>Entrega en paellera, show cooking o menú completo</li>
+              <li>Menú y precio cerrados antes de confirmar</li>
+              <li>Recogemos las paelleras esa misma tarde</li>
+            </ul>
+          </div>
+          <div class="mesa" aria-hidden="true">
+            <span class="ilu mesa__paella" style="-webkit-mask-image:url(assets/img/ilustraciones/paella.svg);mask-image:url(assets/img/ilustraciones/paella.svg)"></span>
+            <span class="ilu mesa__mano mesa__mano--1" style="-webkit-mask-image:url(assets/img/ilustraciones/mano-gamba.svg);mask-image:url(assets/img/ilustraciones/mano-gamba.svg)"></span>
+            <span class="ilu mesa__mano mesa__mano--2" style="-webkit-mask-image:url(assets/img/ilustraciones/mano-limon.svg);mask-image:url(assets/img/ilustraciones/mano-limon.svg)"></span>
+            <span class="ilu mesa__mano mesa__mano--3" style="-webkit-mask-image:url(assets/img/ilustraciones/mano-cazuela.svg);mask-image:url(assets/img/ilustraciones/mano-cazuela.svg)"></span>
+            <span class="ilu mesa__mano mesa__mano--4" style="-webkit-mask-image:url(assets/img/ilustraciones/mano-gamba.svg);mask-image:url(assets/img/ilustraciones/mano-gamba.svg)"></span>
+          </div>
+        </div>
+
+        <h3 class="eventos__sub">¿Qué formato necesitas?</h3>
+        <ul class="formatos">
+          <li><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/ilustraciones/furgoneta.svg);mask-image:url(assets/img/ilustraciones/furgoneta.svg)"></span><h4>Entrega en paellera</h4><p>Llevamos los arroces listos para servir, en su paellera. Pasamos a recogerla esa misma tarde.</p></li>
+          <li><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/ilustraciones/fuego.svg);mask-image:url(assets/img/ilustraciones/fuego.svg)"></span><h4>Show cooking</h4><p>Cocinamos en directo delante de tus invitados. El olor del sofrito es parte del espectáculo.</p></li>
+          <li><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/ilustraciones/mano-cazuela.svg);mask-image:url(assets/img/ilustraciones/mano-cazuela.svg)"></span><h4>Menú completo</h4><p>Entrantes para abrir boca y arroces para el centro de la mesa. Lo cerramos contigo.</p></li>
+        </ul>
+
+        <h3 class="eventos__sub">Así funciona</h3>
+        <ol class="ev-pasos">
+          <li><h4>Nos cuentas</h4><p>Fecha, número de invitados, lugar y el formato que te encaja.</p></li>
+          <li><h4>Te proponemos</h4><p>Menú, número de paelleras y precio cerrado.</p></li>
+          <li><h4>Confirmamos</h4><p>Unos días antes ajustamos raciones y alergias.</p></li>
+          <li><h4>Disfrutas</h4><p>Llegamos, servimos y nos llevamos las paelleras.</p></li>
+        </ol>
+
+        <form class="ev-form" id="evento-form" novalidate>
+          <h3 class="eventos__sub">Cuéntanos tu evento</h3>
+          <div class="campos">
+            <div class="campo campo--medio"><label for="f-ev-fecha">Fecha del evento</label><input id="f-ev-fecha" name="fecha" type="date" required></div>
+            <div class="campo campo--medio"><label for="f-ev-personas">Nº de invitados</label><input id="f-ev-personas" name="personas" type="number" min="1" inputmode="numeric" value="40" required></div>
+            <div class="campo campo--medio"><label for="f-ev-formato">Formato</label>
+              <select id="f-ev-formato" name="formato" required>
+                <option>Entrega en paellera</option><option>Show cooking</option><option>Menú completo</option><option>Aún no lo sé</option>
+              </select></div>
+            <div class="campo campo--medio"><label for="f-ev-lugar">Lugar o zona</label><input id="f-ev-lugar" name="lugar" placeholder="Casa, oficina, finca…" required></div>
+            <div class="campo campo--medio"><label for="f-ev-nombre">Nombre</label><input id="f-ev-nombre" name="nombre" autocomplete="name" required></div>
+            <div class="campo campo--medio"><label for="f-ev-contacto">Teléfono o email</label><input id="f-ev-contacto" name="contacto" autocomplete="tel" required></div>
+            <div class="campo"><label for="f-ev-notas">Comentarios (opcional)</label><textarea id="f-ev-notas" name="notas" placeholder="Tipo de celebración, arroces que te apetecen, horario…"></textarea></div>
+            <label class="casilla campo"><input type="checkbox" name="alergias" id="f-ev-alergias"> Hay invitados con alergias o intolerancias</label>
+          </div>
+          <p class="pedido__error" id="ev-error" role="alert" hidden></p>
+          <div class="eventos__acciones">
+            <button class="boton boton--wa" type="button" data-ev-canal="whatsapp" hidden><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/whatsapp.svg);mask-image:url(assets/img/whatsapp.svg)"></span>Enviar por WhatsApp</button>
+            <button class="boton boton--mostaza" type="submit">Enviar por email</button>
+            <a class="boton boton--borde-claro" data-si="telefono" hidden data-tel-box href="#"><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/telefono.svg);mask-image:url(assets/img/telefono.svg)"></span><span data-tel-texto>Llámanos</span></a>
+          </div>
+          <p class="eventos__nota">Sin compromiso. El presupuesto es orientativo hasta que lo confirmes.</p>
+          <div class="pedido__ok" id="ev-ok" role="status" hidden></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <div class="contenedor">
+      <div class="pie__arriba">
+        <div>
+          <img class="pie__logo" src="assets/img/logo-crema-tagline.svg" alt="Zarroz. Tu mesa. Nuestro arroz." width="320" height="119">
+          <div class="redes" data-si="instagram" hidden>
+            <h2>Síguenos</h2>
+            <a class="redes__enlace" data-ig href="#"><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/instagram.svg);mask-image:url(assets/img/instagram.svg)"></span><span data-ig-usuario>Instagram</span></a>
+          </div>
+        </div>
+        <div>
+          <h2>Contacto</h2>
+          <ul>
+            <li><a href="mailto:pedidos@zarroz.com" data-email>pedidos@zarroz.com</a></li>
+            <li data-si="telefono" hidden><a data-tel href="#"></a></li>
+            <li data-si="whatsapp" hidden><a data-wa href="#">WhatsApp</a></li>
+            <li>Reparto en toda la ciudad de Madrid</li>
+          </ul>
+        </div>
+        <div>
+          <h2>La web</h2>
+          <ul>
+            <li><a href="index.html#carta">Carta y pedidos</a></li>
+            <li><a href="eventos.html">Eventos</a></li>
+            <li><a href="index.html#preguntas">Preguntas frecuentes</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pie__legal">
+        <p>© <span data-anio>2026</span> Zarroz Madrid SL</p>
+        <a href="aviso-legal.html">Aviso legal</a>
+        <a href="privacidad.html">Privacidad</a>
+        <a href="cookies.html">Cookies</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/config.js?v=7"></script>
+  <script src="assets/js/app.js?v=7"></script>
+</body>
+</html>

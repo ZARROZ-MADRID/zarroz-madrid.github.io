@@ -275,8 +275,14 @@ body::before {
 .opcion.activa .contador button, .opcion.activa .contador output { color: var(--crema); }
 
 @media (max-width: 560px) {
-  .plato { grid-template-columns: 1fr; }
-  .plato__opciones { justify-content: flex-start; }
+  /* Compacto: el contador a la derecha del nombre; solo baja si hay varios tamaños */
+  .plato { gap: 6px 12px; padding: 14px 0; }
+  .plato__nombre { font-size: 1.05rem; }
+  .plato__info { font-size: .92rem; }
+  .plato:has(.opcion + .opcion) { grid-template-columns: 1fr; }
+  .plato:has(.opcion + .opcion) .plato__opciones { justify-content: flex-start; }
+  .contador button { width: 36px; height: 36px; }
+  .carta__grupo + .carta__grupo { margin-top: 40px; }
 }
 
 /* Panel del pedido */
@@ -508,3 +514,18 @@ body::before {
 }
 .anfitrion__frase span { display: block; }
 .anfitrion__texto { margin: 0; font-size: clamp(1.1rem, 1.6vw, 1.25rem); color: var(--texto-suave); max-width: 38ch; }
+
+/* Anfitrión + cómo funciona (una sola sección) */
+.sellos { list-style: none; padding: 0; margin: 1.4em 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.sellos li { padding: .35em .9em; border-radius: 999px; background: var(--crema-2); color: var(--teja); font-size: .92rem; font-weight: 500; }
+.pasos-mini { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px 32px; counter-reset: paso; }
+@media (min-width: 600px) { .pasos-mini { grid-template-columns: 1fr 1fr; } }
+.pasos-mini li { counter-increment: paso; display: grid; grid-template-columns: 52px 1fr; gap: 14px; align-items: start; }
+.pasos-mini .ilu { width: 52px; color: var(--teja); }
+.pasos-mini h3 { margin: 0 0 .15em; font-size: 1.12rem; font-weight: 500; display: flex; gap: .45em; align-items: baseline; }
+.pasos-mini h3::before { content: counter(paso); font-family: var(--f-titulos); font-weight: 800; font-size: 1.4rem; line-height: 1; color: var(--teja); }
+.pasos-mini p { margin: 0; color: var(--texto-suave); font-size: .98rem; }
+.historia__texto--corto { max-width: 60ch; }
+.eventos--resumen .mesa { width: min(260px, 60vw); }
+.plato__precio { white-space: nowrap; font-weight: 500; color: var(--texto); }
+@media (max-width: 859px) { .eventos--resumen .mesa { display: none; } }

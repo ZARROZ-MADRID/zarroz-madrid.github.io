@@ -61,9 +61,10 @@ window.ZARROZ = {
 
   // ---- Carta: para empezar ----
   // "opciones" son los tamaños. Si solo hay uno, deja una opción.
+  // "detalle" (opcional) sale junto al tamaño: gramos, unidades… Ejemplo: detalle: "6 uds"
   entrantes: [
-    { nombre: "Croquetas de jamón ibérico", opciones: [{ nombre: "Media", precio: 6 }, { nombre: "Entera", precio: 10 }] },
-    { nombre: "Ensaladilla rusa", opciones: [{ nombre: "Media", precio: 6 }, { nombre: "Entera", precio: 10 }] },
+    { nombre: "Croquetas de jamón ibérico", opciones: [{ nombre: "Media", detalle: "5 uds", precio: 6 }, { nombre: "Entera", detalle: "10 uds", precio: 10 }] },
+    { nombre: "Ensaladilla rusa", opciones: [{ nombre: "Media", detalle: "300 g", precio: 6 }, { nombre: "Entera", detalle: "600 g", precio: 10 }] },
     { nombre: "Gazpacho", nota: "Solo en temporada", opciones: [{ nombre: "Ración", precio: 10 }] },
     { nombre: "Alioli", nota: "Tarrina de 160 ml", opciones: [{ nombre: "Tarrina", precio: 2 }] }
   ]

@@ -46,6 +46,54 @@
     });
   }
 
+  /* ---------- Eventos (página eventos.html) ---------- */
+  var evForm = $("#evento-form");
+  if (evForm) {
+    var evError = $("#ev-error"), evOk = $("#ev-ok");
+    var evFecha = $("#f-ev-fecha"); var hoyEv = new Date(); hoyEv.setMinutes(hoyEv.getMinutes() - hoyEv.getTimezoneOffset()); evFecha.min = hoyEv.toISOString().slice(0, 10);
+
+    function evDatos() {
+      var o = {};
+      new FormData(evForm).forEach(function (v, k) { o[k] = String(v).trim(); });
+      return o;
+    }
+    function evValidar() {
+      $$("[aria-invalid]", evForm).forEach(function (e) { e.removeAttribute("aria-invalid"); });
+      var faltan = $$("[required]", evForm).filter(function (i) { return !i.value.trim(); });
+      faltan.forEach(function (i) { i.setAttribute("aria-invalid", "true"); });
+      var errores = [];
+      if (faltan.length) errores.push("Completa: " + faltan.map(function (i) { return $('label[for="' + i.id + '"]').textContent.toLowerCase(); }).join(", ") + ".");
+      if (evFecha.value && evFecha.value < evFecha.min) { evFecha.setAttribute("aria-invalid", "true"); errores.push("La fecha no puede ser anterior a hoy."); }
+      evError.hidden = !errores.length;
+      evError.textContent = errores.join(" ");
+      if (faltan.length) faltan[0].focus();
+      return !errores.length;
+    }
+    function textoEvento() {
+      var d = evDatos();
+      var t = "Hola, Zarroz. Quiero pedir presupuesto para un evento:\n\n";
+      t += "Fecha: " + fechaBonita(d.fecha) + "\nInvitados: " + d.personas + "\nFormato: " + d.formato + "\nLugar: " + d.lugar + "\n";
+      t += "Alergias o intolerancias: " + (d.alergias ? "sí" : "no") + "\n";
+      t += "Nombre: " + d.nombre + "\nContacto: " + d.contacto + "\n";
+      if (d.notas) t += "Comentarios: " + d.notas + "\n";
+      return t;
+    }
+    function evAsunto() { var d = evDatos(); return "Evento Zarroz · " + fechaBonita(d.fecha) + " · " + d.personas + " invitados"; }
+
+    if (C.whatsapp) $('[data-ev-canal="whatsapp"]').hidden = false;
+    $('[data-ev-canal="whatsapp"]').addEventListener("click", function () {
+      if (!evValidar()) return;
+      window.open("https://wa.me/" + C.whatsapp + "?text=" + encodeURIComponent(textoEvento()), "_blank", "noopener");
+    });
+    evForm.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      if (!evValidar()) return;
+      window.location.href = "mailto:" + C.email + "?subject=" + encodeURIComponent(evAsunto()) + "&body=" + encodeURIComponent(textoEvento());
+      evOk.innerHTML = "<p><strong>Se ha abierto tu correo con los datos del evento.</strong> Revísalo y pulsa enviar.</p><p>Si no se ha abierto, escríbenos a " + esc(C.email) + ".</p>";
+      evOk.hidden = false;
+    });
+  }
+
   /* ---------- Carta ---------- */
   // pedido: clave -> { nombre, precio, cantidad, unidad }
   var pedido = {};
@@ -75,7 +123,7 @@
     pedido[k] = { nombre: a.nombre, precio: a.precio, cantidad: 0, tipo: "arroz" };
     var li = document.createElement("li");
     li.className = "plato"; li.dataset.fila = k;
-    var info = [a.descripcion ? esc(a.descripcion) : "", precioUnico === null ? euros(a.precio) + " por ración" : ""].filter(Boolean).join(" · ");
+    var info = [a.descripcion ? esc(a.descripcion) : "", precioUnico === null ? '<span class="plato__precio">' + euros(a.precio) + " / ración</span>" : ""].filter(Boolean).join(" · ");
     li.innerHTML = '<div>' + (a.etiqueta ? '<span class="plato__etiqueta">' + esc(a.etiqueta) + '</span>' : "") +
       '<p class="plato__nombre">' + esc(a.nombre) + '</p>' + (info ? '<p class="plato__info">' + info + '</p>' : "") + '</div>' +
       '<div class="plato__opciones"><div class="opcion">' + contador(k, "Raciones de " + esc(a.nombre)) + '</div></div>';
@@ -121,7 +169,7 @@
       var k = "e" + i + "_" + j;
       var nombre = e.opciones.length > 1 ? e.nombre + " (" + o.nombre.toLowerCase() + ")" : e.nombre;
       pedido[k] = { nombre: nombre, precio: o.precio, cantidad: 0, tipo: "entrante" };
-      precios.push(e.opciones.length > 1 ? o.nombre + " " + euros(o.precio) : euros(o.precio));
+      precios.push(e.opciones.length > 1 ? o.nombre + (o.detalle ? " (" + o.detalle + ")" : "") + " " + euros(o.precio) : euros(o.precio));
       opts += '<div class="opcion" data-fila="' + k + '">' +
         (e.opciones.length > 1 ? '<span class="opcion__etiqueta">' + esc(o.nombre) + '</span>' : "") +
         contador(k, esc(nombre)) + "</div>";
@@ -304,51 +352,4 @@
 
   pintar();
 
-  /* ---------- Eventos ---------- */
-  var evForm = $("#evento-form");
-  if (evForm) {
-    var evError = $("#ev-error"), evOk = $("#ev-ok");
-    var evFecha = $("#f-ev-fecha"); evFecha.min = fecha.min;
-
-    function evDatos() {
-      var o = {};
-      new FormData(evForm).forEach(function (v, k) { o[k] = String(v).trim(); });
-      return o;
-    }
-    function evValidar() {
-      $$("[aria-invalid]", evForm).forEach(function (e) { e.removeAttribute("aria-invalid"); });
-      var faltan = $$("[required]", evForm).filter(function (i) { return !i.value.trim(); });
-      faltan.forEach(function (i) { i.setAttribute("aria-invalid", "true"); });
-      var errores = [];
-      if (faltan.length) errores.push("Completa: " + faltan.map(function (i) { return $('label[for="' + i.id + '"]').textContent.toLowerCase(); }).join(", ") + ".");
-      if (evFecha.value && evFecha.value < evFecha.min) { evFecha.setAttribute("aria-invalid", "true"); errores.push("La fecha no puede ser anterior a hoy."); }
-      evError.hidden = !errores.length;
-      evError.textContent = errores.join(" ");
-      if (faltan.length) faltan[0].focus();
-      return !errores.length;
-    }
-    function textoEvento() {
-      var d = evDatos();
-      var t = "Hola, Zarroz. Quiero pedir presupuesto para un evento:\n\n";
-      t += "Fecha: " + fechaBonita(d.fecha) + "\nInvitados: " + d.personas + "\nFormato: " + d.formato + "\nLugar: " + d.lugar + "\n";
-      t += "Alergias o intolerancias: " + (d.alergias ? "sí" : "no") + "\n";
-      t += "Nombre: " + d.nombre + "\nContacto: " + d.contacto + "\n";
-      if (d.notas) t += "Comentarios: " + d.notas + "\n";
-      return t;
-    }
-    function evAsunto() { var d = evDatos(); return "Evento Zarroz · " + fechaBonita(d.fecha) + " · " + d.personas + " invitados"; }
-
-    if (C.whatsapp) $('[data-ev-canal="whatsapp"]').hidden = false;
-    $('[data-ev-canal="whatsapp"]').addEventListener("click", function () {
-      if (!evValidar()) return;
-      window.open("https://wa.me/" + C.whatsapp + "?text=" + encodeURIComponent(textoEvento()), "_blank", "noopener");
-    });
-    evForm.addEventListener("submit", function (ev) {
-      ev.preventDefault();
-      if (!evValidar()) return;
-      window.location.href = "mailto:" + C.email + "?subject=" + encodeURIComponent(evAsunto()) + "&body=" + encodeURIComponent(textoEvento());
-      evOk.innerHTML = "<p><strong>Se ha abierto tu correo con los datos del evento.</strong> Revísalo y pulsa enviar.</p><p>Si no se ha abierto, escríbenos a " + esc(C.email) + ".</p>";
-      evOk.hidden = false;
-    });
-  }
 })();
