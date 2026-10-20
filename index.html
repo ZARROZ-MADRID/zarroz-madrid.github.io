@@ -11,7 +11,7 @@
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/big-shoulders-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css?v=2">
+  <link rel="stylesheet" href="assets/css/styles.css?v=3">
   <meta property="og:title" content="Zarroz · Tu mesa. Nuestro arroz.">
   <meta property="og:description" content="Arroces valencianos a domicilio en Madrid, para anfitriones que quieren estar presentes.">
   <meta property="og:type" content="website">
@@ -89,7 +89,6 @@
       <div class="contenedor carta">
         <div>
           <h2 class="titulo">La carta</h2>
-          <p class="carta__precio" data-precio-unico hidden></p>
           <p class="carta__nota"><span data-precio-nota>Precios por ración.</span> Cada arroz se hace en su propia paellera, de <span data-min>3</span> a <span data-max>8</span> raciones. Para más personas, pide varias paelleras.</p>
 
           <nav class="carta__pestanas" aria-label="Apartados de la carta">
@@ -165,11 +164,13 @@
       <div class="contenedor">
         <div class="grupos__fila">
           <div>
-            <h2 class="titulo">Eventos</h2>
-            <p>Cumpleaños, comidas de empresa, celebraciones en casa o en el jardín, la familia entera un domingo. Tú te ocupas de tus invitados; nosotros, de los arroces.</p>
-            <ul class="grupos__datos">
-              <li><strong><span data-min>3</span>–<span data-max>8</span></strong><span>raciones por paellera</span></li>
-              <li><strong>Sin límite</strong><span>de paelleras</span></li>
+            <h2 class="eventos__antetitulo">Eventos</h2>
+            <p class="eventos__frase">Tu celebración. Nuestro arroz.</p>
+            <p class="eventos__intro">Cumpleaños, comidas de empresa o la familia entera un domingo. Tú disfrutas de tus invitados; los arroces corren de nuestra cuenta.</p>
+            <ul class="eventos__ventajas">
+              <li>Entrega en paellera, show cooking o menú completo</li>
+              <li>Menú y precio cerrados antes de confirmar</li>
+              <li>Recogemos las paelleras esa misma tarde</li>
             </ul>
             <div class="eventos__acciones">
               <a class="boton boton--mostaza" href="#evento-form">Pedir presupuesto</a>
@@ -177,7 +178,13 @@
             </div>
             <p class="eventos__nota">Sin compromiso y sin pagar nada por adelantado.</p>
           </div>
-          <span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/ilustraciones/paellera.svg);mask-image:url(assets/img/ilustraciones/paellera.svg)"></span>
+          <div class="mesa" aria-hidden="true">
+            <span class="ilu mesa__paella" style="-webkit-mask-image:url(assets/img/ilustraciones/paella.svg);mask-image:url(assets/img/ilustraciones/paella.svg)"></span>
+            <span class="ilu mesa__mano mesa__mano--1" style="-webkit-mask-image:url(assets/img/ilustraciones/mano-gamba.svg);mask-image:url(assets/img/ilustraciones/mano-gamba.svg)"></span>
+            <span class="ilu mesa__mano mesa__mano--2" style="-webkit-mask-image:url(assets/img/ilustraciones/mano-limon.svg);mask-image:url(assets/img/ilustraciones/mano-limon.svg)"></span>
+            <span class="ilu mesa__mano mesa__mano--3" style="-webkit-mask-image:url(assets/img/ilustraciones/mano-cazuela.svg);mask-image:url(assets/img/ilustraciones/mano-cazuela.svg)"></span>
+            <span class="ilu mesa__mano mesa__mano--4" style="-webkit-mask-image:url(assets/img/ilustraciones/mano-gamba.svg);mask-image:url(assets/img/ilustraciones/mano-gamba.svg)"></span>
+          </div>
         </div>
 
         <h3 class="eventos__sub">¿Qué formato necesitas?</h3>
@@ -214,6 +221,7 @@
           <div class="eventos__acciones">
             <button class="boton boton--wa" type="button" data-ev-canal="whatsapp" hidden><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/whatsapp.svg);mask-image:url(assets/img/whatsapp.svg)"></span>Enviar por WhatsApp</button>
             <button class="boton boton--mostaza" type="submit">Enviar por email</button>
+            <a class="boton boton--borde-claro" data-si="telefono" hidden data-tel-box href="#"><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/telefono.svg);mask-image:url(assets/img/telefono.svg)"></span><span data-tel-texto>Llámanos</span></a>
           </div>
           <p class="eventos__nota">Sin compromiso. El presupuesto es orientativo hasta que lo confirmes.</p>
           <div class="pedido__ok" id="ev-ok" role="status" hidden></div>
@@ -304,7 +312,7 @@
     <a class="boton boton--mostaza" href="#pedido">Ver pedido</a>
   </div>
 
-  <script src="assets/js/config.js?v=2"></script>
-  <script src="assets/js/app.js?v=2"></script>
+  <script src="assets/js/config.js?v=3"></script>
+  <script src="assets/js/app.js?v=3"></script>
 </body>
 </html>
