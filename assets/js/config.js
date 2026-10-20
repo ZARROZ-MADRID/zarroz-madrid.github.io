@@ -36,25 +36,27 @@ window.ZARROZ = {
 
   // ---- Carta: arroces (precio por ración) ----
   // "grupo" decide en qué apartado sale: "carne", "marisco" o "temporada".
+  // "descripcion" (opcional) sale debajo del nombre, en pequeño.
+  // "etiqueta" (opcional) sale como distintivo: "El clásico", "Recomendado", "El más pedido", "Nuevo"…
   arroces: [
-    { nombre: "Paella valenciana", precio: 16, grupo: "carne" },
-    { nombre: "Arroz de secreto ibérico Joselito, panceta ibérica salada y calabaza de la huerta", precio: 16, grupo: "carne" },
-    { nombre: "Arroz de rabo de toro y setas de temporada", precio: 16, grupo: "carne" },
-    { nombre: "Arroz de costillas a baja temperatura al papillote", precio: 16, grupo: "carne" },
-    { nombre: "Arroz al horno valenciano", precio: 16, grupo: "carne" },
-    { nombre: "Arroz de entrecot a baja temperatura y alcachofas", precio: 16, grupo: "carne" },
-    { nombre: "Arroz negro con ajetes tiernos y carpaccio de gamba roja", precio: 16, grupo: "marisco" },
-    { nombre: "Arroz de carabineros, sepia y alcachofa", precio: 16, grupo: "marisco" },
-    { nombre: "Arroz a banda o senyoret de bogavante", precio: 16, grupo: "marisco" },
-    { nombre: "Arroz a banda de rape", precio: 16, grupo: "marisco" },
-    { nombre: "Arroz de bogavante", precio: 16, grupo: "marisco" },
-    { nombre: "Arroz de cocido", precio: 16, grupo: "temporada" }
+    { nombre: "Paella valenciana", descripcion: "Pollo, conejo, judía verde y garrofó", precio: 16, grupo: "carne", etiqueta: "El clásico" },
+    { nombre: "Secreto ibérico", descripcion: "Secreto Joselito, panceta ibérica salada y calabaza de la huerta", precio: 16, grupo: "carne" },
+    { nombre: "Rabo de toro", descripcion: "Con setas de temporada", precio: 16, grupo: "carne" },
+    { nombre: "Costillas", descripcion: "A baja temperatura, al papillote", precio: 16, grupo: "carne" },
+    { nombre: "Arroz al horno", descripcion: "A la valenciana", precio: 16, grupo: "carne" },
+    { nombre: "Entrecot", descripcion: "A baja temperatura, con alcachofas", precio: 16, grupo: "carne" },
+    { nombre: "Arroz negro", descripcion: "Ajetes tiernos y carpaccio de gamba roja", precio: 16, grupo: "marisco" },
+    { nombre: "Carabineros", descripcion: "Con sepia y alcachofa", precio: 16, grupo: "marisco" },
+    { nombre: "Senyoret de bogavante", descripcion: "Arroz a banda o senyoret, con bogavante",precio: 16, grupo: "marisco", etiqueta: "Recomendado" },
+    { nombre: "A banda de rape", descripcion: "Arroz a banda con rape", precio: 16, grupo: "marisco" },
+    { nombre: "Arroz de bogavante", descripcion: "Bogavante y fumet de marisco", precio: 16, grupo: "marisco" },
+    { nombre: "Arroz de cocido", descripcion: "Solo en temporada", precio: 16, grupo: "temporada" }
   ],
 
   // ---- Carta: fideuà (precio por ración, mismas paelleras que el arroz) ----
   fideuas: [
-    { nombre: "Fideuà de marisco", precio: 16 },
-    { nombre: "Fideuà de carne", precio: 16 }
+    { nombre: "Fideuà de marisco", descripcion: "Fideo fino con gamba y sepia, con alioli", precio: 16 },
+    { nombre: "Fideuà de carne", descripcion: "Fideo fino con costilla y verduras", precio: 16 }
   ],
 
   // ---- Carta: para empezar ----

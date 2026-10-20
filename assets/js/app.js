@@ -27,7 +27,11 @@
     $$("[data-tel-texto]").forEach(function (e) { e.textContent = "Llámanos al " + C.telefono; });
   }
   if (C.whatsapp) $$("[data-wa]").forEach(function (a) { a.href = "https://wa.me/" + C.whatsapp; a.target = "_blank"; a.rel = "noopener"; });
-  if (C.instagram) $$("[data-ig]").forEach(function (a) { a.href = C.instagram; a.target = "_blank"; a.rel = "noopener"; });
+  if (C.instagram) {
+    $$("[data-ig]").forEach(function (a) { a.href = C.instagram; a.target = "_blank"; a.rel = "noopener"; });
+    var usuario = C.instagram.replace(/\/+$/, "").split("/").pop();
+    if (usuario) $$("[data-ig-usuario]").forEach(function (e) { e.textContent = "@" + usuario; });
+  }
 
   /* ---------- Menú móvil ---------- */
   var botonMenu = $(".menu__abrir"), enlaces = $("#menu-enlaces");
@@ -56,12 +60,24 @@
   }
   function esc(t) { var d = document.createElement("div"); d.textContent = t; return d.innerHTML; }
 
+  // Si todos los arroces y fideuàs cuestan lo mismo, el precio se dice una vez arriba
+  var paelleras = (C.arroces || []).concat(C.fideuas || []);
+  var precioUnico = paelleras.length && paelleras.every(function (a) { return a.precio === paelleras[0].precio; }) ? paelleras[0].precio : null;
+  if (precioUnico !== null) {
+    var pu = $("[data-precio-unico]");
+    pu.innerHTML = "Todos nuestros arroces y fideuàs a <strong>" + euros(precioUnico) + "</strong> la ración";
+    pu.hidden = false;
+    $("[data-precio-nota]").textContent = "";
+  }
+
   // Arroces y fideuà van en paellera (tipo "arroz": mínimo y máximo de raciones)
   function platoPaellera(a, k, lista) {
     pedido[k] = { nombre: a.nombre, precio: a.precio, cantidad: 0, tipo: "arroz" };
     var li = document.createElement("li");
     li.className = "plato"; li.dataset.fila = k;
-    li.innerHTML = '<div><p class="plato__nombre">' + esc(a.nombre) + '</p><p class="plato__info">' + euros(a.precio) + ' por ración</p></div>' +
+    var info = [a.descripcion ? esc(a.descripcion) : "", precioUnico === null ? euros(a.precio) + " por ración" : ""].filter(Boolean).join(" · ");
+    li.innerHTML = '<div>' + (a.etiqueta ? '<span class="plato__etiqueta">' + esc(a.etiqueta) + '</span>' : "") +
+      '<p class="plato__nombre">' + esc(a.nombre) + '</p>' + (info ? '<p class="plato__info">' + info + '</p>' : "") + '</div>' +
       '<div class="plato__opciones"><div class="opcion">' + contador(k, "Raciones de " + esc(a.nombre)) + '</div></div>';
     lista.appendChild(li);
   }
@@ -70,8 +86,31 @@
     platoPaellera(a, "a" + i, lista);
   });
   (C.fideuas || []).forEach(function (a, i) { platoPaellera(a, "f" + i, $("#lista-fideua")); });
-  // Oculta los apartados de la carta que se queden vacíos
-  $$(".carta__grupo").forEach(function (g) { var ul = $("ul", g); if (ul && !ul.children.length && ul.id !== "lista-entrantes") g.hidden = true; });
+  // Oculta los apartados de la carta que se queden vacíos (y su pestaña)
+  $$(".carta__grupo").forEach(function (g) {
+    var ul = $("ul", g);
+    if (ul && !ul.children.length && ul.id !== "lista-entrantes") {
+      g.hidden = true;
+      var p = $('[data-pestana="' + g.id + '"]'); if (p) p.hidden = true;
+    }
+  });
+
+  // Pestañas de la carta: marca el apartado que se está viendo
+  var grupos = $$(".carta__grupo").filter(function (g) { return !g.hidden; }), pestanaActual = null, pendiente = false;
+  function marcarPestana() {
+    pendiente = false;
+    var actual = null, nav = $(".carta__pestanas"), lim = nav ? nav.getBoundingClientRect().bottom + 40 : 170;
+    grupos.forEach(function (g) { var r = g.getBoundingClientRect(); if (r.top <= lim && r.bottom > lim) actual = g.id; });
+    if (actual === pestanaActual) return;
+    pestanaActual = actual;
+    $$("[data-pestana]").forEach(function (a) {
+      var on = a.dataset.pestana === actual;
+      a.classList.toggle("activa", on);
+      if (on) a.parentNode.scrollTo({ left: a.offsetLeft - 16, behavior: "smooth" });
+    });
+  }
+  window.addEventListener("scroll", function () { if (!pendiente) { pendiente = true; setTimeout(marcarPestana, 60); } }, { passive: true });
+  marcarPestana();
 
   (C.entrantes || []).forEach(function (e, i) {
     var li = document.createElement("li");
@@ -268,22 +307,8 @@
   /* ---------- Eventos ---------- */
   var evForm = $("#evento-form");
   if (evForm) {
-    var rango = $("#ev-rango"), evPersonas = $("#f-ev-personas"), evError = $("#ev-error"), evOk = $("#ev-ok");
-    var precios = (C.arroces || []).concat(C.fideuas || []).map(function (p) { return p.precio; });
-    var precioMin = precios.length ? Math.min.apply(null, precios) : 0;
+    var evError = $("#ev-error"), evOk = $("#ev-ok");
     var evFecha = $("#f-ev-fecha"); evFecha.min = fecha.min;
-
-    function calcular(n) {
-      n = Math.max(1, parseInt(n, 10) || 0);
-      var pae = Math.ceil(n / MAX);
-      $("#ev-personas-txt").textContent = n;
-      $("#ev-paelleras").textContent = pae + (pae === 1 ? " paellera" : " paelleras");
-      $("#ev-raciones").textContent = n + " raciones";
-      $("#ev-precio").textContent = "desde " + euros(n * precioMin);
-    }
-    rango.addEventListener("input", function () { evPersonas.value = rango.value; calcular(rango.value); });
-    evPersonas.addEventListener("input", function () { rango.value = evPersonas.value; calcular(evPersonas.value); });
-    calcular(rango.value);
 
     function evDatos() {
       var o = {};

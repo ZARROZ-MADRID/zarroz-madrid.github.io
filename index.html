@@ -89,26 +89,35 @@
       <div class="contenedor carta">
         <div>
           <h2 class="titulo">La carta</h2>
-          <p class="carta__nota">Precios por ración. Cada arroz se hace en su propia paellera, de <span data-min>3</span> a <span data-max>8</span> raciones. Para más personas, pide varias paelleras.</p>
+          <p class="carta__precio" data-precio-unico hidden></p>
+          <p class="carta__nota"><span data-precio-nota>Precios por ración.</span> Cada arroz se hace en su propia paellera, de <span data-min>3</span> a <span data-max>8</span> raciones. Para más personas, pide varias paelleras.</p>
 
-          <div class="carta__grupo">
-            <h3 class="titulo titulo--peq">Arroces de carne</h3>
+          <nav class="carta__pestanas" aria-label="Apartados de la carta">
+            <a href="#c-carne" data-pestana="c-carne">Carne</a>
+            <a href="#c-marisco" data-pestana="c-marisco">Marisco</a>
+            <a href="#c-temporada" data-pestana="c-temporada">Temporada</a>
+            <a href="#c-fideua" data-pestana="c-fideua">Fideuà</a>
+            <a href="#c-entrantes" data-pestana="c-entrantes">Para empezar</a>
+          </nav>
+
+          <div class="carta__grupo" id="c-carne">
+            <div class="carta__cabecera"><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/ilustraciones/chuleton.svg);mask-image:url(assets/img/ilustraciones/chuleton.svg)"></span><h3 class="titulo titulo--peq">Arroces de carne</h3></div>
             <ul class="platos" id="lista-carne"></ul>
           </div>
-          <div class="carta__grupo">
-            <h3 class="titulo titulo--peq">Arroces de marisco</h3>
+          <div class="carta__grupo" id="c-marisco">
+            <div class="carta__cabecera"><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/ilustraciones/gamba.svg);mask-image:url(assets/img/ilustraciones/gamba.svg)"></span><h3 class="titulo titulo--peq">Arroces de marisco</h3></div>
             <ul class="platos" id="lista-marisco"></ul>
           </div>
-          <div class="carta__grupo">
-            <h3 class="titulo titulo--peq">De temporada</h3>
+          <div class="carta__grupo" id="c-temporada">
+            <div class="carta__cabecera"><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/ilustraciones/pimiento.svg);mask-image:url(assets/img/ilustraciones/pimiento.svg)"></span><h3 class="titulo titulo--peq">De temporada</h3></div>
             <ul class="platos" id="lista-temporada"></ul>
           </div>
-          <div class="carta__grupo">
-            <h3 class="titulo titulo--peq">Fideuà</h3>
+          <div class="carta__grupo" id="c-fideua">
+            <div class="carta__cabecera"><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/ilustraciones/paellera.svg);mask-image:url(assets/img/ilustraciones/paellera.svg)"></span><h3 class="titulo titulo--peq">Fideuà</h3></div>
             <ul class="platos" id="lista-fideua"></ul>
           </div>
-          <div class="carta__grupo">
-            <h3 class="titulo titulo--peq">Para empezar</h3>
+          <div class="carta__grupo" id="c-entrantes">
+            <div class="carta__cabecera"><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/ilustraciones/jamon.svg);mask-image:url(assets/img/ilustraciones/jamon.svg)"></span><h3 class="titulo titulo--peq">Para empezar</h3></div>
             <ul class="platos" id="lista-entrantes"></ul>
           </div>
         </div>
@@ -177,20 +186,6 @@
           <li><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/ilustraciones/fuego.svg);mask-image:url(assets/img/ilustraciones/fuego.svg)"></span><h4>Show cooking</h4><p>Cocinamos en directo delante de tus invitados. El olor del sofrito es parte del espectáculo.</p></li>
           <li><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/ilustraciones/mano-cazuela.svg);mask-image:url(assets/img/ilustraciones/mano-cazuela.svg)"></span><h4>Menú completo</h4><p>Entrantes para abrir boca y arroces para el centro de la mesa. Lo cerramos contigo.</p></li>
         </ul>
-
-        <div class="calculo">
-          <div>
-            <h3 class="eventos__sub">¿Cuántos sois?</h3>
-            <label class="sr-only" for="ev-rango">Número de invitados</label>
-            <input type="range" id="ev-rango" min="10" max="150" step="5" value="40">
-            <p class="calculo__personas"><output id="ev-personas-txt">40</output> invitados</p>
-          </div>
-          <div class="calculo__resultado" aria-live="polite">
-            <p><strong id="ev-paelleras">5 paelleras</strong><span id="ev-raciones">40 raciones</span></p>
-            <p><strong id="ev-precio">desde 640 €</strong><span>en arroz</span></p>
-            <p class="calculo__nota">Orientativo, sin envío ni entrantes. Te cerramos el precio exacto al responder.</p>
-          </div>
-        </div>
 
         <h3 class="eventos__sub">Así funciona</h3>
         <ol class="ev-pasos">
@@ -272,6 +267,10 @@
       <div class="pie__arriba">
         <div>
           <img class="pie__logo" src="assets/img/logo-crema-tagline.svg" alt="Zarroz. Tu mesa. Nuestro arroz." width="320" height="119">
+          <div class="redes" data-si="instagram" hidden>
+            <h2>Síguenos</h2>
+            <a class="redes__enlace" data-ig href="#"><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/instagram.svg);mask-image:url(assets/img/instagram.svg)"></span><span data-ig-usuario>Instagram</span></a>
+          </div>
         </div>
         <div>
           <h2>Contacto</h2>
@@ -279,7 +278,6 @@
             <li><a href="mailto:pedidos@zarroz.com" data-email>pedidos@zarroz.com</a></li>
             <li data-si="telefono" hidden><a data-tel href="#"></a></li>
             <li data-si="whatsapp" hidden><a data-wa href="#">WhatsApp</a></li>
-            <li data-si="instagram" hidden><a data-ig href="#">Instagram</a></li>
             <li>Reparto en toda la ciudad de Madrid</li>
           </ul>
         </div>
