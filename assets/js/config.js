@@ -40,7 +40,7 @@ window.ZARROZ = {
   // "etiqueta" (opcional) sale como distintivo: "El clásico", "Recomendado", "El más pedido", "Nuevo"…
   // "anfitrion" (opcional) es el tipo de anfitrión que va con ese arroz (territorio creativo de la marca).
   arroces: [
-    { nombre: "Paella valenciana", anfitrion: "El anfitrión social", descripcion: "Pollo, conejo, judía verde y garrofó", precio: 16, grupo: "carne", etiqueta: "El clásico" },
+    { nombre: "Paella valenciana", anfitrion: "El anfitrión social", descripcion: "Pollo, conejo, judía verde y garrofó", precio: 16, grupo: "carne" },
     { nombre: "Secreto ibérico", anfitrion: "El anfitrión elegante", descripcion: "Secreto Joselito, panceta ibérica salada y calabaza de la huerta", precio: 16, grupo: "carne" },
     { nombre: "Rabo de toro", anfitrion: "El anfitrión clásico", descripcion: "Con setas de temporada", precio: 16, grupo: "carne" },
     { nombre: "Costillas", anfitrion: "El anfitrión perfeccionista", descripcion: "A baja temperatura, al papillote", precio: 16, grupo: "carne" },
