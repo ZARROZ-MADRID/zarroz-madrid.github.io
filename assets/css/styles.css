@@ -577,3 +577,7 @@ body::before {
 @media (min-width: 760px) { .portada__fondo--v { display: none !important; } .portada__fondo--h { display: block !important; } }
 .portada::before { z-index: 1; }
 .portada > .contenedor { z-index: 2; }
+
+/* Carta: tipo de anfitrión de cada arroz */
+.carta__lema { margin: -.4em 0 .8em; font-size: clamp(1.1rem, 1.8vw, 1.3rem); color: var(--teja); font-weight: 500; max-width: 46ch; }
+.plato__anfitrion { margin: 1px 0 0; font-size: .88rem; font-style: italic; color: var(--teja); }

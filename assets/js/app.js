@@ -153,7 +153,7 @@
     li.className = "plato"; li.dataset.fila = k;
     var info = [a.descripcion ? esc(a.descripcion) : "", precioUnico === null ? '<span class="plato__precio">' + euros(a.precio) + " / ración</span>" : ""].filter(Boolean).join(" · ");
     li.innerHTML = '<div>' + (a.etiqueta ? '<span class="plato__etiqueta">' + esc(a.etiqueta) + '</span>' : "") +
-      '<p class="plato__nombre">' + esc(a.nombre) + '</p>' + (info ? '<p class="plato__info">' + info + '</p>' : "") + '</div>' +
+      '<p class="plato__nombre">' + esc(a.nombre) + '</p>' + (a.anfitrion ? '<p class="plato__anfitrion">' + esc(a.anfitrion) + '</p>' : "") + (info ? '<p class="plato__info">' + info + '</p>' : "") + '</div>' +
       '<div class="plato__opciones"><div class="opcion">' + contador(k, "Raciones de " + esc(a.nombre)) + '</div></div>';
     lista.appendChild(li);
   }

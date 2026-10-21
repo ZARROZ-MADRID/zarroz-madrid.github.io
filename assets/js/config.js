@@ -38,25 +38,26 @@ window.ZARROZ = {
   // "grupo" decide en qué apartado sale: "carne", "marisco" o "temporada".
   // "descripcion" (opcional) sale debajo del nombre, en pequeño.
   // "etiqueta" (opcional) sale como distintivo: "El clásico", "Recomendado", "El más pedido", "Nuevo"…
+  // "anfitrion" (opcional) es el tipo de anfitrión que va con ese arroz (territorio creativo de la marca).
   arroces: [
-    { nombre: "Paella valenciana", descripcion: "Pollo, conejo, judía verde y garrofó", precio: 16, grupo: "carne", etiqueta: "El clásico" },
-    { nombre: "Secreto ibérico", descripcion: "Secreto Joselito, panceta ibérica salada y calabaza de la huerta", precio: 16, grupo: "carne" },
-    { nombre: "Rabo de toro", descripcion: "Con setas de temporada", precio: 16, grupo: "carne" },
-    { nombre: "Costillas", descripcion: "A baja temperatura, al papillote", precio: 16, grupo: "carne" },
-    { nombre: "Arroz al horno", descripcion: "Receta tradicional", precio: 16, grupo: "carne" },
-    { nombre: "Entrecot", descripcion: "A baja temperatura, con alcachofas", precio: 16, grupo: "carne" },
-    { nombre: "Arroz negro", descripcion: "Ajetes tiernos y carpaccio de gamba roja", precio: 16, grupo: "marisco" },
-    { nombre: "Carabineros", descripcion: "Con sepia y alcachofa", precio: 16, grupo: "marisco" },
-    { nombre: "Senyoret de bogavante", descripcion: "Arroz a banda o senyoret, con bogavante",precio: 16, grupo: "marisco", etiqueta: "Recomendado" },
-    { nombre: "A banda de rape", descripcion: "Arroz a banda con rape", precio: 16, grupo: "marisco" },
-    { nombre: "Arroz de bogavante", descripcion: "Bogavante y fumet de marisco", precio: 16, grupo: "marisco" },
-    { nombre: "Arroz de cocido", descripcion: "Solo en temporada", precio: 16, grupo: "temporada" }
+    { nombre: "Paella valenciana", anfitrion: "El anfitrión social", descripcion: "Pollo, conejo, judía verde y garrofó", precio: 16, grupo: "carne", etiqueta: "El clásico" },
+    { nombre: "Secreto ibérico", anfitrion: "El anfitrión elegante", descripcion: "Secreto Joselito, panceta ibérica salada y calabaza de la huerta", precio: 16, grupo: "carne" },
+    { nombre: "Rabo de toro", anfitrion: "El anfitrión clásico", descripcion: "Con setas de temporada", precio: 16, grupo: "carne" },
+    { nombre: "Costillas", anfitrion: "El anfitrión perfeccionista", descripcion: "A baja temperatura, al papillote", precio: 16, grupo: "carne" },
+    { nombre: "Arroz al horno", anfitrion: "El anfitrión planificador", descripcion: "Receta tradicional", precio: 16, grupo: "carne" },
+    { nombre: "Entrecot", anfitrion: "El anfitrión equilibrado", descripcion: "A baja temperatura, con alcachofas", precio: 16, grupo: "carne" },
+    { nombre: "Arroz negro", anfitrion: "El anfitrión original", descripcion: "Ajetes tiernos y carpaccio de gamba roja", precio: 16, grupo: "marisco" },
+    { nombre: "Carabineros", anfitrion: "El anfitrión generoso", descripcion: "Con sepia y alcachofa", precio: 16, grupo: "marisco" },
+    { nombre: "Senyoret de bogavante", anfitrion: "El anfitrión perfeccionista", descripcion: "Arroz a banda o senyoret, con bogavante",precio: 16, grupo: "marisco", etiqueta: "Recomendado" },
+    { nombre: "A banda de rape", anfitrion: "El anfitrión consciente", descripcion: "Arroz a banda con rape", precio: 16, grupo: "marisco" },
+    { nombre: "Arroz de bogavante", anfitrion: "El anfitrión generoso", descripcion: "Bogavante y fumet de marisco", precio: 16, grupo: "marisco" },
+    { nombre: "Arroz de cocido", anfitrion: "El anfitrión clásico", descripcion: "Solo en temporada", precio: 16, grupo: "temporada" }
   ],
 
   // ---- Carta: fideuà (precio por ración, mismas paelleras que el arroz) ----
   fideuas: [
-    { nombre: "Fideuà de marisco", descripcion: "Fideo fino con gamba y sepia, con alioli", precio: 16 },
-    { nombre: "Fideuà de carne", descripcion: "Fideo fino con costilla y verduras", precio: 16 }
+    { nombre: "Fideuà de marisco", anfitrion: "El anfitrión original", descripcion: "Fideo fino con gamba y sepia, con alioli", precio: 16 },
+    { nombre: "Fideuà de carne", anfitrion: "El anfitrión equilibrado", descripcion: "Fideo fino con costilla y verduras", precio: 16 }
   ],
 
   // ---- Carta: para empezar ----
