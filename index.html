@@ -11,7 +11,7 @@
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/big-shoulders-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css?v=13">
+  <link rel="stylesheet" href="assets/css/styles.css?v=14">
   <meta property="og:title" content="Zarroz · Tu mesa. Nuestro arroz.">
   <meta property="og:description" content="Arroces valencianos a domicilio en Madrid, para anfitriones que quieren estar presentes.">
   <meta property="og:type" content="website">
@@ -45,6 +45,35 @@
   <main>
     <!-- PORTADA -->
     <section class="portada" id="inicio">
+      <!-- Fondo: foto de la Albufera con el agua en movimiento (solo se ondula la parte del agua) -->
+      <svg class="portada__fondo portada__fondo--v" viewBox="0 0 900 1350" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+        <defs>
+          <filter id="agua-v" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="0.006 0.05" numOctaves="2" seed="4">
+              <animate attributeName="baseFrequency" dur="12s" values="0.006 0.05;0.008 0.062;0.006 0.05" repeatCount="indefinite"/>
+            </feTurbulence>
+            <feDisplacementMap in="SourceGraphic" scale="9" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+          <linearGradient id="orilla-v" x1="0" y1="0" x2="0" y2="1"><stop offset="0.6" stop-color="#000"/><stop offset="0.66" stop-color="#fff"/></linearGradient>
+          <mask id="mascara-v"><rect width="900" height="1350" fill="url(#orilla-v)"/></mask>
+        </defs>
+        <image href="assets/img/albufera-vertical.jpg" width="900" height="1350"/>
+        <g mask="url(#mascara-v)"><image href="assets/img/albufera-vertical.jpg" width="900" height="1350" filter="url(#agua-v)"/></g>
+      </svg>
+      <svg class="portada__fondo portada__fondo--h" viewBox="0 0 1717 961" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+        <defs>
+          <filter id="agua-h" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="0.004 0.05" numOctaves="2" seed="4">
+              <animate attributeName="baseFrequency" dur="12s" values="0.004 0.05;0.006 0.062;0.004 0.05" repeatCount="indefinite"/>
+            </feTurbulence>
+            <feDisplacementMap in="SourceGraphic" scale="9" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+          <linearGradient id="orilla-h" x1="0" y1="0" x2="0" y2="1"><stop offset="0.72" stop-color="#000"/><stop offset="0.77" stop-color="#fff"/></linearGradient>
+          <mask id="mascara-h"><rect width="1717" height="961" fill="url(#orilla-h)"/></mask>
+        </defs>
+        <image href="assets/img/albufera-horizontal.jpg" width="1717" height="961"/>
+        <g mask="url(#mascara-h)"><image href="assets/img/albufera-horizontal.jpg" width="1717" height="961" filter="url(#agua-h)"/></g>
+      </svg>
       <div class="contenedor">
         <h1 class="sr-only">Zarroz, arroces valencianos a domicilio en Madrid</h1>
         <img class="portada__logo" src="assets/img/logo-crema-tagline.svg" alt="Zarroz. Tu mesa. Nuestro arroz." width="640" height="238">
@@ -245,7 +274,7 @@
     <a class="boton boton--mostaza" id="barra-boton" href="#carta">Pedir ahora</a>
   </div>
 
-  <script src="assets/js/config.js?v=13"></script>
-  <script src="assets/js/app.js?v=13"></script>
+  <script src="assets/js/config.js?v=14"></script>
+  <script src="assets/js/app.js?v=14"></script>
 </body>
 </html>

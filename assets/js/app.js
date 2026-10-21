@@ -48,6 +48,8 @@
 
   /* ---------- Fluidez: aparición suave y cabecera que se esconde ---------- */
   var sinMovimiento = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // El agua de la portada se queda quieta si el usuario pide menos movimiento
+  if (sinMovimiento) $$(".portada__fondo").forEach(function (s) { if (s.pauseAnimations) s.pauseAnimations(); });
   if ("IntersectionObserver" in window && !sinMovimiento) {
     var obsAparece = new IntersectionObserver(function (es) {
       es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("visto"); obsAparece.unobserve(e.target); } });
