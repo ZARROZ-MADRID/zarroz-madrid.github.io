@@ -46,10 +46,36 @@
     });
   }
 
+  /* ---------- Fluidez: aparición suave y cabecera que se esconde ---------- */
+  var sinMovimiento = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if ("IntersectionObserver" in window && !sinMovimiento) {
+    var obsAparece = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("visto"); obsAparece.unobserve(e.target); } });
+    }, { rootMargin: "0px 0px -8% 0px" });
+    $$("main > section .contenedor > *").forEach(function (el) {
+      if (el.closest(".pedido") || el.closest(".carta__pestanas")) return; // el pedido y las pestañas, siempre quietos
+      if (el.getBoundingClientRect().top < innerHeight) return; // lo que ya se ve al cargar, sin animar
+      el.classList.add("aparece");
+      obsAparece.observe(el);
+    });
+  }
+  var cabecera = $(".cabecera"), ultimoY = window.pageYOffset;
+  if (cabecera) {
+    window.addEventListener("scroll", function () {
+      var y = window.pageYOffset;
+      var menuAbierto = enlaces && enlaces.classList.contains("abierto");
+      cabecera.classList.toggle("oculta", y > ultimoY && y > 300 && !menuAbierto);
+      ultimoY = y;
+    }, { passive: true });
+  }
+
   /* ---------- Eventos (página eventos.html) ---------- */
   var evForm = $("#evento-form");
   if (evForm) {
     var evError = $("#ev-error"), evOk = $("#ev-ok");
+    // Si se llega desde "Empresas" o "Celebraciones", se apunta en los comentarios
+    var tipoEv = (location.search.match(/[?&]tipo=(empresa|celebracion)/) || [])[1];
+    if (tipoEv && !$("#f-ev-notas").value) $("#f-ev-notas").value = tipoEv === "empresa" ? "Evento de empresa. " : "Celebración. ";
     var evFecha = $("#f-ev-fecha"); var hoyEv = new Date(); hoyEv.setMinutes(hoyEv.getMinutes() - hoyEv.getTimezoneOffset()); evFecha.min = hoyEv.toISOString().slice(0, 10);
 
     function evDatos() {
@@ -256,12 +282,17 @@
     totalEl.textContent = euros(t);
 
     var raciones = ls.filter(function (p) { return p.tipo === "arroz"; }).reduce(function (s, p) { return s + p.cantidad; }, 0);
-    $("#barra-total").textContent = euros(t);
-    $("#barra-resumen").textContent = raciones ? raciones + " raciones" : "Sin arroz todavía";
-    var visible = ls.length > 0 && !pedidoEnPantalla;
+    // Barra fija del móvil: siempre visible; vacía invita a pedir, con platos lleva al pedido
+    var hayPedido = ls.length > 0;
+    $("#barra-total").textContent = hayPedido ? euros(t) : "¿Te apetece un arroz?";
+    $("#barra-resumen").textContent = hayPedido ? (raciones ? raciones + " raciones" : "Sin arroz todavía") : "Hecho al momento";
+    var botonBarra = $("#barra-boton");
+    botonBarra.textContent = hayPedido ? "Ver pedido" : "Pedir ahora";
+    botonBarra.setAttribute("href", hayPedido ? "#pedido" : "#carta");
+    var visible = !pedidoEnPantalla;
     barra.classList.toggle("visible", visible);
     barra.setAttribute("aria-hidden", !visible);
-    document.body.classList.toggle("con-pedido", ls.length > 0);
+    document.body.classList.add("con-pedido");
   }
 
   // Ocultar la barra móvil cuando el panel del pedido está a la vista

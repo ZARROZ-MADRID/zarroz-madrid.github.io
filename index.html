@@ -11,7 +11,7 @@
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/big-shoulders-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css?v=11">
+  <link rel="stylesheet" href="assets/css/styles.css?v=13">
   <meta property="og:title" content="Zarroz · Tu mesa. Nuestro arroz.">
   <meta property="og:description" content="Arroces valencianos a domicilio en Madrid, para anfitriones que quieren estar presentes.">
   <meta property="og:type" content="website">
@@ -19,6 +19,7 @@
 <body>
   <a class="sr-only" href="#carta">Ir a la carta</a>
 
+  <div class="franja-lema">Tu mesa. Nuestro arroz.</div>
   <div class="aviso-pruebas" data-pruebas hidden>Web en pruebas: los precios y algunos datos son provisionales.</div>
 
   <header class="cabecera">
@@ -50,6 +51,7 @@
         <p class="portada__texto">Arroces valencianos hechos al momento y llevados a tu casa en Madrid, en su paellera. Tú pones la mesa.</p>
         <div class="portada__acciones">
           <a class="boton boton--mostaza" href="#carta">Elige tu arroz</a>
+          <a class="boton boton--borde-claro" href="eventos.html">Eventos</a>
         </div>
         <p class="portada__llamar" data-si="telefono" hidden>O llámanos al <a data-tel href="#"></a></p>
       </div>
@@ -97,7 +99,11 @@
           <h2 class="eventos__antetitulo">Eventos</h2>
           <p class="eventos__frase">Tu celebración. Nuestro arroz.</p>
           <p class="eventos__intro">Cumpleaños, comidas de empresa o la familia entera un domingo: entrega en paellera, show cooking o menú completo.</p>
-          <a class="boton boton--mostaza" href="eventos.html">Ver eventos y pedir presupuesto</a>
+          <div class="eventos__botones">
+            <a class="boton boton--mostaza" href="eventos.html?tipo=empresa#evento-form">Empresas</a>
+            <a class="boton boton--mostaza" href="eventos.html?tipo=celebracion#evento-form">Celebraciones</a>
+          </div>
+          <p class="eventos__mas"><a href="eventos.html">Ver formatos y cómo funciona</a></p>
         </div>
         <div class="mesa" aria-hidden="true">
           <span class="ilu mesa__paella" style="-webkit-mask-image:url(assets/img/ilustraciones/paella.svg);mask-image:url(assets/img/ilustraciones/paella.svg)"></span>
@@ -192,9 +198,7 @@
         <details><summary>¿Con cuánta antelación tengo que pedir?</summary><p>Puedes pedir para el mismo día, pero te recomendamos hacerlo el día anterior, porque tenemos mucha demanda.</p></details>
         <details><summary>¿Enviáis a toda Madrid?</summary><p>Repartimos en toda la ciudad de Madrid y en La Moraleja. El envío es gratis en Hortaleza, Ciudad Lineal, Prosperidad, El Viso, Ventas, Sanchinarro, Las Tablas y Barajas. En el resto cuesta 6 € o 9 € según la distancia. Al escribir tu código postal en el pedido verás el precio exacto.</p></details>
         <details><summary>¿Cómo se paga?</summary><p>Al recibir el pedido, en efectivo o con tarjeta. No hay que pagar nada por adelantado.</p></details>
-        <details><summary>¿Cuándo recogéis la paellera?</summary><p>Pasamos a recogerla el mismo día, <span data-recogida>entre las 16:30 y las 18:00</span>. No hace falta que la friegues.</p></details>
-        <details><summary>¿Puedo cancelar mi pedido?</summary><p>Sí. Avísanos con la mayor antelación posible respondiendo al email de confirmación.</p></details>
-        <details><summary>¿Tenéis información sobre alérgenos?</summary><p>Sí. Indícanos en los comentarios del pedido cualquier alergia o intolerancia y te informamos de los alérgenos de cada plato antes de confirmar.</p></details>
+        <p class="preguntas__todas"><a class="boton boton--borde" href="preguntas.html">Ver todas las preguntas</a></p>
       </div>
     </section>
   </main>
@@ -223,7 +227,7 @@
           <ul>
             <li><a href="#carta">Carta y pedidos</a></li>
             <li><a href="eventos.html">Eventos</a></li>
-            <li><a href="#preguntas">Preguntas frecuentes</a></li>
+            <li><a href="preguntas.html">Preguntas frecuentes</a></li>
           </ul>
         </div>
       </div>
@@ -238,10 +242,10 @@
 
   <div class="barra-pedido" id="barra-pedido" aria-hidden="true">
     <p><strong id="barra-total">0 €</strong><br><span id="barra-resumen"></span></p>
-    <a class="boton boton--mostaza" href="#pedido">Ver pedido</a>
+    <a class="boton boton--mostaza" id="barra-boton" href="#carta">Pedir ahora</a>
   </div>
 
-  <script src="assets/js/config.js?v=11"></script>
-  <script src="assets/js/app.js?v=11"></script>
+  <script src="assets/js/config.js?v=13"></script>
+  <script src="assets/js/app.js?v=13"></script>
 </body>
 </html>
