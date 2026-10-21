@@ -43,7 +43,7 @@ window.ZARROZ = {
     { nombre: "Secreto ibérico", descripcion: "Secreto Joselito, panceta ibérica salada y calabaza de la huerta", precio: 16, grupo: "carne" },
     { nombre: "Rabo de toro", descripcion: "Con setas de temporada", precio: 16, grupo: "carne" },
     { nombre: "Costillas", descripcion: "A baja temperatura, al papillote", precio: 16, grupo: "carne" },
-    { nombre: "Arroz al horno", descripcion: "A la valenciana", precio: 16, grupo: "carne" },
+    { nombre: "Arroz al horno", descripcion: "Receta tradicional", precio: 16, grupo: "carne" },
     { nombre: "Entrecot", descripcion: "A baja temperatura, con alcachofas", precio: 16, grupo: "carne" },
     { nombre: "Arroz negro", descripcion: "Ajetes tiernos y carpaccio de gamba roja", precio: 16, grupo: "marisco" },
     { nombre: "Carabineros", descripcion: "Con sepia y alcachofa", precio: 16, grupo: "marisco" },
