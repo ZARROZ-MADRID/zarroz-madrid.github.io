@@ -62,7 +62,6 @@ window.ZARROZ = {
   entrantes: [
     { nombre: "Croquetas de jamón ibérico", opciones: [{ nombre: "Media", detalle: "5 uds", precio: 6 }, { nombre: "Entera", detalle: "10 uds", precio: 10 }] },
     { nombre: "Ensaladilla rusa", opciones: [{ nombre: "Media", detalle: "300 g", precio: 6 }, { nombre: "Entera", detalle: "600 g", precio: 10 }] },
-    { nombre: "Gazpacho", nota: "Solo en temporada", opciones: [{ nombre: "Ración", precio: 10 }] },
     { nombre: "Alioli", nota: "Tarrina de 160 ml", opciones: [{ nombre: "Tarrina", precio: 2 }] }
   ]
 };
