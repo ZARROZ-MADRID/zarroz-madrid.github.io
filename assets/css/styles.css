@@ -396,21 +396,29 @@ body::before {
 .historia {
   position: relative; overflow: hidden; color: var(--crema);
   background: var(--teja) url("../img/patron-arroz-blanco.png") center / 420px;
-  padding: clamp(72px, 11vw, 140px) 0;
+  padding: clamp(56px, 8vw, 96px) 0;
+}
+/* En pantalla ancha: frase e isotipo a la izquierda, texto a la derecha */
+@media (min-width: 900px) {
+  .historia__rejilla { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(40px, 5vw, 80px); align-items: center; }
+  .historia__rejilla .historia__cabecera { margin-bottom: 0; gap: 32px; }
+  .historia__rejilla .historia__frase { font-size: clamp(2.8rem, 4.6vw, 4.6rem); }
+  .historia__rejilla .historia__isotipo { width: clamp(120px, 12vw, 170px); }
+  .historia__rejilla .historia__texto p:last-child { margin-bottom: 0; }
 }
 .historia::before { content: ""; position: absolute; inset: 0; background: rgba(120, 37, 21, .86); }
 .historia > * { position: relative; }
 .historia__titulo {
   font: 500 1.1rem/1.3 var(--f-texto); color: var(--mostaza); margin: 0 0 1.2em;
 }
-.historia__cabecera { display: grid; gap: 32px; align-items: center; margin-bottom: clamp(48px, 7vw, 88px); }
+.historia__cabecera { display: grid; gap: 24px; align-items: center; margin-bottom: clamp(32px, 6vw, 64px); }
 @media (min-width: 640px) { .historia__cabecera { grid-template-columns: 1fr auto; gap: clamp(32px, 5vw, 64px); } }
 .historia__frase {
   margin: 0; font-family: var(--f-titulos); font-weight: 800; text-transform: uppercase;
   font-size: clamp(2.6rem, 7.4vw, 6.2rem); line-height: .98; letter-spacing: .04em; color: var(--crema);
   max-width: 13ch; text-wrap: balance;
 }
-.historia__isotipo { width: clamp(150px, 22vw, 280px); color: var(--mostaza); justify-self: start; aspect-ratio: 836 / 850; }
+.historia__isotipo { width: clamp(100px, 22vw, 280px); color: var(--mostaza); justify-self: start; aspect-ratio: 836 / 850; }
 @media (min-width: 640px) { .historia__isotipo { justify-self: end; } }
 .historia__cuerpo { display: grid; gap: clamp(40px, 6vw, 80px); border-top: 1px solid rgba(245, 238, 220, .3); padding-top: clamp(36px, 5vw, 56px); }
 @media (min-width: 900px) { .historia__cuerpo { grid-template-columns: 1.1fr 1fr; } }

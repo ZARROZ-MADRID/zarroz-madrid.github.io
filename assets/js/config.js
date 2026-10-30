@@ -20,7 +20,7 @@ window.ZARROZ = {
   // ---- Reglas de pedido ----
   racionesMin: 3,      // mínimo de raciones por arroz (una paellera)
   racionesMax: 8,      // máximo por paellera
-  recogidaPaellera: "entre las 16:30 y las 18:00",
+  recogidaPaellera: "entre hora y media y dos horas después de entregarla",
 
   // ---- Envío por código postal ----
   // Precio de envío y códigos postales de cada zona.
