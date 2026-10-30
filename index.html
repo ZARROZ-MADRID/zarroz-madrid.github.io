@@ -11,7 +11,7 @@
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/big-shoulders-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css?v=27">
+  <link rel="stylesheet" href="assets/css/styles.css?v=28">
   <meta property="og:title" content="Zarroz · Tu mesa. Nuestro arroz.">
   <meta property="og:description" content="Arroces a domicilio en Madrid, para anfitriones que quieren estar presentes.">
   <meta property="og:type" content="website">
@@ -203,7 +203,7 @@
               <div class="campo"><label for="f-dir">Dirección de entrega</label><input id="f-dir" name="direccion" autocomplete="street-address" required></div>
               <div class="campo campo--medio"><label for="f-cp">Código postal</label><input id="f-cp" name="cp" autocomplete="postal-code" inputmode="numeric" maxlength="5" required aria-describedby="cp-aviso"><p class="campo__aviso" id="cp-aviso" aria-live="polite"></p></div>
               <div class="campo campo--medio"><label for="f-hora">Hora</label><select id="f-hora" name="hora" required><option value="">Elige</option></select></div>
-              <div class="campo"><label for="f-fecha">Día</label><input id="f-fecha" name="fecha" type="date" required aria-describedby="fecha-aviso"><p class="campo__aviso" id="fecha-aviso">Repartimos <span data-dias-servicio>viernes, sábados, domingos y festivos</span>.</p></div>
+              <div class="campo"><label for="f-fecha">Día</label><input id="f-fecha" name="fecha" type="date" required aria-describedby="fecha-aviso"><p class="campo__aviso" id="fecha-aviso">Repartimos <span data-dias-servicio>viernes, sábados, domingos y festivos</span>.</p><p class="campo__especial" id="fecha-especial" role="status" hidden></p></div>
               <div class="campo"><label for="f-notas">Comentarios (opcional)</label><textarea id="f-notas" name="notas" placeholder="Alergias, timbre, si es una celebración…"></textarea></div>
             </div>
             <p class="pedido__error" id="pedido-error" role="alert" hidden></p>
@@ -253,7 +253,7 @@
       <div class="contenedor preguntas">
         <h2 class="titulo">Preguntas frecuentes</h2>
         <details><summary>¿De qué tamaño son los arroces?</summary><p>Cada arroz se prepara en su paellera, de <span data-min>3</span> a <span data-max>8</span> raciones. Si sois más, pide varias paelleras del mismo arroz o de distintos.</p></details>
-        <details><summary>¿Qué días repartís?</summary><p>Viernes, sábados, domingos y festivos de la Comunidad de Madrid, a mediodía.</p></details>
+        <details><summary>¿Qué días repartís?</summary><p>Viernes, sábados, domingos y festivos de la Comunidad de Madrid, a mediodía. También Nochebuena y Nochevieja: esos días, si lo prefieres, puedes pedir por email o por teléfono.</p></details>
         <details><summary>¿Con cuánta antelación tengo que pedir?</summary><p>Puedes pedir para el mismo día, pero te recomendamos hacerlo el día anterior, porque tenemos mucha demanda.</p></details>
         <details><summary>¿Enviáis a toda Madrid?</summary><p>Repartimos en toda la ciudad de Madrid y en La Moraleja. El envío es gratis en Hortaleza, Ciudad Lineal, Prosperidad, El Viso, Ventas, Sanchinarro, Las Tablas y Barajas. En el resto cuesta 6 € o 9 € según la distancia. Al escribir tu código postal en el pedido verás el precio exacto.</p></details>
         <details><summary>¿Cómo se paga?</summary><p>Al recibir el pedido, en efectivo o con tarjeta. No hay que pagar nada por adelantado.</p></details>
@@ -304,7 +304,7 @@
     <a class="boton boton--mostaza" id="barra-boton" href="#carta">Pedir ahora</a>
   </div>
 
-  <script src="assets/js/config.js?v=27"></script>
-  <script src="assets/js/app.js?v=27"></script>
+  <script src="assets/js/config.js?v=28"></script>
+  <script src="assets/js/app.js?v=28"></script>
 </body>
 </html>

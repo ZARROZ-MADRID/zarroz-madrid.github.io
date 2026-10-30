@@ -630,3 +630,5 @@ body::before {
 .redes-tira__hueco--2 { background: #362b29; color: var(--mostaza); }
 @keyframes redes-cinta { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) { .redes-tira__pista, .redes-tira__pista-fotos { animation: none; } }
+.campo__especial { margin: 8px 0 0; padding: 10px 12px; border-radius: 10px; background: rgba(242, 192, 72, .35); font-size: .92rem; line-height: 1.45; }
+.campo__especial a { color: var(--teja); font-weight: 500; }

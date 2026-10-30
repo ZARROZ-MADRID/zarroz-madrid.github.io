@@ -33,6 +33,11 @@ window.ZARROZ = {
     dias: [5, 6, 0],   // viernes, sábados y domingos
     textoDias: "viernes, sábados, domingos y festivos",
     horas: ["13:00", "13:30", "14:00", "14:30", "15:00", "15:30"],
+    // Días especiales en que también repartimos: al elegirlos, la web ofrece pedir por email o teléfono.
+    especiales: [
+      { fecha: "2026-12-24", nombre: "Nochebuena" },
+      { fecha: "2026-12-31", nombre: "Nochevieja" }
+    ],
     festivos: {
       // 2026 (BOCM 25-09-2025 y 12-12-2025)
       2026: ["2026-01-01", "2026-01-06", "2026-04-02", "2026-04-03", "2026-05-01", "2026-05-02", "2026-08-15",

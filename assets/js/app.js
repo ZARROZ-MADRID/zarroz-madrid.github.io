@@ -374,13 +374,26 @@
   function diaDeServicio(iso) {
     if (!iso || !S.dias) return true;
     var p = iso.split("-");
-    if ((S.festivos && S.festivos[p[0]] || []).indexOf(iso) >= 0) return true;
+    if ((S.festivos && S.festivos[p[0]] || []).indexOf(iso) >= 0 || especial(iso)) return true;
     return S.dias.indexOf(new Date(+p[0], +p[1] - 1, +p[2]).getDay()) >= 0;
   }
   function textoDias() {
     return S.textoDias || (S.dias || []).map(function (d) { return DIAS_SEMANA[d]; }).join(", ");
   }
   $$("[data-dias-servicio]").forEach(function (e) { e.textContent = textoDias(); });
+  function especial(iso) {
+    return (S.especiales || []).filter(function (e) { return e.fecha === iso; })[0];
+  }
+  // En días especiales (Nochebuena, Nochevieja…) se ofrece también pedir por email o teléfono
+  function avisoEspecial() {
+    var e = especial(fecha.value), aviso = $("#fecha-especial");
+    if (!e) { aviso.hidden = true; return; }
+    var dia = fechaBonita(e.fecha);
+    aviso.innerHTML = "<strong>" + esc(e.nombre) + " (" + esc(dia) + ").</strong> Ese día tenemos mucha demanda: si lo prefieres, pide escribiéndonos a <a href=\"mailto:" + esc(C.email) + "?subject=" + encodeURIComponent("Pedido " + e.nombre) + "\">" + esc(C.email) + "</a>" +
+      (C.telefono ? " o llamándonos al <a href=\"tel:+34" + C.telefono.replace(/\s/g, "") + "\">" + esc(C.telefono) + "</a>" : "") + ".";
+    aviso.hidden = false;
+  }
+  fecha.addEventListener("change", avisoEspecial);
   fecha.addEventListener("change", function () {
     var ok = diaDeServicio(fecha.value);
     if (ok) fecha.removeAttribute("aria-invalid"); else fecha.setAttribute("aria-invalid", "true");
