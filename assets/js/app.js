@@ -147,7 +147,7 @@
   // Ilustración pequeña a la izquierda de cada plato (opcional, campo "icono" en config.js)
   function icono(nombre) {
     if (!nombre) return "";
-    var u = "assets/img/ilustraciones/" + encodeURIComponent(nombre) + ".svg";
+    var u = "assets/img/ilustraciones/" + encodeURIComponent(nombre) + ".svg?v=2";
     return '<span class="ilu plato__icono" aria-hidden="true" style="-webkit-mask-image:url(' + u + ');mask-image:url(' + u + ')"></span>';
   }
 
