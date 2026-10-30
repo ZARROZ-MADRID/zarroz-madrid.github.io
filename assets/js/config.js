@@ -55,7 +55,7 @@ window.ZARROZ = {
   // Mientras no haya fotos, salen ilustraciones en su lugar.
   redes: {
     usuario: "@_zarroz_",
-    fotos: []
+    fotos: ["bogavante-sol.jpg", "paella-valenciana.jpg", "dos-paelleras.jpg", "horno-de-lena.jpg", "senyoret.jpg", "carabineros.jpg", "cocido.jpg", "bogavante-cigalas.jpg"]
   },
 
   // ---- Opiniones de clientes ----
