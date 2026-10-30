@@ -593,7 +593,8 @@ body::before {
 .opiniones__tira { overflow: hidden; }
 .opiniones__lista { list-style: none; margin: 0; padding: 12px 0 4px; display: flex; gap: 18px; width: max-content; animation: redes-cinta 60s linear infinite; }
 .opiniones__tira:hover .opiniones__lista { animation-play-state: paused; }
-@media (prefers-reduced-motion: reduce) { .opiniones__lista { animation: none; } .opiniones__tira { overflow-x: auto; } }
+/* Con «reducir movimiento» activado se siguen moviendo, pero más despacio */
+@media (prefers-reduced-motion: reduce) { .opiniones__lista { animation-duration: 120s !important; } }
 .opinion { position: relative; flex: none; width: min(340px, 80vw); background: #fbf7ec; border: 1px solid var(--linea); border-radius: 18px; padding: 18px 20px 16px; }
 .opinion blockquote { margin: 0 0 10px; font-size: 1rem; line-height: 1.5; }
 .opinion__autor { margin: 0; font-size: .92rem; color: var(--texto-suave); }
@@ -617,7 +618,7 @@ body::before {
 .redes-tira__hueco--1 { background: var(--mostaza); color: var(--teja); aspect-ratio: 4 / 5; }
 .redes-tira__hueco--2 { background: #362b29; color: var(--mostaza); }
 @keyframes redes-cinta { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) { .redes-tira__pista, .redes-tira__pista-fotos { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .redes-tira__pista { animation-duration: 80s; } .redes-tira__pista-fotos { animation-duration: 120s; } }
 .campo__especial { margin: 8px 0 0; padding: 10px 12px; border-radius: 10px; background: rgba(242, 192, 72, .35); font-size: .92rem; line-height: 1.45; }
 .campo__especial a { color: var(--teja); font-weight: 500; }
 
@@ -636,3 +637,4 @@ body::before {
   #como-funciona { padding-bottom: 76px; }
   #carta { padding-bottom: 16px; }
 }
+.redes-tira__fotos:hover .redes-tira__pista-fotos { animation-play-state: paused; }
