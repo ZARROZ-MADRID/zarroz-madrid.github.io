@@ -70,7 +70,7 @@ window.ZARROZ = {
   // ---- Carta: vinos ----
   // Mismo formato que los entrantes. "nota" sale tras el precio (bodega, uva, D.O.…).
   vinos: [
-    { nombre: "Vino tinto", icono: "botella-vino", nota: "Rioja crianza · 75 cl", opciones: [{ nombre: "Botella", precio: 18 }] },
-    { nombre: "Vino blanco", icono: "botella-vino", nota: "Albariño · 75 cl", opciones: [{ nombre: "Botella", precio: 12 }] }
+    { nombre: "Vino tinto", icono: "botella-vino-tinto", nota: "Rioja crianza · 75 cl", opciones: [{ nombre: "Botella", precio: 18 }] },
+    { nombre: "Vino blanco", icono: "botella-vino-blanco", nota: "Albariño · 75 cl", opciones: [{ nombre: "Botella", precio: 12 }] }
   ]
 };
