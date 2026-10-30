@@ -651,3 +651,5 @@ body::before {
 }
 @media (max-width: 560px) { .portada__claim { font-size: .8rem; letter-spacing: .08em; } }
 @media (max-width: 420px) { .franja-lema { font-size: .72rem; letter-spacing: .06em; white-space: nowrap; } }
+.formatos__ilus { display: flex; align-items: flex-end; gap: 10px; margin-bottom: 14px; }
+.formatos__ilus .ilu { margin: 0; }
