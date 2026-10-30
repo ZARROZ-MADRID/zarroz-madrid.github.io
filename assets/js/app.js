@@ -135,6 +135,12 @@
       '<button type="button" data-mas="' + clave + '" aria-label="Añadir">+</button></div>';
   }
   function esc(t) { var d = document.createElement("div"); d.textContent = t; return d.innerHTML; }
+  // Ilustración pequeña a la izquierda de cada plato (opcional, campo "icono" en config.js)
+  function icono(nombre) {
+    if (!nombre) return "";
+    var u = "assets/img/ilustraciones/" + encodeURIComponent(nombre) + ".svg";
+    return '<span class="ilu plato__icono" aria-hidden="true" style="-webkit-mask-image:url(' + u + ');mask-image:url(' + u + ')"></span>';
+  }
 
   // Si todos los arroces y fideuàs cuestan lo mismo, el precio se dice una vez arriba
   var paelleras = (C.arroces || []).concat(C.fideuas || []);
@@ -152,8 +158,8 @@
     var li = document.createElement("li");
     li.className = "plato"; li.dataset.fila = k;
     var info = [a.descripcion ? esc(a.descripcion) : "", precioUnico === null ? '<span class="plato__precio">' + euros(a.precio) + " / ración</span>" : ""].filter(Boolean).join(" · ");
-    li.innerHTML = '<div>' + (a.etiqueta ? '<span class="plato__etiqueta">' + esc(a.etiqueta) + '</span>' : "") +
-      '<p class="plato__nombre">' + esc(a.nombre) + '</p>' + (a.anfitrion ? '<p class="plato__anfitrion">' + esc(a.anfitrion) + '</p>' : "") + (info ? '<p class="plato__info">' + info + '</p>' : "") + '</div>' +
+    li.innerHTML = '<div class="plato__cuerpo">' + icono(a.icono) + '<div>' + (a.etiqueta ? '<span class="plato__etiqueta">' + esc(a.etiqueta) + '</span>' : "") +
+      '<p class="plato__nombre">' + esc(a.nombre) + '</p>' + (a.anfitrion ? '<p class="plato__anfitrion">' + esc(a.anfitrion) + '</p>' : "") + (info ? '<p class="plato__info">' + info + '</p>' : "") + '</div></div>' +
       '<div class="plato__opciones"><div class="opcion">' + contador(k, "Raciones de " + esc(a.nombre)) + '</div></div>';
     lista.appendChild(li);
   }
@@ -181,7 +187,7 @@
           contador(k, esc(nombre)) + "</div>";
       });
       var info = precios.join(", ") + (e.nota ? ". " + esc(e.nota) : "");
-      li.innerHTML = '<div><p class="plato__nombre">' + esc(e.nombre) + '</p><p class="plato__info">' + info + '</p></div>' +
+      li.innerHTML = '<div class="plato__cuerpo">' + icono(e.icono) + '<div><p class="plato__nombre">' + esc(e.nombre) + '</p><p class="plato__info">' + info + '</p></div></div>' +
         '<div class="plato__opciones">' + opts + "</div>";
       lista.appendChild(li);
     });

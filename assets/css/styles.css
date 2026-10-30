@@ -254,6 +254,8 @@ body::before {
   display: grid; grid-template-columns: 1fr auto; gap: 8px 20px; align-items: center;
   padding: 18px 0; border-bottom: 1px solid var(--linea);
 }
+.plato__cuerpo { display: flex; align-items: center; gap: 16px; }
+.plato__icono { flex: none; width: 54px; color: var(--teja); }
 .plato__nombre { margin: 0; font-size: 1.1rem; font-weight: 500; line-height: 1.35; }
 .plato__info { margin: 2px 0 0; color: var(--texto-suave); font-size: .98rem; }
 .plato__opciones { display: flex; flex-wrap: wrap; gap: 10px 22px; justify-content: flex-end; }
@@ -278,6 +280,8 @@ body::before {
   /* Compacto: el contador a la derecha del nombre; solo baja si hay varios tamaños */
   .plato { gap: 6px 12px; padding: 14px 0; }
   .plato__nombre { font-size: 1.05rem; }
+  .plato__cuerpo { gap: 12px; }
+  .plato__icono { width: 42px; }
   .plato__info { font-size: .92rem; }
   .plato:has(.opcion + .opcion) { grid-template-columns: 1fr; }
   .plato:has(.opcion + .opcion) .plato__opciones { justify-content: flex-start; }

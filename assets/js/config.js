@@ -39,37 +39,38 @@ window.ZARROZ = {
   // "descripcion" (opcional) sale debajo del nombre, en pequeño.
   // "etiqueta" (opcional) sale como distintivo: "El clásico", "Recomendado", "El más pedido", "Nuevo"…
   // "anfitrion" (opcional) es el tipo de anfitrión que va con ese arroz (territorio creativo de la marca).
+  // "icono" (opcional) es la ilustración que sale a la izquierda del plato (archivo en assets/img/ilustraciones, sin .svg).
   arroces: [
-    { nombre: "Secreto ibérico", anfitrion: "El anfitrión elegante", descripcion: "Secreto Joselito, panceta ibérica salada y calabaza de la huerta", precio: 16, grupo: "carne" },
-    { nombre: "Rabo de toro", anfitrion: "El anfitrión clásico", descripcion: "Con setas de temporada", precio: 16, grupo: "carne" },
-    { nombre: "Costillas", anfitrion: "El anfitrión perfeccionista", descripcion: "A baja temperatura, al papillote, con setas", precio: 16, grupo: "carne" },
-    { nombre: "Arroz al horno", anfitrion: "El anfitrión planificador", descripcion: "Valenciano, receta tradicional", precio: 16, grupo: "carne" },
-    { nombre: "Carabineros", anfitrion: "El anfitrión generoso", descripcion: "Con sepia y alcachofa", precio: 16, grupo: "marisco" },
-    { nombre: "A banda de rape", anfitrion: "El anfitrión consciente", descripcion: "Arroz a banda con rape y gamba roja", precio: 16, grupo: "marisco" },
-    { nombre: "Arroz de bogavante", anfitrion: "El anfitrión generoso", descripcion: "Bogavante y fumet de marisco", precio: 16, grupo: "marisco" },
-    { nombre: "Arroz de cocido", anfitrion: "El anfitrión clásico", descripcion: "Solo en temporada", precio: 16, grupo: "temporada" }
+    { nombre: "Secreto ibérico", icono: "plato-cerdo", anfitrion: "El anfitrión elegante", descripcion: "Secreto Joselito, panceta ibérica salada y calabaza de la huerta", precio: 16, grupo: "carne" },
+    { nombre: "Rabo de toro", icono: "plato-toro", anfitrion: "El anfitrión clásico", descripcion: "Con setas de temporada", precio: 16, grupo: "carne" },
+    { nombre: "Costillas", icono: "plato-costillas", anfitrion: "El anfitrión perfeccionista", descripcion: "A baja temperatura, al papillote, con setas", precio: 16, grupo: "carne" },
+    { nombre: "Arroz al horno", icono: "plato-arroz-al-horno", anfitrion: "El anfitrión planificador", descripcion: "Valenciano, receta tradicional", precio: 16, grupo: "carne" },
+    { nombre: "Carabineros", icono: "plato-carabinero", anfitrion: "El anfitrión generoso", descripcion: "Con sepia y alcachofa", precio: 16, grupo: "marisco" },
+    { nombre: "A banda de rape", icono: "plato-rape", anfitrion: "El anfitrión consciente", descripcion: "Arroz a banda con rape y gamba roja", precio: 16, grupo: "marisco" },
+    { nombre: "Arroz de bogavante", icono: "plato-bogavante", anfitrion: "El anfitrión generoso", descripcion: "Bogavante y fumet de marisco", precio: 16, grupo: "marisco" },
+    { nombre: "Arroz de cocido", icono: "plato-cocido", anfitrion: "El anfitrión clásico", descripcion: "Solo en temporada", precio: 16, grupo: "temporada" }
   ],
 
   // ---- Carta: fideuà (precio por ración, mismas paelleras que el arroz) ----
   fideuas: [
-    { nombre: "Fideuà de carabineros", anfitrion: "El anfitrión original", descripcion: "Fideo fino con carabineros, con alioli", precio: 16 },
-    { nombre: "Fideuà de cocido", anfitrion: "El anfitrión clásico", descripcion: "Fideo fino con el sabor del cocido", precio: 16 }
+    { nombre: "Fideuà de carabineros", icono: "plato-fideua-carabineros", anfitrion: "El anfitrión original", descripcion: "Fideo fino con carabineros, con alioli", precio: 16 },
+    { nombre: "Fideuà de cocido", icono: "plato-fideua-cocido", anfitrion: "El anfitrión clásico", descripcion: "Fideo fino con el sabor del cocido", precio: 16 }
   ],
 
   // ---- Carta: para empezar ----
   // "opciones" son los tamaños. Si solo hay uno, deja una opción.
   // "detalle" (opcional) sale junto al tamaño: gramos, unidades… Ejemplo: detalle: "6 uds"
   entrantes: [
-    { nombre: "Croquetas de jamón ibérico", opciones: [{ nombre: "Media", detalle: "5 uds", precio: 6 }, { nombre: "Entera", detalle: "10 uds", precio: 10 }] },
-    { nombre: "Ensaladilla rusa", opciones: [{ nombre: "Media", detalle: "300 g", precio: 6 }, { nombre: "Entera", detalle: "600 g", precio: 10 }] },
-    { nombre: "Gildas", nota: "4 unidades", opciones: [{ nombre: "Ración", precio: 6 }] },
-    { nombre: "Alioli", nota: "Tarrina de 160 ml", opciones: [{ nombre: "Tarrina", precio: 2 }] }
+    { nombre: "Croquetas de jamón ibérico", icono: "plato-croquetas", opciones: [{ nombre: "Media", detalle: "5 uds", precio: 6 }, { nombre: "Entera", detalle: "10 uds", precio: 10 }] },
+    { nombre: "Ensaladilla rusa", icono: "plato-ensaladilla", opciones: [{ nombre: "Media", detalle: "300 g", precio: 6 }, { nombre: "Entera", detalle: "600 g", precio: 10 }] },
+    { nombre: "Gildas", icono: "plato-gilda", nota: "4 unidades", opciones: [{ nombre: "Ración", precio: 6 }] },
+    { nombre: "Alioli", icono: "plato-alioli", nota: "Tarrina de 160 ml", opciones: [{ nombre: "Tarrina", precio: 2 }] }
   ],
 
   // ---- Carta: vinos ----
   // Mismo formato que los entrantes. "nota" sale tras el precio (bodega, uva, D.O.…).
   vinos: [
-    { nombre: "Vino tinto", nota: "Rioja crianza · 75 cl", opciones: [{ nombre: "Botella", precio: 18 }] },
-    { nombre: "Vino blanco", nota: "Albariño · 75 cl", opciones: [{ nombre: "Botella", precio: 12 }] }
+    { nombre: "Vino tinto", icono: "botella-vino", nota: "Rioja crianza · 75 cl", opciones: [{ nombre: "Botella", precio: 18 }] },
+    { nombre: "Vino blanco", icono: "botella-vino", nota: "Albariño · 75 cl", opciones: [{ nombre: "Botella", precio: 12 }] }
   ]
 };
