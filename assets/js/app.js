@@ -198,7 +198,7 @@
     $$("[data-precio-nota]").forEach(function (e) { e.textContent = ""; });
   }
 
-  // Arroces y fideuà van en paellera (tipo "arroz": mínimo y máximo de raciones)
+  // Arroces y fideuà van en paella (tipo "arroz": mínimo y máximo de raciones)
   function platoPaellera(a, k, lista) {
     pedido[k] = { nombre: a.nombre, precio: a.precio, cantidad: 0, tipo: "arroz" };
     var li = document.createElement("li");

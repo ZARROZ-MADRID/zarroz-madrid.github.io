@@ -18,8 +18,8 @@ window.ZARROZ = {
   instagram: "https://www.instagram.com/_zarroz_/",       // Ejemplo: "https://www.instagram.com/zarroz"
 
   // ---- Reglas de pedido ----
-  racionesMin: 3,      // mínimo de raciones por arroz (una paellera)
-  racionesMax: 8,      // máximo por paellera
+  racionesMin: 3,      // mínimo de raciones por arroz (una paella)
+  racionesMax: 8,      // máximo por paella
   recogidaPaellera: "entre hora y media y dos horas después de entregarla",
 
   // ---- Días y horas de entrega ----
@@ -63,8 +63,8 @@ window.ZARROZ = {
   // Al tener opiniones reales, bórralas y pon las de verdad sin "ejemplo".
   opiniones: [
     { texto: "Pedimos para el cumpleaños de mi padre y fue lo más comentado de la comida. Llegó en su punto y nosotros, sentados con todos.", nombre: "Marta", detalle: "Chamartín · Arroz de bogavante", ejemplo: true },
-    { texto: "El socarrat, como en Valencia. Mi suegro es de Sueca y repitió dos veces.", nombre: "Javier", detalle: "Hortaleza · A banda de rape", ejemplo: true },
-    { texto: "Cero cocina: lo trajeron, comimos y recogieron la paellera como si nada. Para los domingos en casa, perfecto.", nombre: "Lucía", detalle: "Las Tablas · Secreto ibérico", ejemplo: true }
+    { texto: "El socarrat, como en Valencia. Mi suegro es de Sueca, tierra de arroz, y repitió dos veces.", nombre: "Javier", detalle: "Hortaleza · A banda de rape", ejemplo: true },
+    { texto: "Cero cocina: lo trajeron, comimos y recogieron la paella como si nada. Para los domingos en casa, perfecto.", nombre: "Lucía", detalle: "Las Tablas · Secreto ibérico", ejemplo: true }
   ],
 
   // ---- Envío por código postal ----
@@ -96,7 +96,7 @@ window.ZARROZ = {
     { nombre: "Arroz de cocido", icono: "plato-cocido", anfitrion: "El anfitrión castizo", descripcion: "El cocido madrileño hecho arroz: garbanzo, chorizo, morcilla y tocino", precio: 16, grupo: "temporada" }
   ],
 
-  // ---- Carta: fideuà (precio por ración, mismas paelleras que el arroz) ----
+  // ---- Carta: fideuà (precio por ración, mismas paellas que el arroz) ----
   fideuas: [
     { nombre: "Fideuà de carabineros", icono: "plato-fideua-carabineros", anfitrion: "El anfitrión original", descripcion: "Fideo fino tostado en el jugo de las cabezas de carabinero, con sepia y carabinero rojo", precio: 16 },
     { nombre: "Fideuà de cocido", icono: "plato-fideua-cocido", anfitrion: "El anfitrión atrevido", descripcion: "Fideo fino tostado con todo el sabor del cocido madrileño", precio: 16 }
