@@ -30,7 +30,7 @@
   --mostaza: #f2c048;
   --marron: #362b29;
   --texto: #362b29;
-  --texto-suave: #6a5853;
+  --texto-suave: #5a4641;
   --linea: rgba(54, 43, 41, .18);
 
   --f-titulos: "Big Shoulders Display", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
@@ -257,7 +257,7 @@ body::before {
 .plato__cuerpo { display: flex; align-items: center; gap: 16px; }
 .plato__icono { flex: none; width: 54px; color: var(--teja); }
 .plato__nombre { margin: 0; font-size: 1.1rem; font-weight: 500; line-height: 1.35; }
-.plato__info { margin: 2px 0 0; color: var(--texto-suave); font-size: .98rem; }
+.plato__info { margin: 2px 0 0; color: var(--texto-suave); font-size: 1.02rem; }
 .plato__opciones { display: flex; flex-wrap: wrap; gap: 10px 22px; justify-content: flex-end; }
 .opcion { display: flex; align-items: center; gap: 10px; }
 .opcion__etiqueta { font-size: .95rem; color: var(--texto-suave); white-space: nowrap; }
@@ -282,7 +282,7 @@ body::before {
   .plato__nombre { font-size: 1.05rem; }
   .plato__cuerpo { gap: 12px; }
   .plato__icono { width: 42px; }
-  .plato__info { font-size: .92rem; }
+  .plato__info { font-size: .98rem; }
   .plato:has(.opcion + .opcion) { grid-template-columns: 1fr; }
   .plato:has(.opcion + .opcion) .plato__opciones { justify-content: flex-start; }
   .contador button { width: 32px; height: 32px; }
@@ -320,14 +320,14 @@ body::before {
 .campo { display: grid; gap: 4px; grid-column: span 2; align-content: start; }
 .campo--medio { grid-column: span 1; }
 .campo label { font-size: .92rem; font-weight: 500; }
-.campo input, .campo textarea {
+.campo input, .campo select, .campo textarea {
   width: 100%; font: 400 1rem/1.4 var(--f-texto); color: var(--texto);
   background: var(--crema); border: 1.5px solid var(--linea); border-radius: 10px;
   padding: .65em .8em; min-height: 46px;
 }
 .campo textarea { min-height: 76px; resize: vertical; }
-.campo input:focus, .campo textarea:focus { outline: none; border-color: var(--teja); box-shadow: 0 0 0 3px rgba(242, 192, 72, .55); }
-.campo input[aria-invalid="true"] { border-color: #b3261e; }
+.campo input:focus, .campo select:focus, .campo textarea:focus { outline: none; border-color: var(--teja); box-shadow: 0 0 0 3px rgba(242, 192, 72, .55); }
+.campo input[aria-invalid="true"], .campo select[aria-invalid="true"] { border-color: #b3261e; }
 
 .pedido__error { color: #b3261e; font-size: .95rem; margin: 12px 0 0; }
 .pedido__acciones { display: grid; gap: 10px; margin-top: 18px; }
@@ -538,7 +538,7 @@ body::before {
 .pasos-mini .ilu { width: 52px; color: var(--teja); }
 .pasos-mini h3 { margin: 0 0 .15em; font-size: 1.12rem; font-weight: 500; display: flex; gap: .45em; align-items: baseline; }
 .pasos-mini h3::before { content: counter(paso); font-family: var(--f-titulos); font-weight: 800; font-size: 1.4rem; line-height: 1; color: var(--teja); }
-.pasos-mini p { margin: 0; color: var(--texto-suave); font-size: .98rem; }
+.pasos-mini p { margin: 0; color: var(--texto-suave); font-size: 1.05rem; line-height: 1.5; }
 .historia__texto--corto { max-width: 60ch; }
 .eventos--resumen .mesa { width: min(260px, 60vw); }
 .plato__precio { white-space: nowrap; font-weight: 500; color: var(--texto); }
@@ -596,3 +596,37 @@ body::before {
 /* Carta: tipo de anfitrión de cada arroz */
 .carta__lema { margin: -.4em 0 .8em; font-size: clamp(1.1rem, 1.8vw, 1.3rem); color: var(--teja); font-weight: 500; max-width: 46ch; }
 .plato__anfitrion { margin: 1px 0 0; font-size: .88rem; font-style: italic; color: var(--teja); }
+
+/* ---------- Pedido: mínimo de raciones bajo el contador ---------- */
+.opcion--arroz { flex-direction: column; align-items: flex-end; gap: 4px; }
+.opcion__min { font-size: .8rem; color: var(--texto-suave); white-space: nowrap; }
+.plato.activo .opcion__min { color: var(--teja); font-weight: 500; }
+.campo select { appearance: none; background: #fbf7ec url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23782515' stroke-width='1.6'/%3E%3C/svg%3E") no-repeat right 12px center; padding-right: 32px; }
+
+/* ---------- Opiniones ---------- */
+.opiniones .titulo { margin-bottom: .8em; }
+.opiniones__lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+@media (min-width: 800px) { .opiniones__lista { grid-template-columns: repeat(3, 1fr); } }
+.opinion { position: relative; background: #fbf7ec; border: 1px solid var(--linea); border-radius: 18px; padding: 24px 24px 20px; }
+.opinion blockquote { margin: 0 0 14px; font-size: 1.08rem; line-height: 1.55; }
+.opinion__autor { margin: 0; font-size: .92rem; color: var(--texto-suave); }
+.opinion__autor strong { color: var(--teja); font-weight: 500; }
+.opinion__ejemplo { position: absolute; top: -10px; right: 16px; background: var(--mostaza); color: var(--marron, #362b29); font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; }
+
+/* ---------- Redes: cinta con el usuario y tira de fotos ---------- */
+.redes-tira { padding: clamp(40px, 6vw, 72px) 0; overflow: hidden; }
+.redes-tira__cinta { display: block; overflow: hidden; color: var(--teja); text-decoration: none; }
+.redes-tira__pista { display: inline-flex; align-items: center; gap: 22px; white-space: nowrap; padding-left: 22px;
+  font-family: var(--f-titulos); font-weight: 800; font-size: clamp(2rem, 4.4vw, 3.4rem); letter-spacing: .04em;
+  animation: redes-cinta 40s linear infinite; }
+.redes-tira__pista .ilu { width: .8em; flex: none; }
+.redes-tira__fotos { margin-top: clamp(24px, 3vw, 40px); overflow: hidden; }
+.redes-tira__pista-fotos { display: flex; align-items: flex-start; gap: 14px; width: max-content; animation: redes-cinta 60s linear infinite; }
+.redes-tira__pista-fotos img { height: clamp(170px, 18vw, 240px); width: auto; border-radius: 6px; object-fit: cover; }
+.redes-tira__hueco { flex: none; display: grid; place-items: center; width: clamp(150px, 15vw, 210px); aspect-ratio: 1; border-radius: 6px; }
+.redes-tira__hueco .ilu { width: 70%; }
+.redes-tira__hueco--0 { background: var(--teja); color: var(--crema); }
+.redes-tira__hueco--1 { background: var(--mostaza); color: var(--teja); aspect-ratio: 4 / 5; }
+.redes-tira__hueco--2 { background: #362b29; color: var(--mostaza); }
+@keyframes redes-cinta { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .redes-tira__pista, .redes-tira__pista-fotos { animation: none; } }

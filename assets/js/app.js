@@ -142,6 +142,39 @@
     return '<span class="ilu plato__icono" aria-hidden="true" style="-webkit-mask-image:url(' + u + ');mask-image:url(' + u + ')"></span>';
   }
 
+  // Opiniones de clientes (las marcadas como ejemplo solo se ven con la web en pruebas)
+  var opiniones = (C.opiniones || []).filter(function (o) { return !o.ejemplo || C.enPruebas; });
+  if (opiniones.length && $("#lista-opiniones")) {
+    $("#lista-opiniones").innerHTML = opiniones.map(function (o) {
+      return '<li class="opinion">' + (o.ejemplo ? '<span class="opinion__ejemplo">Ejemplo</span>' : "") +
+        '<blockquote>«' + esc(o.texto) + '»</blockquote><p class="opinion__autor"><strong>' + esc(o.nombre) + "</strong>" +
+        (o.detalle ? " · " + esc(o.detalle) : "") + "</p></li>";
+    }).join("");
+    $("#opiniones").hidden = false;
+  }
+
+  // Redes: cinta con el usuario que se desplaza y tira de fotos (o ilustraciones mientras no haya fotos)
+  var R = C.redes || {};
+  if ($("#redes")) {
+    var usuario = R.usuario || "@zarroz";
+    var trozo = '<span>' + esc(usuario) + '</span><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/instagram.svg);mask-image:url(assets/img/instagram.svg)"></span>';
+    $("#redes-pista").innerHTML = new Array(17).join(trozo);
+    var cinta = $("#redes-cinta");
+    cinta.setAttribute("aria-label", "Síguenos en Instagram: " + usuario);
+    if (C.instagram) { cinta.href = C.instagram; cinta.target = "_blank"; cinta.rel = "noopener"; }
+    else cinta.removeAttribute("href");
+    var fotos = (R.fotos || []).map(function (f) { return '<img src="assets/img/redes/' + encodeURIComponent(f) + '" alt="" loading="lazy">'; });
+    if (!fotos.length) {
+      fotos = ["gente-amigos", "plato-fideua-carabineros", "brindis", "cuchara-socarrat", "gente-sobremesa", "plato-croquetas", "gente-cocinero", "manos-y-paellera", "gente-servir-plato", "plato-bogavante"]
+        .map(function (n, i) {
+          var u = "assets/img/ilustraciones/" + n + ".svg";
+          return '<span class="redes-tira__hueco redes-tira__hueco--' + (i % 3) + '"><span class="ilu" style="-webkit-mask-image:url(' + u + ');mask-image:url(' + u + ')"></span></span>';
+        });
+    }
+    // Se repite la tira para que el desplazamiento sea continuo
+    $("#redes-fotos").innerHTML = '<div class="redes-tira__pista-fotos">' + fotos.join("") + fotos.join("") + "</div>";
+  }
+
   // Si todos los arroces y fideuàs cuestan lo mismo, el precio se dice una vez arriba
   var paelleras = (C.arroces || []).concat(C.fideuas || []);
   var pu = $("[data-precio-unico]");
@@ -160,7 +193,8 @@
     var info = [a.descripcion ? esc(a.descripcion) : "", precioUnico === null ? '<span class="plato__precio">' + euros(a.precio) + " / ración</span>" : ""].filter(Boolean).join(" · ");
     li.innerHTML = '<div class="plato__cuerpo">' + icono(a.icono) + '<div>' + (a.etiqueta ? '<span class="plato__etiqueta">' + esc(a.etiqueta) + '</span>' : "") +
       '<p class="plato__nombre">' + esc(a.nombre) + '</p>' + (a.anfitrion ? '<p class="plato__anfitrion">' + esc(a.anfitrion) + '</p>' : "") + (info ? '<p class="plato__info">' + info + '</p>' : "") + '</div></div>' +
-      '<div class="plato__opciones"><div class="opcion">' + contador(k, "Raciones de " + esc(a.nombre)) + '</div></div>';
+      '<div class="plato__opciones"><div class="opcion opcion--arroz">' + contador(k, "Raciones de " + esc(a.nombre)) +
+      '<span class="opcion__min" data-min-de="' + k + '">Mín. ' + MIN + ' raciones</span></div></div>';
     lista.appendChild(li);
   }
   (C.arroces || []).forEach(function (a, i) {
@@ -273,6 +307,8 @@
       }
       var fila = $('[data-fila="' + k + '"]');
       if (fila) fila.classList.toggle(p.tipo === "arroz" ? "activo" : "activa", p.cantidad > 0);
+      var min = $('[data-min-de="' + k + '"]');
+      if (min) min.textContent = p.cantidad ? p.cantidad + " raciones" : "Mín. " + MIN + " raciones";
     });
     var ls = lineas(), t = total();
     lineasEl.innerHTML = ls.map(function (p) {
@@ -281,6 +317,8 @@
     }).join("");
     vacioEl.hidden = ls.length > 0;
     resumenEl.hidden = ls.length === 0;
+    // Los datos de entrega solo se piden cuando ya hay algo en el pedido
+    $("#pedido-form").hidden = ls.length === 0;
     var cp = cpEl.value.trim(), env = envioDe(cp), conEnvio = typeof env === "number";
     $("#pedido-subtotal-fila").hidden = !conEnvio;
     $("#pedido-envio-fila").hidden = !conEnvio;
@@ -324,6 +362,30 @@
   var fecha = $("#f-fecha");
   var hoy = new Date(); hoy.setMinutes(hoy.getMinutes() - hoy.getTimezoneOffset());
   fecha.min = hoy.toISOString().slice(0, 10);
+  var limite = new Date(hoy); limite.setDate(limite.getDate() + 60);
+  fecha.max = limite.toISOString().slice(0, 10);
+
+  // Solo las horas y los días en que repartimos (config.js → servicio)
+  var S = C.servicio || {};
+  var DIAS_SEMANA = ["domingos", "lunes", "martes", "miércoles", "jueves", "viernes", "sábados"];
+  (S.horas || []).forEach(function (h) {
+    var o = document.createElement("option"); o.value = o.textContent = h; $("#f-hora").appendChild(o);
+  });
+  function diaDeServicio(iso) {
+    if (!iso || !S.dias) return true;
+    var p = iso.split("-");
+    return S.dias.indexOf(new Date(+p[0], +p[1] - 1, +p[2]).getDay()) >= 0;
+  }
+  function textoDias() {
+    return (S.dias || []).map(function (d) { return DIAS_SEMANA[d]; }).join(", ");
+  }
+  fecha.addEventListener("change", function () {
+    var ok = diaDeServicio(fecha.value);
+    if (ok) fecha.removeAttribute("aria-invalid"); else fecha.setAttribute("aria-invalid", "true");
+    errorEl.hidden = ok;
+    errorEl.textContent = ok ? "" : "Ese día no repartimos. Servimos " + textoDias() + ".";
+  });
+  if (C.confirmacion) $$("[data-confirmacion]").forEach(function (e) { e.textContent = C.confirmacion; });
 
   if (C.whatsapp) $('[data-canal="whatsapp"]').hidden = false;
 
@@ -345,6 +407,7 @@
     if (cp.value.trim() && env === undefined) { cp.setAttribute("aria-invalid", "true"); errores.push("Escribe un código postal de 5 cifras."); }
     else if (env === null) { cp.setAttribute("aria-invalid", "true"); errores.push("De momento no repartimos en el código postal " + cp.value.trim() + ". Si quieres, llámanos y lo vemos."); }
     if (fecha.value && fecha.value < fecha.min) { fecha.setAttribute("aria-invalid", "true"); errores.push("El día no puede ser anterior a hoy."); }
+    else if (!diaDeServicio(fecha.value)) { fecha.setAttribute("aria-invalid", "true"); errores.push("Ese día no repartimos. Servimos " + textoDias() + "."); }
     errorEl.hidden = !errores.length;
     errorEl.textContent = errores.join(" ");
     if (faltan.length) faltan[0].focus();
@@ -373,24 +436,30 @@
     return t;
   }
   function asunto() { var d = datos(); return "Pedido Zarroz · " + fechaBonita(d.fecha) + " · " + d.nombre; }
-  function confirmar(html) { okEl.innerHTML = html; okEl.hidden = false; }
+  function confirmar(html) { okEl.innerHTML = html; okEl.hidden = false; okEl.scrollIntoView({ block: "nearest" }); }
+  // Qué pasa después de enviar: se dice siempre igual, sea por WhatsApp, email o copiado
+  function despues() {
+    return "<p>Te confirmamos el pedido " + esc(C.confirmacion || "lo antes posible") + (C.whatsapp ? " por WhatsApp" : "") + "." +
+      (C.telefono ? " Si no te llega nuestra respuesta, llámanos al " + esc(C.telefono) + "." : "") + "</p>";
+  }
 
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
     if (!validar()) return;
     window.location.href = "mailto:" + C.email + "?subject=" + encodeURIComponent(asunto()) + "&body=" + encodeURIComponent(textoPedido());
-    confirmar("<p><strong>Se ha abierto tu correo con el pedido escrito.</strong> Revísalo y pulsa enviar.</p><p>Si no se ha abierto, usa «Copiar el pedido» y pégalo en un email a " + esc(C.email) + ".</p>");
+    confirmar("<p><strong>Se ha abierto tu correo con el pedido escrito.</strong> Revísalo y pulsa enviar.</p>" + despues() + "<p>Si no se ha abierto, usa «Copiar el pedido» y pégalo en un email a " + esc(C.email) + ".</p>");
   });
 
   $('[data-canal="whatsapp"]').addEventListener("click", function () {
     if (!validar()) return;
     window.open("https://wa.me/" + C.whatsapp + "?text=" + encodeURIComponent(textoPedido()), "_blank", "noopener");
+    confirmar("<p><strong>Te hemos abierto WhatsApp con el pedido escrito.</strong> Solo tienes que pulsar enviar.</p>" + despues());
   });
 
   $('[data-canal="copiar"]').addEventListener("click", function () {
     if (!validar()) return;
     var t = "Para: " + C.email + "\nAsunto: " + asunto() + "\n\n" + textoPedido();
-    var hecho = function () { confirmar("<p><strong>Pedido copiado.</strong> Pégalo en un email a " + esc(C.email) + " y envíalo.</p>"); };
+    var hecho = function () { confirmar("<p><strong>Pedido copiado.</strong> Pégalo en un email a " + esc(C.email) + " y envíalo.</p>" + despues()); };
     if (navigator.clipboard && window.isSecureContext) {
       navigator.clipboard.writeText(t).then(hecho, function () { mostrarTexto(t); });
     } else { mostrarTexto(t); }

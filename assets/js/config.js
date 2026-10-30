@@ -22,6 +22,34 @@ window.ZARROZ = {
   racionesMax: 8,      // máximo por paellera
   recogidaPaellera: "entre hora y media y dos horas después de entregarla",
 
+  // ---- Días y horas de entrega ----
+  // "dias": 0 = domingo, 1 = lunes … 6 = sábado. Solo se pueden pedir esos días.
+  // "horas": las horas de entrega que aparecen para elegir.
+  // PROVISIONAL: confirmar días y franjas reales antes de lanzar.
+  servicio: {
+    dias: [0, 1, 2, 3, 4, 5, 6],
+    horas: ["13:00", "13:30", "14:00", "14:30", "15:00", "15:30"]
+  },
+  // Cuánto tardamos en confirmar un pedido (sale al enviarlo).
+  confirmacion: "en menos de 1 hora",
+
+  // ---- Redes sociales (cinta y fotos antes de las preguntas) ----
+  // "usuario" es el nombre que sale en la cinta. "fotos" son imágenes de assets/img/redes/.
+  // Mientras no haya fotos, salen ilustraciones en su lugar.
+  redes: {
+    usuario: "@zarroz",
+    fotos: []
+  },
+
+  // ---- Opiniones de clientes ----
+  // "ejemplo: true" marca opiniones de muestra: solo se ven mientras la web está en pruebas.
+  // Al tener opiniones reales, bórralas y pon las de verdad sin "ejemplo".
+  opiniones: [
+    { texto: "Pedimos para el cumpleaños de mi padre y fue lo más comentado de la comida. Llegó en su punto y nosotros, sentados con todos.", nombre: "Marta", detalle: "Chamartín · Arroz de bogavante", ejemplo: true },
+    { texto: "El socarrat, como en Valencia. Mi suegro es de Sueca y repitió dos veces.", nombre: "Javier", detalle: "Hortaleza · A banda de rape", ejemplo: true },
+    { texto: "Cero cocina y cero fregar: recogieron la paellera y como si nada. Para los domingos en casa, perfecto.", nombre: "Lucía", detalle: "Las Tablas · Secreto ibérico", ejemplo: true }
+  ],
+
   // ---- Envío por código postal ----
   // Precio de envío y códigos postales de cada zona.
   // Si un código postal no aparece en ninguna zona, la web avisa de que no repartimos allí.

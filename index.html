@@ -11,7 +11,7 @@
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/big-shoulders-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css?v=24">
+  <link rel="stylesheet" href="assets/css/styles.css?v=25">
   <meta property="og:title" content="Zarroz · Tu mesa. Nuestro arroz.">
   <meta property="og:description" content="Arroces a domicilio en Madrid, para anfitriones que quieren estar presentes.">
   <meta property="og:type" content="website">
@@ -130,6 +130,14 @@
       </div>
     </section>
 
+    <!-- OPINIONES (salen desde config.js; las de ejemplo solo en pruebas) -->
+    <section class="seccion opiniones" id="opiniones" hidden>
+      <div class="contenedor">
+        <h2 class="titulo">Lo que dicen nuestros anfitriones</h2>
+        <ul class="opiniones__lista" id="lista-opiniones"></ul>
+      </div>
+    </section>
+
     <!-- CARTA Y PEDIDO -->
     <section class="seccion" id="carta">
       <div class="contenedor carta">
@@ -194,7 +202,7 @@
               <div class="campo"><label for="f-tel">Teléfono de contacto</label><input id="f-tel" name="telefono" type="tel" autocomplete="tel" inputmode="tel" required></div>
               <div class="campo"><label for="f-dir">Dirección de entrega</label><input id="f-dir" name="direccion" autocomplete="street-address" required></div>
               <div class="campo campo--medio"><label for="f-cp">Código postal</label><input id="f-cp" name="cp" autocomplete="postal-code" inputmode="numeric" maxlength="5" required aria-describedby="cp-aviso"><p class="campo__aviso" id="cp-aviso" aria-live="polite"></p></div>
-              <div class="campo campo--medio"><label for="f-hora">Hora</label><input id="f-hora" name="hora" type="time" required></div>
+              <div class="campo campo--medio"><label for="f-hora">Hora</label><select id="f-hora" name="hora" required><option value="">Elige</option></select></div>
               <div class="campo"><label for="f-fecha">Día</label><input id="f-fecha" name="fecha" type="date" required></div>
               <div class="campo"><label for="f-notas">Comentarios (opcional)</label><textarea id="f-notas" name="notas" placeholder="Alergias, timbre, si es una celebración…"></textarea></div>
             </div>
@@ -204,7 +212,7 @@
               <button class="boton" type="submit" data-canal="email">Enviar por email</button>
               <button class="boton boton--borde" type="button" data-canal="copiar">Copiar el pedido</button>
             </div>
-            <p class="pedido__ayuda">El pedido queda confirmado cuando te respondemos. Si no se abre tu correo, copia el pedido y envíalo a <a href="mailto:pedidos@zarroz.com" data-email>pedidos@zarroz.com</a><span data-si="telefono" hidden> o llámanos al <a data-tel href="#"></a></span>.</p>
+            <p class="pedido__ayuda">Te confirmamos el pedido <span data-confirmacion>en menos de 1 hora</span>. Si no se abre tu correo, copia el pedido y envíalo a <a href="mailto:pedidos@zarroz.com" data-email>pedidos@zarroz.com</a><span data-si="telefono" hidden> o llámanos al <a data-tel href="#"></a></span>.</p>
             <div class="pedido__ok" id="pedido-ok" role="status" hidden></div>
           </form>
         </aside>
@@ -232,6 +240,12 @@
           <span class="ilu mesa__mano mesa__mano--4" style="-webkit-mask-image:url(assets/img/ilustraciones/mano-gamba.svg);mask-image:url(assets/img/ilustraciones/mano-gamba.svg)"></span>
         </div>
       </div>
+    </section>
+
+    <!-- REDES: cinta con el usuario de Instagram y tira de fotos -->
+    <section class="redes-tira" id="redes" aria-label="Síguenos en Instagram">
+      <a class="redes-tira__cinta" id="redes-cinta" href="#"><span class="redes-tira__pista" id="redes-pista"></span></a>
+      <div class="redes-tira__fotos" id="redes-fotos"></div>
     </section>
 
     <!-- PREGUNTAS -->
@@ -289,7 +303,7 @@
     <a class="boton boton--mostaza" id="barra-boton" href="#carta">Pedir ahora</a>
   </div>
 
-  <script src="assets/js/config.js?v=24"></script>
-  <script src="assets/js/app.js?v=24"></script>
+  <script src="assets/js/config.js?v=25"></script>
+  <script src="assets/js/app.js?v=25"></script>
 </body>
 </html>
