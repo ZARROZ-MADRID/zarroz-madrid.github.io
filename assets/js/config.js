@@ -15,7 +15,7 @@ window.ZARROZ = {
   email: "pedidos@zarroz.com",
   telefono: "649 119 997",   // Ejemplo: "600 000 000"
   whatsapp: "34649119997",    // Solo números con prefijo, sin + ni espacios. Ejemplo: "34600000000"
-  instagram: "",       // Ejemplo: "https://www.instagram.com/zarroz"
+  instagram: "https://www.instagram.com/_zarroz_/",       // Ejemplo: "https://www.instagram.com/zarroz"
 
   // ---- Reglas de pedido ----
   racionesMin: 3,      // mínimo de raciones por arroz (una paellera)
@@ -37,7 +37,7 @@ window.ZARROZ = {
   // "usuario" es el nombre que sale en la cinta. "fotos" son imágenes de assets/img/redes/.
   // Mientras no haya fotos, salen ilustraciones en su lugar.
   redes: {
-    usuario: "@zarroz",
+    usuario: "@_zarroz_",
     fotos: []
   },
 
