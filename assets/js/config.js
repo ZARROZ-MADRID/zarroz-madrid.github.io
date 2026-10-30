@@ -92,7 +92,7 @@ window.ZARROZ = {
     { nombre: "Arroz al horno", icono: "plato-arroz-al-horno", anfitrion: "El anfitrión planificador", descripcion: "Valenciano, receta tradicional", precio: 16, grupo: "carne" },
     { nombre: "Carabineros", icono: "plato-carabinero", anfitrion: "El anfitrión generoso", descripcion: "Con sepia y alcachofa", precio: 16, grupo: "marisco" },
     { nombre: "A banda de rape", icono: "plato-rape", anfitrion: "El anfitrión consciente", descripcion: "Arroz a banda con rape y gamba roja", precio: 16, grupo: "marisco" },
-    { nombre: "Arroz de bogavante", icono: "plato-bogavante", anfitrion: "El anfitrión generoso", descripcion: "Bogavante y fumet de marisco", precio: 16, grupo: "marisco" },
+    { nombre: "Arroz de bogavante", icono: "plato-bogavante", anfitrion: "El anfitrión sibarita", descripcion: "Bogavante y fumet de marisco", precio: 16, grupo: "marisco" },
     { nombre: "Arroz de cocido", icono: "plato-cocido", anfitrion: "El anfitrión clásico", descripcion: "Solo en temporada", precio: 16, grupo: "temporada" }
   ],
 
