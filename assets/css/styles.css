@@ -407,7 +407,7 @@ body::before {
   .historia__rejilla { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(40px, 5vw, 80px); align-items: center; }
   .historia__rejilla .historia__cabecera { margin-bottom: 0; gap: 32px; }
   .historia__rejilla .historia__frase { font-size: clamp(2.6rem, 4.2vw, 4rem); }
-  .historia__rejilla .historia__isotipo { width: clamp(120px, 12vw, 170px); }
+  .historia__rejilla .historia__isotipo { width: clamp(100px, 9vw, 140px); }
   .historia__rejilla .historia__texto p:last-child { margin-bottom: 0; }
 }
 .historia::before { content: ""; position: absolute; inset: 0; background: rgba(120, 37, 21, .86); }
@@ -423,7 +423,10 @@ body::before {
   max-width: 13ch; text-wrap: balance;
 }
 .historia__isotipo { width: clamp(100px, 22vw, 280px); color: var(--mostaza); justify-self: start; aspect-ratio: 836 / 850; }
-@media (min-width: 640px) { .historia__isotipo { justify-self: end; } }
+/* Isotipo y paellera con socarrat: en fila en el móvil, en columna a la derecha de la frase en pantalla ancha */
+.historia__iconos { display: flex; gap: 16px; align-items: center; justify-self: start; }
+.historia__iconos .historia__isotipo { width: clamp(90px, 22vw, 140px); }
+@media (min-width: 640px) { .historia__iconos { flex-direction: column; justify-self: end; } }
 .historia__cuerpo { display: grid; gap: clamp(40px, 6vw, 80px); border-top: 1px solid rgba(245, 238, 220, .3); padding-top: clamp(36px, 5vw, 56px); }
 @media (min-width: 900px) { .historia__cuerpo { grid-template-columns: 1.1fr 1fr; } }
 .historia__texto p { margin: 0 0 1em; max-width: 58ch; }
