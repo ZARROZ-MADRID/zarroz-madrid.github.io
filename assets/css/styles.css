@@ -650,3 +650,4 @@ body::before {
   .historia__iconos .historia__isotipo { width: clamp(64px, 20vw, 90px); }
 }
 @media (max-width: 560px) { .portada__claim { font-size: .8rem; letter-spacing: .08em; } }
+@media (max-width: 420px) { .franja-lema { font-size: .72rem; letter-spacing: .06em; white-space: nowrap; } }
