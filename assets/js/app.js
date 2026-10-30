@@ -46,7 +46,7 @@
     });
   }
 
-  /* ---------- Fluidez: aparición suave y cabecera que se esconde ---------- */
+  /* ---------- Fluidez: aparición suave ---------- */
   var sinMovimiento = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
   // El agua de la portada se queda quieta si el usuario pide menos movimiento
   if (sinMovimiento) $$(".portada__fondo").forEach(function (s) { if (s.pauseAnimations) s.pauseAnimations(); });
@@ -60,15 +60,6 @@
       el.classList.add("aparece");
       obsAparece.observe(el);
     });
-  }
-  var cabecera = $(".cabecera"), ultimoY = window.pageYOffset;
-  if (cabecera) {
-    window.addEventListener("scroll", function () {
-      var y = window.pageYOffset;
-      var menuAbierto = enlaces && enlaces.classList.contains("abierto");
-      cabecera.classList.toggle("oculta", y > ultimoY && y > 300 && !menuAbierto);
-      ultimoY = y;
-    }, { passive: true });
   }
 
   /* ---------- Eventos (página eventos.html) ---------- */
@@ -277,7 +268,7 @@
 
   /* ---------- Resumen del pedido ---------- */
   var lineasEl = $("#pedido-lineas"), vacioEl = $("#pedido-vacio"), resumenEl = $("#pedido-resumen"),
-      totalEl = $("#pedido-total"), barra = $("#barra-pedido");
+      totalEl = $("#pedido-total");
 
   function lineas() {
     return Object.keys(pedido).filter(function (k) { return pedido[k].cantidad > 0; }).map(function (k) { return pedido[k]; });
@@ -334,25 +325,12 @@
     if (conEnvio) t += env;
     totalEl.textContent = euros(t);
 
-    var raciones = ls.filter(function (p) { return p.tipo === "arroz"; }).reduce(function (s, p) { return s + p.cantidad; }, 0);
-    // Barra fija del móvil: siempre visible; vacía invita a pedir, con platos lleva al pedido
-    var hayPedido = ls.length > 0;
-    $("#barra-total").textContent = hayPedido ? euros(t) : "¿Te apetece un arroz?";
-    $("#barra-resumen").textContent = hayPedido ? (raciones ? raciones + " raciones" : "Sin arroz todavía") : "Hecho al momento";
-    var botonBarra = $("#barra-boton");
-    botonBarra.textContent = hayPedido ? "Ver pedido" : "Pedir ahora";
-    botonBarra.setAttribute("href", hayPedido ? "#pedido" : "#carta");
-    var visible = !pedidoEnPantalla;
-    barra.classList.toggle("visible", visible);
-    barra.setAttribute("aria-hidden", !visible);
-    document.body.classList.add("con-pedido");
-  }
-
-  // Ocultar la barra móvil cuando el panel del pedido está a la vista
-  var pedidoEnPantalla = false;
-  if ("IntersectionObserver" in window) {
-    new IntersectionObserver(function (es) { pedidoEnPantalla = es[0].isIntersecting; pintar(); }, { threshold: 0.15 })
-      .observe($("#pedido"));
+    // Botón «Pedir» de la cabecera (siempre visible): con platos, lleva al pedido y muestra el total
+    var hayPedido = ls.length > 0, botonPedir = $("#cabecera-pedir");
+    if (botonPedir) {
+      botonPedir.textContent = hayPedido ? "Pedido · " + euros(t) : "Pedir";
+      botonPedir.setAttribute("href", hayPedido ? "#pedido" : "#carta");
+    }
   }
 
   cpEl.addEventListener("input", pintar);

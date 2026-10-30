@@ -120,8 +120,8 @@ a:hover { color: var(--teja-osc); }
 /* ---------- Cabecera ---------- */
 .cabecera {
   position: sticky; top: env(safe-area-inset-top, 0px); z-index: 30;
-  background: rgba(245, 238, 220, .94);
-  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  background: rgba(245, 238, 220, .72);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3); backdrop-filter: blur(14px) saturate(1.3);
   border-bottom: 1px solid var(--linea);
 }
 body::before {
@@ -339,20 +339,6 @@ body::before {
 .pedido__ok p { margin: 0 0 .5em; }
 .pedido__ok p:last-child { margin: 0; }
 
-/* Barra inferior de pedido (móvil) */
-.barra-pedido {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 25;
-  background: var(--teja); color: var(--crema);
-  padding: 12px var(--pad) calc(12px + env(safe-area-inset-bottom, 0px));
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  transform: translateY(110%); visibility: hidden; transition: transform .25s ease, visibility 0s .25s;
-}
-.barra-pedido.visible { transform: none; visibility: visible; transition: transform .25s ease; }
-.barra-pedido p { margin: 0; font-size: 1rem; line-height: 1.3; }
-.barra-pedido strong { font-weight: 500; font-size: 1.1rem; }
-.barra-pedido .boton { min-height: 44px; padding: .45em 1.2em; white-space: nowrap; flex: none; }
-@media (min-width: 1000px) { .barra-pedido { display: none; } }
-@media (prefers-reduced-motion: reduce) { .barra-pedido { transition: none; } }
 
 /* ---------- Grupos ---------- */
 .grupos { background: var(--marron); color: var(--crema); position: relative; overflow: hidden; }
@@ -496,7 +482,6 @@ body::before {
 .legal p, .legal li { max-width: 68ch; }
 .pendiente { background: var(--mostaza); padding: 0 .3em; border-radius: 3px; }
 
-/* Espacio para la barra móvil */
 
 /* Eventos: escena de mesa compartida (paella en el centro, manos alrededor) */
 .mesa { position: relative; width: min(340px, 78vw); aspect-ratio: 1; justify-self: center; color: var(--crema); }
@@ -555,7 +540,6 @@ body::before {
   font: 500 .92rem/1.2 var(--f-texto); letter-spacing: .08em; text-transform: uppercase; padding: 8px 16px;
 }
 /* Barra fija del móvil siempre visible: espacio al final de la página */
-@media (max-width: 999px) { body.con-pedido { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); } }
 
 /* Preguntas: enlace a todas */
 .preguntas__todas { margin: 28px 0 0; }
@@ -581,9 +565,6 @@ body::before {
 @media (prefers-reduced-motion: reduce) { .aparece { opacity: 1; transform: none; transition: none; } }
 
 /* 3. Cabecera que se esconde al bajar y vuelve al subir */
-.cabecera { transition: transform .35s ease; }
-.cabecera.oculta { transform: translateY(-110%); }
-@media (prefers-reduced-motion: reduce) { .cabecera { transition: none; } }
 
 /* Portada: foto en SVG para poder mover el agua */
 .portada { background-image: none !important; }
@@ -632,3 +613,5 @@ body::before {
 @media (prefers-reduced-motion: reduce) { .redes-tira__pista, .redes-tira__pista-fotos { animation: none; } }
 .campo__especial { margin: 8px 0 0; padding: 10px 12px; border-radius: 10px; background: rgba(242, 192, 72, .35); font-size: .92rem; line-height: 1.45; }
 .campo__especial a { color: var(--teja); font-weight: 500; }
+
+#cabecera-pedir { white-space: nowrap; }
