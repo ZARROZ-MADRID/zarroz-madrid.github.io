@@ -376,7 +376,7 @@
     var ok = diaDeServicio(fecha.value);
     if (ok) fecha.removeAttribute("aria-invalid"); else fecha.setAttribute("aria-invalid", "true");
     errorEl.hidden = ok;
-    errorEl.textContent = ok ? "" : "Ese día no repartimos. Servimos " + textoDias() + ".";
+    errorEl.textContent = ok ? "" : "Ese día no repartimos (servimos " + textoDias() + "). Si lo necesitas para otro día, escríbenos a " + C.email + (C.telefono ? " o llámanos al " + C.telefono : "") + ".";
   });
   if (C.confirmacion) $$("[data-confirmacion]").forEach(function (e) { e.textContent = C.confirmacion; });
 
@@ -400,7 +400,7 @@
     if (cp.value.trim() && env === undefined) { cp.setAttribute("aria-invalid", "true"); errores.push("Escribe un código postal de 5 cifras."); }
     else if (env === null) { cp.setAttribute("aria-invalid", "true"); errores.push("De momento no repartimos en el código postal " + cp.value.trim() + ". Si quieres, llámanos y lo vemos."); }
     if (fecha.value && fecha.value < fecha.min) { fecha.setAttribute("aria-invalid", "true"); errores.push("El día no puede ser anterior a hoy."); }
-    else if (!diaDeServicio(fecha.value)) { fecha.setAttribute("aria-invalid", "true"); errores.push("Ese día no repartimos. Servimos " + textoDias() + "."); }
+    else if (!diaDeServicio(fecha.value)) { fecha.setAttribute("aria-invalid", "true"); errores.push("Ese día no repartimos (servimos " + textoDias() + "). Si lo necesitas para otro día, escríbenos a " + C.email + (C.telefono ? " o llámanos al " + C.telefono : "") + "."); }
     errorEl.hidden = !errores.length;
     errorEl.textContent = errores.join(" ");
     if (faltan.length) faltan[0].focus();
