@@ -178,6 +178,7 @@ body::before {
   font-size: clamp(1.15rem, 2vw, 1.4rem); max-width: 34ch; margin: 0 auto 1.8em;
   color: var(--crema); font-weight: 500; text-shadow: 0 1px 12px rgba(54, 43, 41, .6);
 }
+@media (max-width: 560px) { .portada__texto { font-size: 1rem; max-width: none; text-wrap: balance; } }
 .portada__acciones { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
 .portada__llamar { margin: 1.2em 0 0; color: var(--crema); font-size: 1.05rem; text-shadow: 0 1px 10px rgba(54, 43, 41, .7); }
 .portada__llamar a { color: var(--crema); font-weight: 500; }
