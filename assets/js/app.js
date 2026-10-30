@@ -374,11 +374,13 @@
   function diaDeServicio(iso) {
     if (!iso || !S.dias) return true;
     var p = iso.split("-");
+    if ((S.festivos && S.festivos[p[0]] || []).indexOf(iso) >= 0) return true;
     return S.dias.indexOf(new Date(+p[0], +p[1] - 1, +p[2]).getDay()) >= 0;
   }
   function textoDias() {
-    return (S.dias || []).map(function (d) { return DIAS_SEMANA[d]; }).join(", ");
+    return S.textoDias || (S.dias || []).map(function (d) { return DIAS_SEMANA[d]; }).join(", ");
   }
+  $$("[data-dias-servicio]").forEach(function (e) { e.textContent = textoDias(); });
   fecha.addEventListener("change", function () {
     var ok = diaDeServicio(fecha.value);
     if (ok) fecha.removeAttribute("aria-invalid"); else fecha.setAttribute("aria-invalid", "true");

@@ -25,10 +25,22 @@ window.ZARROZ = {
   // ---- Días y horas de entrega ----
   // "dias": 0 = domingo, 1 = lunes … 6 = sábado. Solo se pueden pedir esos días.
   // "horas": las horas de entrega que aparecen para elegir.
-  // PROVISIONAL: confirmar días y franjas reales antes de lanzar.
+  // "festivos": además de esos días, se reparte en los festivos de la Comunidad de Madrid.
+  // ACTUALIZAR CADA AÑO: la Comunidad publica el calendario del año siguiente en el BOCM
+  // hacia septiembre-octubre. Añade la lista nueva con el formato "AAAA-MM-DD".
+  // PROVISIONAL: confirmar las horas de entrega.
   servicio: {
-    dias: [0, 1, 2, 3, 4, 5, 6],
-    horas: ["13:00", "13:30", "14:00", "14:30", "15:00", "15:30"]
+    dias: [5, 6, 0],   // viernes, sábados y domingos
+    textoDias: "viernes, sábados, domingos y festivos",
+    horas: ["13:00", "13:30", "14:00", "14:30", "15:00", "15:30"],
+    festivos: {
+      // 2026 (BOCM 25-09-2025 y 12-12-2025)
+      2026: ["2026-01-01", "2026-01-06", "2026-04-02", "2026-04-03", "2026-05-01", "2026-05-02", "2026-08-15",
+             "2026-10-12", "2026-11-02", "2026-12-07", "2026-12-08", "2026-12-25"],
+      // 2027 (Decreto 82/2026, BOCM 01-10-2026)
+      2027: ["2027-01-01", "2027-01-06", "2027-03-19", "2027-03-25", "2027-03-26", "2027-05-01", "2027-08-16",
+             "2027-10-12", "2027-11-01", "2027-12-06", "2027-12-08", "2027-12-25"]
+    }
   },
   // Cuánto tardamos en confirmar un pedido (sale al enviarlo).
   confirmacion: "en menos de 1 hora",
