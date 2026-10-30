@@ -9,6 +9,24 @@
   };
   var MIN = C.racionesMin || 3, MAX = C.racionesMax || 14;
 
+  /* ---------- Enlaces internos sin dejar «#carta» en la dirección ----------
+     Así, al recargar o volver a abrir la web, empieza arriba y no en la carta. */
+  document.addEventListener("click", function (ev) {
+    var a = ev.target.closest('a[href^="#"]');
+    if (!a || a.getAttribute("href").length < 2 || ev.defaultPrevented) return;
+    var destino = document.getElementById(a.getAttribute("href").slice(1));
+    if (!destino) return;
+    ev.preventDefault();
+    destino.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+  });
+  // Si se abre con «#…» desde otra página (p. ej. index.html#carta), se va allí y se limpia la dirección
+  if (location.hash) {
+    window.addEventListener("load", function () {
+      history.replaceState(null, "", location.pathname + location.search);
+    });
+  }
+
   /* ---------- Datos de contacto y avisos ---------- */
   if (C.enPruebas) $$("[data-pruebas]").forEach(function (e) { e.hidden = false; });
   $$("[data-min]").forEach(function (e) { e.textContent = MIN; });
