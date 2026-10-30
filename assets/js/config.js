@@ -64,7 +64,7 @@ window.ZARROZ = {
   opiniones: [
     { texto: "Pedimos para el cumpleaños de mi padre y fue lo más comentado de la comida. Llegó en su punto y nosotros, sentados con todos.", nombre: "Marta", detalle: "Chamartín · Arroz de bogavante", ejemplo: true },
     { texto: "El socarrat, como en Valencia. Mi suegro es de Sueca y repitió dos veces.", nombre: "Javier", detalle: "Hortaleza · A banda de rape", ejemplo: true },
-    { texto: "Cero cocina y cero fregar: recogieron la paellera y como si nada. Para los domingos en casa, perfecto.", nombre: "Lucía", detalle: "Las Tablas · Secreto ibérico", ejemplo: true }
+    { texto: "Cero cocina: lo trajeron, comimos y recogieron la paellera como si nada. Para los domingos en casa, perfecto.", nombre: "Lucía", detalle: "Las Tablas · Secreto ibérico", ejemplo: true }
   ],
 
   // ---- Envío por código postal ----
