@@ -626,7 +626,9 @@ body::before {
 #como-funciona { padding-top: clamp(32px, 4vw, 40px); }
 .opiniones + .seccion { padding-top: clamp(16px, 2vw, 22px); }
 .redes-tira + .seccion { padding-top: 0; }
-.eventos--resumen { padding-top: clamp(40px, 5vw, 60px); padding-bottom: clamp(64px, 8vw, 115px); }
+.eventos--resumen { padding-top: clamp(36px, 4vw, 48px); padding-bottom: clamp(44px, 5vw, 64px); }
+.eventos__ilu { width: min(300px, 60vw); color: var(--mostaza); justify-self: center; }
+@media (max-width: 859px) { .eventos__ilu { width: min(200px, 50vw); } }
 .historia { padding-bottom: clamp(56px, 7vw, 96px); }
 @media (max-width: 600px) {
   #como-funciona { padding-bottom: 76px; }
