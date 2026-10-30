@@ -396,13 +396,13 @@ body::before {
 .historia {
   position: relative; overflow: hidden; color: var(--crema);
   background: var(--teja) url("../img/patron-arroz-blanco.png") center / 420px;
-  padding: clamp(56px, 8vw, 96px) 0;
+  padding: clamp(44px, 5.5vw, 72px) 0;
 }
 /* En pantalla ancha: frase e isotipo a la izquierda, texto a la derecha */
 @media (min-width: 900px) {
   .historia__rejilla { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(40px, 5vw, 80px); align-items: center; }
   .historia__rejilla .historia__cabecera { margin-bottom: 0; gap: 32px; }
-  .historia__rejilla .historia__frase { font-size: clamp(2.8rem, 4.6vw, 4.6rem); }
+  .historia__rejilla .historia__frase { font-size: clamp(2.6rem, 4.2vw, 4rem); }
   .historia__rejilla .historia__isotipo { width: clamp(120px, 12vw, 170px); }
   .historia__rejilla .historia__texto p:last-child { margin-bottom: 0; }
 }
