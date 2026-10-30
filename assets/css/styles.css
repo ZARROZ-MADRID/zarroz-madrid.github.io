@@ -617,3 +617,4 @@ body::before {
 .campo__especial a { color: var(--teja); font-weight: 500; }
 
 #cabecera-pedir { white-space: nowrap; }
+@media (max-width: 999px) { #carta { scroll-margin-top: -38px; } }
