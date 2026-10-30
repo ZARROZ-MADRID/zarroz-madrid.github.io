@@ -93,13 +93,13 @@ window.ZARROZ = {
     { nombre: "Carabineros", icono: "plato-carabinero", anfitrion: "El anfitrión generoso", descripcion: "Con sepia y alcachofa", precio: 16, grupo: "marisco" },
     { nombre: "A banda de rape", icono: "plato-rape", anfitrion: "El anfitrión consciente", descripcion: "Arroz a banda con rape y gamba roja", precio: 16, grupo: "marisco" },
     { nombre: "Arroz de bogavante", icono: "plato-bogavante", anfitrion: "El anfitrión sibarita", descripcion: "Bogavante y fumet de marisco", precio: 16, grupo: "marisco" },
-    { nombre: "Arroz de cocido", icono: "plato-cocido", anfitrion: "El anfitrión clásico", descripcion: "Solo en temporada", precio: 16, grupo: "temporada" }
+    { nombre: "Arroz de cocido", icono: "plato-cocido", anfitrion: "El anfitrión castizo", descripcion: "Solo en temporada", precio: 16, grupo: "temporada" }
   ],
 
   // ---- Carta: fideuà (precio por ración, mismas paelleras que el arroz) ----
   fideuas: [
     { nombre: "Fideuà de carabineros", icono: "plato-fideua-carabineros", anfitrion: "El anfitrión original", descripcion: "Fideo fino con carabineros, con alioli", precio: 16 },
-    { nombre: "Fideuà de cocido", icono: "plato-fideua-cocido", anfitrion: "El anfitrión clásico", descripcion: "Fideo fino con el sabor del cocido", precio: 16 }
+    { nombre: "Fideuà de cocido", icono: "plato-fideua-cocido", anfitrion: "El anfitrión atrevido", descripcion: "Fideo fino con el sabor del cocido", precio: 16 }
   ],
 
   // ---- Carta: para empezar ----
