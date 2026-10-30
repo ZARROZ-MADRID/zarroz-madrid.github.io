@@ -154,11 +154,15 @@
   // Opiniones de clientes (las marcadas como ejemplo solo se ven con la web en pruebas)
   var opiniones = (C.opiniones || []).filter(function (o) { return !o.ejemplo || C.enPruebas; });
   if (opiniones.length && $("#lista-opiniones")) {
-    $("#lista-opiniones").innerHTML = opiniones.map(function (o) {
+    var tarjetas = opiniones.map(function (o) {
       return '<li class="opinion">' + (o.ejemplo ? '<span class="opinion__ejemplo">Ejemplo</span>' : "") +
         '<blockquote>«' + esc(o.texto) + '»</blockquote><p class="opinion__autor"><strong>' + esc(o.nombre) + "</strong>" +
         (o.detalle ? " · " + esc(o.detalle) : "") + "</p></li>";
     }).join("");
+    // Se repiten para que la tira se desplace sin cortes, como la de fotos
+    var copias = Math.max(2, Math.ceil(6 / opiniones.length));
+    $("#lista-opiniones").innerHTML = new Array(copias * 2 + 1).join(tarjetas);
+    $("#lista-opiniones").style.animationDuration = (opiniones.length * copias * 9) + "s";
     $("#opiniones").hidden = false;
   }
 

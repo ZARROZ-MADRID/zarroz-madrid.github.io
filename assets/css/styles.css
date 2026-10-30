@@ -590,10 +590,12 @@ body::before {
 .opiniones { padding: clamp(48px, 6vw, 72px) 0 0; }
 .opiniones + .seccion { padding-top: clamp(48px, 6vw, 72px); }
 .opiniones .titulo { margin-bottom: .8em; }
-.opiniones__lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
-@media (min-width: 800px) { .opiniones__lista { grid-template-columns: repeat(3, 1fr); } }
-.opinion { position: relative; background: #fbf7ec; border: 1px solid var(--linea); border-radius: 18px; padding: 24px 24px 20px; }
-.opinion blockquote { margin: 0 0 14px; font-size: 1.08rem; line-height: 1.55; }
+.opiniones__tira { overflow: hidden; }
+.opiniones__lista { list-style: none; margin: 0; padding: 12px 0 4px; display: flex; gap: 18px; width: max-content; animation: redes-cinta 60s linear infinite; }
+.opiniones__tira:hover .opiniones__lista { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .opiniones__lista { animation: none; } .opiniones__tira { overflow-x: auto; } }
+.opinion { position: relative; flex: none; width: min(340px, 80vw); background: #fbf7ec; border: 1px solid var(--linea); border-radius: 18px; padding: 18px 20px 16px; }
+.opinion blockquote { margin: 0 0 10px; font-size: 1rem; line-height: 1.5; }
 .opinion__autor { margin: 0; font-size: .92rem; color: var(--texto-suave); }
 .opinion__autor strong { color: var(--teja); font-weight: 500; }
 .opinion__ejemplo { position: absolute; top: -10px; right: 16px; background: var(--mostaza); color: var(--marron, #362b29); font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; }
