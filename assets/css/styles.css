@@ -638,3 +638,14 @@ body::before {
   #carta { padding-bottom: 16px; }
 }
 .redes-tira__fotos:hover .redes-tira__pista-fotos { animation-play-state: paused; }
+
+/* Claim bajo el logo (portada y pie) */
+.portada__claim { margin: -.6em auto clamp(22px, 3.4vw, 34px); color: var(--crema); font-weight: 500; text-transform: uppercase; letter-spacing: .14em; font-size: clamp(.95rem, 1.7vw, 1.3rem); text-shadow: 0 1px 12px rgba(54, 43, 41, .6); }
+.pie__claim { margin: .6em 0 0; color: var(--crema); text-transform: uppercase; letter-spacing: .12em; font-size: .85rem; }
+/* Nuestra historia en el móvil: los dos iconos a la derecha de la frase grande, uno sobre otro */
+@media (max-width: 639px) {
+  .historia__cabecera { grid-template-columns: 1fr auto; gap: 14px; }
+  .historia__iconos { flex-direction: column; gap: 10px; justify-self: end; }
+  .historia__iconos .historia__isotipo { width: clamp(64px, 20vw, 90px); }
+}
+@media (max-width: 560px) { .portada__claim { font-size: .8rem; letter-spacing: .08em; } }
