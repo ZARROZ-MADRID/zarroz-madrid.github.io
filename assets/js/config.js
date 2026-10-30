@@ -87,19 +87,19 @@ window.ZARROZ = {
   // "icono" (opcional) es la ilustración que sale a la izquierda del plato (archivo en assets/img/ilustraciones, sin .svg).
   arroces: [
     { nombre: "Secreto ibérico", icono: "plato-cerdo", anfitrion: "El anfitrión elegante", descripcion: "Secreto Joselito, panceta ibérica salada y calabaza de la huerta", precio: 16, grupo: "carne" },
-    { nombre: "Rabo de toro", icono: "plato-toro", anfitrion: "El anfitrión clásico", descripcion: "Con setas de temporada", precio: 16, grupo: "carne" },
-    { nombre: "Costillas", icono: "plato-costillas", anfitrion: "El anfitrión perfeccionista", descripcion: "A baja temperatura, al papillote, con setas", precio: 16, grupo: "carne" },
-    { nombre: "Arroz al horno", icono: "plato-arroz-al-horno", anfitrion: "El anfitrión planificador", descripcion: "Valenciano, receta tradicional", precio: 16, grupo: "carne" },
-    { nombre: "Carabineros", icono: "plato-carabinero", anfitrion: "El anfitrión generoso", descripcion: "Con sepia y alcachofa", precio: 16, grupo: "marisco" },
-    { nombre: "A banda de rape", icono: "plato-rape", anfitrion: "El anfitrión consciente", descripcion: "Arroz a banda con rape y gamba roja", precio: 16, grupo: "marisco" },
-    { nombre: "Arroz de bogavante", icono: "plato-bogavante", anfitrion: "El anfitrión sibarita", descripcion: "Bogavante y fumet de marisco", precio: 16, grupo: "marisco" },
-    { nombre: "Arroz de cocido", icono: "plato-cocido", anfitrion: "El anfitrión castizo", descripcion: "Solo en temporada", precio: 16, grupo: "temporada" }
+    { nombre: "Rabo de toro", icono: "plato-toro", anfitrion: "El anfitrión clásico", descripcion: "Rabo de toro guisado a fuego lento durante horas, con setas de temporada", precio: 16, grupo: "carne" },
+    { nombre: "Costillas", icono: "plato-costillas", anfitrion: "El anfitrión perfeccionista", descripcion: "Costilla ibérica a baja temperatura y al papillote, con setas de temporada", precio: 16, grupo: "carne" },
+    { nombre: "Arroz al horno", icono: "plato-arroz-al-horno", anfitrion: "El anfitrión planificador", descripcion: "Receta valenciana de siempre: costilla, morcilla, garbanzo y tomate al horno", precio: 16, grupo: "carne" },
+    { nombre: "Carabineros", icono: "plato-carabinero", anfitrion: "El anfitrión generoso", descripcion: "Carabinero, sepia y alcachofa, con todo el jugo de sus cabezas", precio: 16, grupo: "marisco" },
+    { nombre: "A banda de rape", icono: "plato-rape", anfitrion: "El anfitrión consciente", descripcion: "Rape de lonja y gamba roja sobre un fumet de pescado de roca", precio: 16, grupo: "marisco" },
+    { nombre: "Arroz de bogavante", icono: "plato-bogavante", anfitrion: "El anfitrión sibarita", descripcion: "Bogavante y todo su jugo sobre un fumet de marisco de horas", precio: 16, grupo: "marisco" },
+    { nombre: "Arroz de cocido", icono: "plato-cocido", anfitrion: "El anfitrión castizo", descripcion: "El cocido madrileño hecho arroz: garbanzo, chorizo, morcilla y tocino", precio: 16, grupo: "temporada" }
   ],
 
   // ---- Carta: fideuà (precio por ración, mismas paelleras que el arroz) ----
   fideuas: [
-    { nombre: "Fideuà de carabineros", icono: "plato-fideua-carabineros", anfitrion: "El anfitrión original", descripcion: "Fideo fino con carabineros, con alioli", precio: 16 },
-    { nombre: "Fideuà de cocido", icono: "plato-fideua-cocido", anfitrion: "El anfitrión atrevido", descripcion: "Fideo fino con el sabor del cocido", precio: 16 }
+    { nombre: "Fideuà de carabineros", icono: "plato-fideua-carabineros", anfitrion: "El anfitrión original", descripcion: "Fideo fino tostado en el jugo de las cabezas de carabinero, con sepia y carabinero rojo", precio: 16 },
+    { nombre: "Fideuà de cocido", icono: "plato-fideua-cocido", anfitrion: "El anfitrión atrevido", descripcion: "Fideo fino tostado con todo el sabor del cocido madrileño", precio: 16 }
   ],
 
   // ---- Carta: para empezar ----
