@@ -162,10 +162,37 @@
     platoPaellera(a, "a" + i, lista);
   });
   (C.fideuas || []).forEach(function (a, i) { platoPaellera(a, "f" + i, $("#lista-fideua")); });
+
+  // Entrantes y vinos: se piden por unidades, con uno o varios tamaños
+  function platosSueltos(items, prefijo, lista) {
+    if (!lista) return;
+    (items || []).forEach(function (e, i) {
+      var li = document.createElement("li");
+      li.className = "plato";
+      var opts = "";
+      var precios = [];
+      e.opciones.forEach(function (o, j) {
+        var k = prefijo + i + "_" + j;
+        var nombre = e.opciones.length > 1 ? e.nombre + " (" + o.nombre.toLowerCase() + ")" : e.nombre;
+        pedido[k] = { nombre: nombre, precio: o.precio, cantidad: 0, tipo: "entrante" };
+        precios.push(e.opciones.length > 1 ? o.nombre + (o.detalle ? " (" + o.detalle + ")" : "") + " " + euros(o.precio) : euros(o.precio));
+        opts += '<div class="opcion" data-fila="' + k + '">' +
+          (e.opciones.length > 1 ? '<span class="opcion__etiqueta">' + esc(o.nombre) + '</span>' : "") +
+          contador(k, esc(nombre)) + "</div>";
+      });
+      var info = precios.join(", ") + (e.nota ? ". " + esc(e.nota) : "");
+      li.innerHTML = '<div><p class="plato__nombre">' + esc(e.nombre) + '</p><p class="plato__info">' + info + '</p></div>' +
+        '<div class="plato__opciones">' + opts + "</div>";
+      lista.appendChild(li);
+    });
+  }
+  platosSueltos(C.entrantes, "e", listaEntrantes);
+  platosSueltos(C.vinos, "v", $("#lista-vinos"));
+
   // Oculta los apartados de la carta que se queden vacíos (y su pestaña)
   $$(".carta__grupo").forEach(function (g) {
     var ul = $("ul", g);
-    if (ul && !ul.children.length && ul.id !== "lista-entrantes") {
+    if (ul && !ul.children.length) {
       g.hidden = true;
       var p = $('[data-pestana="' + g.id + '"]'); if (p) p.hidden = true;
     }
@@ -190,26 +217,6 @@
     $("#carta").classList.add("carta--filtrada");
     mostrarApartado(grupos[0].id);
   }
-
-  (C.entrantes || []).forEach(function (e, i) {
-    var li = document.createElement("li");
-    li.className = "plato";
-    var opts = "";
-    var precios = [];
-    e.opciones.forEach(function (o, j) {
-      var k = "e" + i + "_" + j;
-      var nombre = e.opciones.length > 1 ? e.nombre + " (" + o.nombre.toLowerCase() + ")" : e.nombre;
-      pedido[k] = { nombre: nombre, precio: o.precio, cantidad: 0, tipo: "entrante" };
-      precios.push(e.opciones.length > 1 ? o.nombre + (o.detalle ? " (" + o.detalle + ")" : "") + " " + euros(o.precio) : euros(o.precio));
-      opts += '<div class="opcion" data-fila="' + k + '">' +
-        (e.opciones.length > 1 ? '<span class="opcion__etiqueta">' + esc(o.nombre) + '</span>' : "") +
-        contador(k, esc(nombre)) + "</div>";
-    });
-    var info = precios.join(", ") + (e.nota ? ". " + esc(e.nota) : "");
-    li.innerHTML = '<div><p class="plato__nombre">' + esc(e.nombre) + '</p><p class="plato__info">' + info + '</p></div>' +
-      '<div class="plato__opciones">' + opts + "</div>";
-    listaEntrantes.appendChild(li);
-  });
 
   function cambiar(k, delta) {
     var p = pedido[k], n = p.cantidad;

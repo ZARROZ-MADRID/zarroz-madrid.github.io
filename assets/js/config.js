@@ -64,5 +64,12 @@ window.ZARROZ = {
     { nombre: "Ensaladilla rusa", opciones: [{ nombre: "Media", detalle: "300 g", precio: 6 }, { nombre: "Entera", detalle: "600 g", precio: 10 }] },
     { nombre: "Gildas", nota: "4 unidades", opciones: [{ nombre: "Ración", precio: 6 }] },
     { nombre: "Alioli", nota: "Tarrina de 160 ml", opciones: [{ nombre: "Tarrina", precio: 2 }] }
+  ],
+
+  // ---- Carta: vinos ----
+  // Mismo formato que los entrantes. "nota" sale tras el precio (bodega, uva, D.O.…).
+  vinos: [
+    { nombre: "Vino tinto", nota: "Rioja crianza · 75 cl", opciones: [{ nombre: "Botella", precio: 18 }] },
+    { nombre: "Vino blanco", nota: "Albariño · 75 cl", opciones: [{ nombre: "Botella", precio: 12 }] }
   ]
 };

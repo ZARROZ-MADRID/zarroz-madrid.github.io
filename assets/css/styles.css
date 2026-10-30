@@ -260,14 +260,14 @@ body::before {
 .opcion { display: flex; align-items: center; gap: 10px; }
 .opcion__etiqueta { font-size: .95rem; color: var(--texto-suave); white-space: nowrap; }
 
-.contador { display: inline-flex; align-items: center; border: 1.5px solid var(--teja); border-radius: 999px; background: #fbf7ec; }
+.contador { display: inline-flex; align-items: center; border: 1.2px solid var(--teja); border-radius: 999px; background: #fbf7ec; }
 .contador button {
-  width: 40px; height: 40px; border: 0; background: none; color: var(--teja);
-  font: 500 1.35rem/1 var(--f-texto); cursor: pointer; border-radius: 999px;
+  width: 30px; height: 30px; border: 0; background: none; color: var(--teja);
+  font: 500 1.1rem/1 var(--f-texto); cursor: pointer; border-radius: 999px;
 }
 .contador button:hover:not([disabled]) { background: var(--crema-2); }
 .contador button[disabled] { opacity: .3; cursor: default; }
-.contador output { min-width: 2ch; text-align: center; font-weight: 500; font-variant-numeric: tabular-nums; }
+.contador output { min-width: 2ch; text-align: center; font-weight: 500; font-size: .92rem; font-variant-numeric: tabular-nums; }
 .plato.activo .contador { background: var(--teja); }
 .plato.activo .contador button, .plato.activo .contador output { color: var(--crema); }
 .plato.activo .contador button:hover:not([disabled]) { background: var(--teja-osc); }
@@ -281,7 +281,7 @@ body::before {
   .plato__info { font-size: .92rem; }
   .plato:has(.opcion + .opcion) { grid-template-columns: 1fr; }
   .plato:has(.opcion + .opcion) .plato__opciones { justify-content: flex-start; }
-  .contador button { width: 36px; height: 36px; }
+  .contador button { width: 32px; height: 32px; }
   .carta__grupo + .carta__grupo { margin-top: 40px; }
 }
 
