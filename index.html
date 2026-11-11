@@ -13,7 +13,7 @@
   <link rel="preload" href="assets/fonts/big-shoulders-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" type="image/webp" href="assets/img/albufera-vertical.webp" media="(max-width: 759px)" fetchpriority="high">
   <link rel="preload" as="image" type="image/webp" href="assets/img/albufera-horizontal.webp" media="(min-width: 760px)" fetchpriority="high">
-  <link rel="stylesheet" href="assets/css/styles.css?v=67">
+  <link rel="stylesheet" href="assets/css/styles.css?v=69">
   <meta property="og:title" content="Zarroz · Sabor a Valencia. Acento de Madrid.">
   <meta property="og:description" content="Arroces a domicilio en Madrid, para anfitriones que quieren estar presentes.">
   <meta property="og:type" content="website">
@@ -94,7 +94,7 @@
       <div class="contenedor carta">
         <div>
           <h2 class="titulo">La carta</h2>
-          <p class="carta__lema">Así como existen muchos arroces, existen muchos anfitriones. ¿Cuál eres tú?</p>
+          <p class="carta__lema">Cada anfitrión tiene su arroz. ¿Cuál es el tuyo?</p>
           <p class="carta__nota"><span data-precio-nota>Precios por ración.</span> Cada arroz se hace en su propia paella, de <span data-min>3</span> a <span data-max>8</span> raciones. Para más personas, pide varias paellas.</p>
 
           <nav class="carta__pestanas" role="tablist" aria-label="Apartados de la carta">
@@ -173,7 +173,7 @@
               <button class="boton" type="submit" data-canal="email">Enviar por email</button>
               <button class="boton boton--borde" type="button" data-canal="copiar">Copiar el pedido</button>
             </div>
-            <p class="pedido__ayuda">Te confirmamos el pedido <span data-confirmacion>en menos de 1 hora</span>. Si no se abre tu correo, copia el pedido y envíalo a <a href="mailto:pedidos@zarroz.com" data-email>pedidos@zarroz.com</a><span data-si="telefono" hidden> o llámanos al <a data-tel href="#"></a></span>.</p>
+            <p class="pedido__ayuda">Te confirmamos el pedido <span data-confirmacion>lo antes posible</span>. Si no se abre tu correo, copia el pedido y envíalo a <a href="mailto:pedidos@zarroz.com" data-email>pedidos@zarroz.com</a><span data-si="telefono" hidden> o llámanos al <a data-tel href="#"></a></span>.</p>
             <div class="pedido__ok" id="pedido-ok" role="status" hidden></div>
           </form>
         </aside>
@@ -238,10 +238,10 @@
     <section class="seccion" id="preguntas">
       <div class="contenedor preguntas">
         <h2 class="titulo">Preguntas frecuentes</h2>
-        <details><summary>¿De qué tamaño son los arroces?</summary><p>Cada arroz se prepara en su paella, de <span data-min>3</span> a <span data-max>8</span> raciones. Si sois más, pide varias paellas del mismo arroz o de distintos.</p></details>
+        <details><summary>¿De qué tamaño son los arroces?</summary><p>Cada arroz se prepara en su paella, de <span data-min>3</span> a <span data-max>8</span> raciones. Para grupos más grandes, pide varias paellas: del mismo arroz o de arroces distintos.</p></details>
         <details><summary>¿Qué días repartís?</summary><p>Viernes, sábados, domingos y festivos de la Comunidad de Madrid, a mediodía. Si necesitas el arroz otro día, escríbenos a <a href="mailto:pedidos@zarroz.com" data-email>pedidos@zarroz.com</a><span data-si="telefono" hidden> o llámanos al <a data-tel href="#"></a></span> y lo vemos.</p></details>
-        <details><summary>¿Con cuánta antelación tengo que pedir?</summary><p>Puedes pedir para el mismo día, pero te recomendamos hacerlo el día anterior, porque tenemos mucha demanda.</p></details>
-        <details><summary>¿Enviáis a todo Madrid?</summary><p>Repartimos en toda la ciudad de Madrid y en La Moraleja. El envío es gratis en Hortaleza, Ciudad Lineal, Prosperidad, El Viso, Ventas, Sanchinarro, Las Tablas y Barajas. En el resto cuesta 6 € o 9 € según la distancia. Al escribir tu código postal en el pedido verás el precio exacto.</p></details>
+        <details><summary>¿Con cuánta antelación tengo que pedir?</summary><p>Puedes pedir para el mismo día, aunque te recomendamos hacerlo con un día de antelación.</p></details>
+        <details><summary>¿Enviáis a todo Madrid?</summary><p>Repartimos en toda la ciudad de Madrid y alrededores, como La Moraleja. El envío es gratis en Hortaleza, Ciudad Lineal, Prosperidad, El Viso, Ventas, Sanchinarro, Las Tablas y Barajas. En el resto cuesta 6 € o 9 € según la distancia. Al escribir tu código postal en el pedido verás el precio exacto.</p></details>
         <details><summary>¿Cómo se paga?</summary><p>Al recibir el pedido, en efectivo o con tarjeta. No hay que pagar nada por adelantado.</p></details>
         <p class="preguntas__todas"><a class="boton boton--borde" href="preguntas.html">Ver todas las preguntas</a></p>
       </div>
@@ -265,7 +265,7 @@
             <li><a href="mailto:pedidos@zarroz.com" data-email>pedidos@zarroz.com</a></li>
             <li data-si="telefono" hidden><a data-tel href="#"></a></li>
             <li data-si="whatsapp" hidden><a data-wa href="#">WhatsApp</a></li>
-            <li>Reparto en toda la ciudad de Madrid</li>
+            <li>Reparto en la ciudad de Madrid y alrededores</li>
           </ul>
         </div>
         <div>
@@ -278,7 +278,7 @@
         </div>
       </div>
       <div class="pie__legal">
-        <p>© <span data-anio>2026</span> Zarroz Madrid SL</p>
+        <p>© <span data-anio>2026</span> Zarroz Madrid, S.L.</p>
         <a href="aviso-legal.html">Aviso legal</a>
         <a href="privacidad.html">Privacidad</a>
         <a href="cookies.html">Cookies</a>
@@ -287,7 +287,7 @@
   </footer>
 
 
-  <script src="assets/js/config.js?v=67"></script>
-  <script src="assets/js/app.js?v=67"></script>
+  <script src="assets/js/config.js?v=69"></script>
+  <script src="assets/js/app.js?v=69"></script>
 </body>
 </html>

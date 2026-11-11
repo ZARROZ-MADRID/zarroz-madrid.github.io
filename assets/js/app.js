@@ -240,10 +240,12 @@
 
   // Entrantes y vinos: se piden por unidades, con uno o varios tamaños
   function platosSueltos(items, prefijo, lista) {
-    if (!lista) return;
     (items || []).forEach(function (e, i) {
+      // Los extras (como el alioli) salen al final de varios apartados; las casillas van sincronizadas
+      var listas = e.grupos ? e.grupos.map(function (g) { return $("#lista-" + g); }).filter(Boolean) : [lista];
+      if (!listas.length || !listas[0]) return;
       var li = document.createElement("li");
-      li.className = "plato";
+      li.className = "plato" + (e.grupos ? " plato--extra" : "");
       var opts = "";
       var precios = [];
       e.opciones.forEach(function (o, j) {
@@ -255,14 +257,18 @@
           (e.opciones.length > 1 ? '<span class="opcion__etiqueta">' + esc(o.nombre) + '</span>' : "") +
           contador(k, esc(nombre)) + "</div>";
       });
-      var info = precios.join(", ") + (e.nota ? ". " + esc(e.nota) : "");
-      li.innerHTML = '<div class="plato__cuerpo">' + icono(e.icono) + '<div><p class="plato__nombre">' + esc(e.nombre) + '</p><p class="plato__info">' + info + '</p></div></div>' +
+      // Con un solo tamaño, el precio va al final, como en los arroces: «4 unidades · 6 €»
+      var info = e.opciones.length > 1 ? precios.join(", ") + (e.nota ? " · " + esc(e.nota) : "")
+        : (e.nota ? esc(e.nota) + " · " : "") + precios[0];
+      li.innerHTML = '<div class="plato__cuerpo">' + icono(e.icono) + '<div>' + (e.grupos ? '<p class="plato__anfitrion">Para acompañar</p>' : "") +
+        '<p class="plato__nombre">' + esc(e.nombre) + '</p><p class="plato__info">' + info + '</p></div></div>' +
         '<div class="plato__opciones">' + opts + "</div>";
-      lista.appendChild(li);
+      listas.forEach(function (l, n) { l.appendChild(n ? li.cloneNode(true) : li); });
     });
   }
   platosSueltos(C.entrantes, "e", listaEntrantes);
   platosSueltos(C.vinos, "v", $("#lista-vinos"));
+  platosSueltos(C.extras, "x", null);
 
   // Oculta los apartados de la carta que se queden vacíos (y su pestaña)
   $$(".carta__grupo").forEach(function (g) {
@@ -348,16 +354,15 @@
   function pintar() {
     Object.keys(pedido).forEach(function (k) {
       var p = pedido[k];
-      var out = $('[data-cant="' + k + '"]'); if (out) out.textContent = p.cantidad;
-      var menos = $('[data-menos="' + k + '"]'); if (menos) menos.disabled = p.cantidad === 0;
-      var mas = $('[data-mas="' + k + '"]');
-      if (mas) {
+      // $$: un mismo plato puede salir en varios apartados (los extras), y todas sus casillas van a la par
+      $$('[data-cant="' + k + '"]').forEach(function (out) { out.textContent = p.cantidad; });
+      $$('[data-menos="' + k + '"]').forEach(function (menos) { menos.disabled = p.cantidad === 0; });
+      $$('[data-mas="' + k + '"]').forEach(function (mas) {
         var tope = p.tipo === "arroz" ? MAX : 20;
         mas.disabled = p.cantidad >= tope;
         mas.setAttribute("aria-label", p.tipo === "arroz" && p.cantidad === 0 ? "Añadir " + MIN + " raciones" : "Añadir");
-      }
-      var fila = $('[data-fila="' + k + '"]');
-      if (fila) fila.classList.toggle(p.tipo === "arroz" ? "activo" : "activa", p.cantidad > 0);
+      });
+      $$('[data-fila="' + k + '"]').forEach(function (fila) { fila.classList.toggle(p.tipo === "arroz" ? "activo" : "activa", p.cantidad > 0); });
       var min = $('[data-min-de="' + k + '"]');
       if (min) min.textContent = p.cantidad ? p.cantidad + " raciones" : "Mín. " + MIN + " raciones";
     });
@@ -505,7 +510,7 @@
   function confirmar(html) { okEl.innerHTML = html; okEl.hidden = false; okEl.scrollIntoView({ block: "nearest" }); }
   // Qué pasa después de enviar: se dice siempre igual, sea por WhatsApp, email o copiado
   function despues() {
-    return "<p>Te confirmamos el pedido " + esc(C.confirmacion || "lo antes posible") + (C.whatsapp ? " por WhatsApp" : "") + "." +
+    return "<p>Te confirmamos el pedido " + esc(C.confirmacion || "lo antes posible") + "." +
       (C.telefono ? " Si no te llega nuestra respuesta, llámanos al " + esc(C.telefono) + "." : "") + "</p>";
   }
 

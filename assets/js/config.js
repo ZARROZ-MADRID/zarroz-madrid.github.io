@@ -48,7 +48,7 @@ window.ZARROZ = {
     }
   },
   // Cuánto tardamos en confirmar un pedido (sale al enviarlo).
-  confirmacion: "en menos de 1 hora",
+  confirmacion: "lo antes posible",
 
   // ---- Redes sociales (cinta y fotos antes de las preguntas) ----
   // "usuario" es el nombre que sale en la cinta. "fotos" son imágenes de assets/img/redes/.
@@ -71,9 +71,9 @@ window.ZARROZ = {
   // Precio de envío y códigos postales de cada zona.
   // Si un código postal no aparece en ninguna zona, la web avisa de que no repartimos allí.
   envio: [
-    { precio: 0, cps: ["28002", "28016", "28017", "28027", "28033", "28042", "28043", "28050"] },
+    { precio: 0, cps: ["28002", "28016", "28017", "28027", "28033", "28037", "28042", "28043", "28050"] },
     { precio: 6, cps: ["28001", "28003", "28006", "28007", "28009", "28010", "28020", "28022", "28028", "28029",
-                       "28030", "28036", "28037", "28039", "28046", "28055", "28109"] },
+                       "28030", "28036", "28039", "28046", "28055", "28109"] },
     { precio: 9, cps: ["28004", "28005", "28008", "28011", "28012", "28013", "28014", "28015", "28018", "28019",
                        "28021", "28023", "28024", "28025", "28026", "28031", "28032", "28034", "28035", "28038",
                        "28040", "28041", "28044", "28045", "28047", "28048", "28049", "28051", "28052", "28053", "28054"] }
@@ -88,9 +88,9 @@ window.ZARROZ = {
   arroces: [
     { nombre: "Secreto ibérico", icono: "plato-cerdo", anfitrion: "El anfitrión elegante", descripcion: "Secreto Joselito, panceta ibérica salada y calabaza de la huerta", precio: 16, grupo: "carne" },
     { nombre: "Rabo de toro", icono: "plato-toro", anfitrion: "El anfitrión clásico", descripcion: "Rabo de toro guisado a fuego lento durante horas, con setas de temporada", precio: 16, grupo: "carne" },
-    { nombre: "Costillas", icono: "plato-costillas", anfitrion: "El anfitrión perfeccionista", descripcion: "Costilla ibérica a baja temperatura y al papillote, con setas de temporada", precio: 16, grupo: "carne" },
+    { nombre: "Costillas", icono: "plato-costillas", anfitrion: "El anfitrión perfeccionista", descripcion: "Costilla ibérica a baja temperatura y en papillote, con setas de temporada", precio: 16, grupo: "carne" },
     { nombre: "Arroz al horno", icono: "plato-arroz-al-horno", anfitrion: "El anfitrión planificador", descripcion: "Receta valenciana de siempre: costilla, morcilla, garbanzo y tomate al horno", precio: 16, grupo: "carne" },
-    { nombre: "Carabineros", icono: "plato-carabinero", anfitrion: "El anfitrión generoso", descripcion: "Carabinero, sepia y alcachofa, con todo el jugo de sus cabezas", precio: 16, grupo: "marisco" },
+    { nombre: "Carabineros", icono: "plato-carabinero", anfitrion: "El anfitrión generoso", descripcion: "Carabinero y todo el jugo de sus cabezas, con sepia y alcachofa", precio: 16, grupo: "marisco" },
     { nombre: "A banda de rape", icono: "plato-rape", anfitrion: "El anfitrión consciente", descripcion: "Rape de lonja y gamba roja sobre un fumet de pescado de roca", precio: 16, grupo: "marisco" },
     { nombre: "Arroz de bogavante", icono: "plato-bogavante", anfitrion: "El anfitrión sibarita", descripcion: "Bogavante y todo su jugo sobre un fumet de marisco de horas", precio: 16, grupo: "marisco" },
     { nombre: "Arroz de cocido", icono: "plato-cocido", anfitrion: "El anfitrión castizo", descripcion: "El cocido madrileño hecho arroz: garbanzo, chorizo, morcilla y tocino", precio: 16, grupo: "temporada" }
@@ -98,7 +98,7 @@ window.ZARROZ = {
 
   // ---- Carta: fideuà (precio por ración, mismas paellas que el arroz) ----
   fideuas: [
-    { nombre: "Fideuà de carabineros", icono: "plato-fideua-carabineros", anfitrion: "El anfitrión original", descripcion: "Fideo fino tostado en el jugo de las cabezas de carabinero, con sepia y carabinero rojo", precio: 16 },
+    { nombre: "Fideuà de carabineros", icono: "plato-fideua-carabineros", anfitrion: "El anfitrión original", descripcion: "Fideo fino tostado en el jugo del carabinero, con sepia", precio: 16 },
     { nombre: "Fideuà de cocido", icono: "plato-fideua-cocido", anfitrion: "El anfitrión atrevido", descripcion: "Fideo fino tostado con todo el sabor del cocido madrileño", precio: 16 }
   ],
 
@@ -108,8 +108,14 @@ window.ZARROZ = {
   entrantes: [
     { nombre: "Croquetas de jamón ibérico", icono: "plato-croquetas", opciones: [{ nombre: "Media", detalle: "5 uds", precio: 6 }, { nombre: "Entera", detalle: "10 uds", precio: 10 }] },
     { nombre: "Ensaladilla rusa", icono: "plato-ensaladilla", opciones: [{ nombre: "Media", detalle: "300 g", precio: 6 }, { nombre: "Entera", detalle: "600 g", precio: 10 }] },
-    { nombre: "Gildas", icono: "plato-gilda", nota: "4 unidades", opciones: [{ nombre: "Ración", precio: 6 }] },
-    { nombre: "Alioli", icono: "plato-alioli", nota: "Tarrina de 160 ml", opciones: [{ nombre: "Tarrina", precio: 2 }] }
+    { nombre: "Gildas", icono: "plato-gilda", nota: "4 unidades", opciones: [{ nombre: "Ración", precio: 6 }] }
+  ],
+
+  // ---- Carta: para acompañar el arroz ----
+  // Salen al final de los apartados que digas en "grupos": "carne", "marisco", "temporada" o "fideua".
+  // Mismo formato que los entrantes.
+  extras: [
+    { nombre: "Alioli", icono: "plato-alioli", nota: "Tarrina de 160 ml", grupos: ["marisco", "fideua"], opciones: [{ nombre: "Tarrina", precio: 2 }] }
   ],
 
   // ---- Carta: vinos ----
