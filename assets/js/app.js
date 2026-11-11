@@ -319,6 +319,15 @@
   }
   function precioEnvio(e) { return e === 0 ? "Gratis" : euros(e); }
 
+  var paso = 1;
+  $("#pedido-seguir").addEventListener("click", function () {
+    paso = 2;
+    pintar();
+    var nombre = $("#f-nombre");
+    nombre.focus({ preventScroll: true });
+    $("#pedido-form").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
   function pintar() {
     Object.keys(pedido).forEach(function (k) {
       var p = pedido[k];
@@ -342,8 +351,11 @@
     }).join("");
     vacioEl.hidden = ls.length > 0;
     resumenEl.hidden = ls.length === 0;
-    // Los datos de entrega solo se piden cuando ya hay algo en el pedido
-    $("#pedido-form").hidden = ls.length === 0;
+    // Pedido en dos pasos: primero el resumen y el botón «Continuar»; después, los datos de entrega
+    if (!ls.length) paso = 1;
+    $("#pedido-continuar").hidden = !ls.length || paso === 2;
+    $("#pedido-form").hidden = !ls.length || paso === 1;
+    $("#pedido-seguir").setAttribute("aria-expanded", paso === 2 ? "true" : "false");
     var cp = cpEl.value.trim(), env = envioDe(cp), conEnvio = typeof env === "number";
     $("#pedido-subtotal-fila").hidden = !conEnvio;
     $("#pedido-envio-fila").hidden = !conEnvio;

@@ -313,6 +313,9 @@ body::before {
 .pedido__total { display: flex; justify-content: space-between; font-weight: 500; font-size: 1.15rem; margin: 8px 0 4px; }
 .pedido__subtotal { display: flex; justify-content: space-between; font-size: .98rem; color: var(--texto-suave); margin: 4px 0 0; }
 .pedido__envio { font-size: .95rem; color: var(--texto-suave); margin: 0 0 20px; }
+.pedido__continuar { margin: 0 0 4px; }
+.pedido__continuar .boton { width: 100%; }
+#pedido-form { scroll-margin-top: 110px; }
 .campo__aviso { font-size: .88rem; margin: 2px 0 0; color: var(--texto-suave); }
 .campo__aviso:empty { display: none; }
 .campo__aviso--ok { color: #2e6b2f; font-weight: 500; }
