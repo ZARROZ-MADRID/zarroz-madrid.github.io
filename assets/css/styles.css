@@ -657,3 +657,28 @@ body::before {
 @media (max-width: 420px) { .franja-lema { font-size: .72rem; letter-spacing: .06em; white-space: nowrap; } }
 .formatos__ilus { display: flex; align-items: flex-end; gap: 10px; margin-bottom: 14px; }
 .formatos__ilus .ilu { margin: 0; }
+
+/* =========================================================
+   Auditoría móvil (11-11-2026)
+   ========================================================= */
+/* Portada: una sola foto (picture) que llena el fondo. El agua en movimiento solo se añade en ordenador. */
+.portada__fondo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+.portada > .portada__agua { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+
+/* La franja del lema repite la frase de la portada: en el móvil se quita para que la portada suba */
+@media (max-width: 759px) { .franja-lema { display: none; } }
+
+/* Zonas de toque de al menos 44 px (lo que recomienda Apple para el dedo) */
+.contador button { width: 40px; height: 40px; }
+@media (max-width: 560px) { .contador button { width: 44px; height: 44px; } }
+.carta__pestanas a { min-height: 44px; display: inline-flex; align-items: center; }
+.portada__llamar a { display: inline-block; padding: 10px 4px; }
+.pie ul { gap: 0; }
+.pie ul a, .pie__legal a, .redes__enlace { display: inline-flex; align-items: center; min-height: 44px; }
+
+/* Letra mínima legible en el móvil */
+.opcion__min { font-size: .86rem; }
+@media (max-width: 420px) { .sellos li { font-size: .86rem; } }
+
+/* Eventos en el móvil: la ilustración del cocinero ocupaba media pantalla */
+@media (max-width: 859px) { .grupos__fila > .eventos__ilu { width: min(140px, 38vw); } }

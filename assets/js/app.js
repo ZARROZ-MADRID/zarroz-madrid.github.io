@@ -176,7 +176,8 @@
     cinta.setAttribute("aria-label", "Síguenos en Instagram: " + usuario);
     if (C.instagram) { cinta.href = C.instagram; cinta.target = "_blank"; cinta.rel = "noopener"; }
     else cinta.removeAttribute("href");
-    var fotos = (R.fotos || []).map(function (f) { return '<img src="assets/img/redes/' + encodeURIComponent(f) + '" alt="">'; });
+    // Las fotos se cargan cuando la tira se acerca a la pantalla (no al abrir la web): la portada carga antes
+    var fotos = (R.fotos || []).map(function (f) { return '<img data-src="assets/img/redes/' + encodeURIComponent(f) + '" alt="" decoding="async">'; });
     if (!fotos.length) {
       fotos = ["gente-amigos", "plato-fideua-carabineros", "brindis", "cuchara-socarrat", "gente-sobremesa", "plato-croquetas", "gente-cocinero", "manos-y-paellera", "gente-servir-plato", "plato-bogavante"]
         .map(function (n, i) {
@@ -194,10 +195,19 @@
       void pistaFotos.offsetWidth;
       pistaFotos.style.animation = "";
     };
-    Array.prototype.forEach.call(pistaFotos.querySelectorAll("img"), function (img) {
-      if (!img.complete) img.addEventListener("load", reiniciarTira);
-    });
-    window.addEventListener("load", reiniciarTira);
+    var imgsTira = pistaFotos.querySelectorAll("img[data-src]");
+    Array.prototype.forEach.call(imgsTira, function (img) { img.addEventListener("load", reiniciarTira); });
+    var cargarTira = function () {
+      Array.prototype.forEach.call(imgsTira, function (img) { img.src = img.getAttribute("data-src"); img.removeAttribute("data-src"); });
+    };
+    if (imgsTira.length) {
+      if ("IntersectionObserver" in window) {
+        var vigiaTira = new IntersectionObserver(function (es) {
+          if (es.some(function (e) { return e.isIntersecting; })) { vigiaTira.disconnect(); cargarTira(); }
+        }, { rootMargin: "800px 0px" });
+        vigiaTira.observe($("#redes"));
+      } else cargarTira();
+    }
   }
 
   // Si todos los arroces y fideuàs cuestan lo mismo, el precio se dice una vez arriba
@@ -509,4 +519,28 @@
 
   pintar();
 
+})();
+
+/* Portada en ordenador: el agua de la Albufera en movimiento.
+   Se añade cuando la página ya ha cargado y solo en pantallas grandes, para que el móvil vaya ligero. */
+(function () {
+  var portada = document.querySelector(".portada");
+  if (!portada || !window.matchMedia) return;
+  if (!window.matchMedia("(min-width: 760px) and (hover: hover)").matches) return;
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  window.addEventListener("load", function () {
+    var ns = "http://www.w3.org/2000/svg";
+    var html = '<svg class="portada__agua" viewBox="0 0 1717 961" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">' +
+      '<defs><filter id="agua-h" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">' +
+      '<feTurbulence type="fractalNoise" baseFrequency="0.004 0.05" numOctaves="2" seed="4">' +
+      '<animate attributeName="baseFrequency" dur="24s" values="0.004 0.05;0.005 0.056;0.004 0.05" repeatCount="indefinite"/></feTurbulence>' +
+      '<feDisplacementMap in="SourceGraphic" scale="4" xChannelSelector="R" yChannelSelector="G"/></filter>' +
+      '<linearGradient id="orilla-h" x1="0" y1="0" x2="0" y2="1"><stop offset="0.72" stop-color="#000"/><stop offset="0.77" stop-color="#fff"/></linearGradient>' +
+      '<mask id="mascara-h"><rect width="1717" height="961" fill="url(#orilla-h)"/></mask></defs>' +
+      '<g mask="url(#mascara-h)"><image href="assets/img/albufera-horizontal.webp" width="1717" height="961" filter="url(#agua-h)"/></g></svg>';
+    var caja = document.createElement("div");
+    caja.innerHTML = html;
+    var svg = caja.firstChild;
+    if (svg && svg.namespaceURI === ns) portada.insertBefore(svg, portada.querySelector(".contenedor"));
+  });
 })();

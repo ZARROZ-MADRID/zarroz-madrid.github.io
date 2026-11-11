@@ -11,7 +11,9 @@
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/jost-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/big-shoulders-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/styles.css?v=64">
+  <link rel="preload" as="image" type="image/webp" href="assets/img/albufera-vertical.webp" media="(max-width: 759px)" fetchpriority="high">
+  <link rel="preload" as="image" type="image/webp" href="assets/img/albufera-horizontal.webp" media="(min-width: 760px)" fetchpriority="high">
+  <link rel="stylesheet" href="assets/css/styles.css?v=65">
   <meta property="og:title" content="Zarroz · Sabor a Valencia. Acento de Madrid.">
   <meta property="og:description" content="Arroces a domicilio en Madrid, para anfitriones que quieren estar presentes.">
   <meta property="og:type" content="website">
@@ -29,8 +31,8 @@
       </a>
       <nav class="menu" aria-label="Principal">
         <div class="menu__enlaces" id="menu-enlaces">
-          <a href="#historia">Nuestra historia</a>
           <a href="#carta">Carta</a>
+          <a href="#historia">Nuestra historia</a>
           <a href="eventos.html">Eventos</a>
           <a href="#preguntas">Preguntas frecuentes</a>
         </div>
@@ -45,35 +47,14 @@
   <main>
     <!-- PORTADA -->
     <section class="portada" id="inicio">
-      <!-- Fondo: foto de la Albufera con el agua en movimiento (solo se ondula la parte del agua) -->
-      <svg class="portada__fondo portada__fondo--v" viewBox="0 0 900 1350" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
-        <defs>
-          <filter id="agua-v" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
-            <feTurbulence type="fractalNoise" baseFrequency="0.006 0.05" numOctaves="2" seed="4">
-              <animate attributeName="baseFrequency" dur="24s" values="0.006 0.05;0.007 0.056;0.006 0.05" repeatCount="indefinite"/>
-            </feTurbulence>
-            <feDisplacementMap in="SourceGraphic" scale="4" xChannelSelector="R" yChannelSelector="G"/>
-          </filter>
-          <linearGradient id="orilla-v" x1="0" y1="0" x2="0" y2="1"><stop offset="0.6" stop-color="#000"/><stop offset="0.66" stop-color="#fff"/></linearGradient>
-          <mask id="mascara-v"><rect width="900" height="1350" fill="url(#orilla-v)"/></mask>
-        </defs>
-        <image href="assets/img/albufera-vertical.jpg" width="900" height="1350"/>
-        <g mask="url(#mascara-v)"><image href="assets/img/albufera-vertical.jpg" width="900" height="1350" filter="url(#agua-v)"/></g>
-      </svg>
-      <svg class="portada__fondo portada__fondo--h" viewBox="0 0 1717 961" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
-        <defs>
-          <filter id="agua-h" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
-            <feTurbulence type="fractalNoise" baseFrequency="0.004 0.05" numOctaves="2" seed="4">
-              <animate attributeName="baseFrequency" dur="24s" values="0.004 0.05;0.005 0.056;0.004 0.05" repeatCount="indefinite"/>
-            </feTurbulence>
-            <feDisplacementMap in="SourceGraphic" scale="4" xChannelSelector="R" yChannelSelector="G"/>
-          </filter>
-          <linearGradient id="orilla-h" x1="0" y1="0" x2="0" y2="1"><stop offset="0.72" stop-color="#000"/><stop offset="0.77" stop-color="#fff"/></linearGradient>
-          <mask id="mascara-h"><rect width="1717" height="961" fill="url(#orilla-h)"/></mask>
-        </defs>
-        <image href="assets/img/albufera-horizontal.jpg" width="1717" height="961"/>
-        <g mask="url(#mascara-h)"><image href="assets/img/albufera-horizontal.jpg" width="1717" height="961" filter="url(#agua-h)"/></g>
-      </svg>
+      <!-- Fondo: foto de la Albufera. El móvil solo descarga la vertical; el ordenador, la horizontal.
+           En ordenador, app.js añade encima el agua en movimiento cuando la página ya ha cargado. -->
+      <picture class="portada__fondo">
+        <source media="(min-width: 760px)" type="image/webp" srcset="assets/img/albufera-horizontal.webp">
+        <source media="(min-width: 760px)" srcset="assets/img/albufera-horizontal.jpg">
+        <source type="image/webp" srcset="assets/img/albufera-vertical.webp">
+        <img src="assets/img/albufera-vertical.jpg" alt="" width="900" height="1350" fetchpriority="high" decoding="async">
+      </picture>
       <div class="contenedor">
         <h1 class="sr-only">Zarroz, arroces a domicilio en Madrid</h1>
         <img class="portada__logo" src="assets/img/logo-crema.svg" alt="Zarroz" width="640" height="180">
@@ -106,37 +87,6 @@
           <li><span class="ilu" aria-hidden="true" style="-webkit-mask-image:url(assets/img/ilustraciones/brindis.svg);mask-image:url(assets/img/ilustraciones/brindis.svg)"></span><div><h3>Disfruta</h3><p>Tú, a la sobremesa: recogemos la paella <span data-recogida>entre hora y media y dos horas después de entregarla</span>.</p></div></li>
         </ol>
       </div>
-    </section>
-
-    <!-- HISTORIA -->
-    <section class="historia" id="historia">
-      <div class="contenedor">
-        <div class="historia__rejilla">
-        <div>
-        <h2 class="historia__titulo">Nuestra historia</h2>
-        <div class="historia__cabecera">
-          <p class="historia__frase">En Valencia, el arroz no es un plato. Es tiempo.</p>
-          <div class="historia__iconos" aria-hidden="true">
-            <span class="ilu historia__isotipo" style="-webkit-mask-image:url(assets/img/isotipo-circulo.svg);mask-image:url(assets/img/isotipo-circulo.svg)"></span>
-            <span class="ilu historia__isotipo" style="-webkit-mask-image:url(assets/img/ilustraciones/cuchara-socarrat.svg);mask-image:url(assets/img/ilustraciones/cuchara-socarrat.svg)"></span>
-          </div>
-        </div>
-        </div>
-        <div class="historia__texto historia__texto--corto">
-          <p>Un buen arroz es una casa que se llena, una mesa que se alarga y una conversación sin prisa. Es la paella en el centro, pelearse por el socarrat y decir «bon profit» antes de empezar.</p>
-          <p>Zarroz nace para traer eso a Madrid: arroces con la receta y los tiempos de siempre, que llegan recién hechos a tu mesa en su paella.</p>
-          <p class="historia__poema">Bon profit.</p>
-        </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- OPINIONES (salen desde config.js; las de ejemplo solo en pruebas) -->
-    <section class="seccion opiniones" id="opiniones" hidden>
-      <div class="contenedor">
-        <h2 class="titulo">Lo que dicen los anfitriones</h2>
-      </div>
-      <div class="opiniones__tira"><ul class="opiniones__lista" id="lista-opiniones"></ul></div>
     </section>
 
     <!-- CARTA Y PEDIDO -->
@@ -223,6 +173,37 @@
       </div>
     </section>
 
+    <!-- HISTORIA -->
+    <section class="historia" id="historia">
+      <div class="contenedor">
+        <div class="historia__rejilla">
+        <div>
+        <h2 class="historia__titulo">Nuestra historia</h2>
+        <div class="historia__cabecera">
+          <p class="historia__frase">En Valencia, el arroz no es un plato. Es tiempo.</p>
+          <div class="historia__iconos" aria-hidden="true">
+            <span class="ilu historia__isotipo" style="-webkit-mask-image:url(assets/img/isotipo-circulo.svg);mask-image:url(assets/img/isotipo-circulo.svg)"></span>
+            <span class="ilu historia__isotipo" style="-webkit-mask-image:url(assets/img/ilustraciones/cuchara-socarrat.svg);mask-image:url(assets/img/ilustraciones/cuchara-socarrat.svg)"></span>
+          </div>
+        </div>
+        </div>
+        <div class="historia__texto historia__texto--corto">
+          <p>Un buen arroz es una casa que se llena, una mesa que se alarga y una conversación sin prisa. Es la paella en el centro, pelearse por el socarrat y decir «bon profit» antes de empezar.</p>
+          <p>Zarroz nace para traer eso a Madrid: arroces con la receta y los tiempos de siempre, que llegan recién hechos a tu mesa en su paella.</p>
+          <p class="historia__poema">Bon profit.</p>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPINIONES (salen desde config.js; las de ejemplo solo en pruebas) -->
+    <section class="seccion opiniones" id="opiniones" hidden>
+      <div class="contenedor">
+        <h2 class="titulo">Lo que dicen los anfitriones</h2>
+      </div>
+      <div class="opiniones__tira"><ul class="opiniones__lista" id="lista-opiniones"></ul></div>
+    </section>
+
     <!-- EVENTOS (resumen; la sección completa está en eventos.html) -->
     <section class="seccion grupos eventos eventos--resumen" id="eventos">
       <div class="contenedor grupos__fila">
@@ -299,7 +280,7 @@
   </footer>
 
 
-  <script src="assets/js/config.js?v=64"></script>
-  <script src="assets/js/app.js?v=64"></script>
+  <script src="assets/js/config.js?v=65"></script>
+  <script src="assets/js/app.js?v=65"></script>
 </body>
 </html>
