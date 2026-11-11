@@ -176,7 +176,7 @@
     cinta.setAttribute("aria-label", "Síguenos en Instagram: " + usuario);
     if (C.instagram) { cinta.href = C.instagram; cinta.target = "_blank"; cinta.rel = "noopener"; }
     else cinta.removeAttribute("href");
-    var fotos = (R.fotos || []).map(function (f) { return '<img src="assets/img/redes/' + encodeURIComponent(f) + '" alt="" loading="lazy">'; });
+    var fotos = (R.fotos || []).map(function (f) { return '<img src="assets/img/redes/' + encodeURIComponent(f) + '" alt="">'; });
     if (!fotos.length) {
       fotos = ["gente-amigos", "plato-fideua-carabineros", "brindis", "cuchara-socarrat", "gente-sobremesa", "plato-croquetas", "gente-cocinero", "manos-y-paellera", "gente-servir-plato", "plato-bogavante"]
         .map(function (n, i) {
@@ -186,6 +186,18 @@
     }
     // Se repite la tira para que el desplazamiento sea continuo
     $("#redes-fotos").innerHTML = '<div class="redes-tira__pista-fotos">' + fotos.join("") + fotos.join("") + "</div>";
+    // En iPhone (Safari) el recorrido de la tira se calcula al empezar: si las fotos aún no han cargado,
+    // la tira mide casi cero y parece quieta. Se reinicia el movimiento cada vez que termina de cargar una foto.
+    var pistaFotos = $("#redes-fotos .redes-tira__pista-fotos");
+    var reiniciarTira = function () {
+      pistaFotos.style.animation = "none";
+      void pistaFotos.offsetWidth;
+      pistaFotos.style.animation = "";
+    };
+    Array.prototype.forEach.call(pistaFotos.querySelectorAll("img"), function (img) {
+      if (!img.complete) img.addEventListener("load", reiniciarTira);
+    });
+    window.addEventListener("load", reiniciarTira);
   }
 
   // Si todos los arroces y fideuàs cuestan lo mismo, el precio se dice una vez arriba
