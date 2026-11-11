@@ -682,3 +682,21 @@ body::before {
 
 /* Eventos en el móvil: la ilustración del cocinero ocupaba media pantalla */
 @media (max-width: 859px) { .grupos__fila > .eventos__ilu { width: min(140px, 38vw); } }
+
+/* Pestañas de la carta en el móvil: todas a la vista (dos filas), para que nadie se pierda Entrantes y Vinos */
+@media (max-width: 999px) {
+  .carta__pestanas { flex-wrap: wrap; overflow-x: visible; gap: 8px; }
+  .carta__pestanas a { flex: 1 1 auto; justify-content: center; padding: .4em .9em; }
+}
+@media (max-width: 599px) {
+  /* Móvil: tres por fila, todas del mismo ancho */
+  .carta__pestanas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .carta__pestanas a { padding: .4em .5em; }
+}
+
+/* Sugerencia en el pedido: entrantes y vinos */
+.pedido__sugerencia { margin: 0 0 18px; padding: 14px 16px; border-radius: 14px; background: var(--crema-2); }
+.pedido__sugerencia p { margin: 0 0 10px; font-weight: 500; color: var(--teja); }
+.pedido__sugerencia-botones { display: flex; flex-wrap: wrap; gap: 8px; }
+.pedido__sugerencia-botones .boton { flex: 1 1 0; min-height: 44px; padding: .5em 1em; }
+.carta__pestanas { scroll-margin-top: 84px; }

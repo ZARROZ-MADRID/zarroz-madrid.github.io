@@ -13,7 +13,7 @@
   <link rel="preload" href="assets/fonts/big-shoulders-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" type="image/webp" href="assets/img/albufera-vertical.webp" media="(max-width: 759px)" fetchpriority="high">
   <link rel="preload" as="image" type="image/webp" href="assets/img/albufera-horizontal.webp" media="(min-width: 760px)" fetchpriority="high">
-  <link rel="stylesheet" href="assets/css/styles.css?v=65">
+  <link rel="stylesheet" href="assets/css/styles.css?v=67">
   <meta property="og:title" content="Zarroz · Sabor a Valencia. Acento de Madrid.">
   <meta property="og:description" content="Arroces a domicilio en Madrid, para anfitriones que quieren estar presentes.">
   <meta property="og:type" content="website">
@@ -145,6 +145,13 @@
             <p class="pedido__subtotal" id="pedido-envio-fila" hidden><span>Envío</span><span id="pedido-envio-precio"></span></p>
             <p class="pedido__total"><span>Total</span><span id="pedido-total">0 €</span></p>
             <p class="pedido__envio" id="pedido-envio">Más el envío: gratis, 6 € o 9 € según tu código postal.</p>
+          </div>
+          <div class="pedido__sugerencia" id="pedido-sugerencia" hidden>
+            <p id="pedido-sugerencia-texto">¿Algo para empezar o para beber?</p>
+            <div class="pedido__sugerencia-botones">
+              <a class="boton boton--borde" href="#c-entrantes" data-sugerir="c-entrantes">Entrantes</a>
+              <a class="boton boton--borde" href="#c-vinos" data-sugerir="c-vinos">Vinos</a>
+            </div>
           </div>
           <div class="pedido__continuar" id="pedido-continuar" hidden>
             <button class="boton" type="button" id="pedido-seguir" aria-controls="pedido-form" aria-expanded="false">Continuar</button>
@@ -280,7 +287,7 @@
   </footer>
 
 
-  <script src="assets/js/config.js?v=65"></script>
-  <script src="assets/js/app.js?v=65"></script>
+  <script src="assets/js/config.js?v=67"></script>
+  <script src="assets/js/app.js?v=67"></script>
 </body>
 </html>

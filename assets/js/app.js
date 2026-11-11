@@ -329,6 +329,13 @@
   }
   function precioEnvio(e) { return e === 0 ? "Gratis" : euros(e); }
 
+  $$("[data-sugerir]").forEach(function (a) {
+    a.addEventListener("click", function (ev) {
+      ev.preventDefault();
+      mostrarApartado(a.dataset.sugerir);
+      $(".carta__pestanas").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
   var paso = 1;
   $("#pedido-seguir").addEventListener("click", function () {
     paso = 2;
@@ -361,6 +368,16 @@
     }).join("");
     vacioEl.hidden = ls.length > 0;
     resumenEl.hidden = ls.length === 0;
+    // Sugerencia: con un arroz en el pedido y sin entrantes o sin vino, se ofrecen esos apartados
+    var conPaella = ls.some(function (p) { return p.tipo === "arroz"; });
+    var hayCon = function (pref) { return Object.keys(pedido).some(function (k) { return k.charAt(0) === pref && pedido[k].cantidad > 0; }); };
+    var faltaEntrante = !hayCon("e") && !!$('[data-pestana="c-entrantes"]:not([hidden])');
+    var faltaVino = !hayCon("v") && !!$('[data-pestana="c-vinos"]:not([hidden])');
+    $("#pedido-sugerencia").hidden = !(conPaella && (faltaEntrante || faltaVino));
+    $('[data-sugerir="c-entrantes"]').hidden = !faltaEntrante;
+    $('[data-sugerir="c-vinos"]').hidden = !faltaVino;
+    $("#pedido-sugerencia-texto").textContent = faltaEntrante && faltaVino ? "¿Algo para empezar o para beber?"
+      : faltaEntrante ? "¿Algo para empezar?" : "¿Y para beber?";
     // Pedido en dos pasos: primero el resumen y el botón «Continuar»; después, los datos de entrega
     if (!ls.length) paso = 1;
     $("#pedido-continuar").hidden = !ls.length || paso === 2;
