@@ -185,29 +185,87 @@
           return '<span class="redes-tira__hueco redes-tira__hueco--' + (i % 3) + '"><span class="ilu" style="-webkit-mask-image:url(' + u + ');mask-image:url(' + u + ')"></span></span>';
         });
     }
-    // Se repite la tira para que el desplazamiento sea continuo
-    $("#redes-fotos").innerHTML = '<div class="redes-tira__pista-fotos">' + fotos.join("") + fotos.join("") + "</div>";
-    // En iPhone (Safari) el recorrido de la tira se calcula al empezar: si las fotos aún no han cargado,
-    // la tira mide casi cero y parece quieta. Se reinicia el movimiento cada vez que termina de cargar una foto.
-    var pistaFotos = $("#redes-fotos .redes-tira__pista-fotos");
-    var reiniciarTira = function () {
-      pistaFotos.style.animation = "none";
-      void pistaFotos.offsetWidth;
-      pistaFotos.style.animation = "";
+    // Tira de fotos al estilo de La Martinuca: avanza hacia la izquierda de una en una, con un deslizamiento
+    // suave, alterna fotos cuadradas y alargadas, y se puede arrastrar con el dedo.
+    // Se repite la lista para que llene las pantallas anchas. La clase de cada foto viaja con ella al rotar.
+    var todas = fotos.concat(fotos).map(function (h, i) {
+      return h.replace(/^<(img|span) (class="([^"]*)" )?/, function (m, tag, conClase, clase) {
+        return "<" + tag + ' class="' + ((clase ? clase + " " : "") + "redes-tira__foto" + (i % 2 ? " redes-tira__foto--alta" : "")) + '" ';
+      });
+    });
+    $("#redes-fotos").innerHTML = '<div class="redes-tira__pista-fotos">' + todas.join("") + "</div>";
+    var pista = $("#redes-fotos .redes-tira__pista-fotos");
+    var lento = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var DESLIZ = lento ? 2.4 : 1.8, PAUSA = lento ? 3000 : 100;   // segundos de cada paso / milisegundos entre pasos
+    var hueco = function () { return parseFloat(getComputedStyle(pista).columnGap) || 0; };
+    var ancho = function (el) { return el.getBoundingClientRect().width + hueco(); };
+    var visible = false, arrastrando = false, temporizador = null, x = 0;
+    var mover = function (nx, conTransicion) {
+      x = nx;
+      pista.style.transition = conTransicion ? "transform " + DESLIZ + "s ease" : "none";
+      pista.style.transform = "translateX(" + x + "px)";
     };
-    var imgsTira = pistaFotos.querySelectorAll("img[data-src]");
-    Array.prototype.forEach.call(imgsTira, function (img) { img.addEventListener("load", reiniciarTira); });
-    var cargarTira = function () {
-      Array.prototype.forEach.call(imgsTira, function (img) { img.src = img.getAttribute("data-src"); img.removeAttribute("data-src"); });
+    var programar = function () {
+      clearTimeout(temporizador);
+      if (visible && !arrastrando && !document.hidden) temporizador = setTimeout(avanzar, PAUSA);
     };
-    if (imgsTira.length) {
-      if ("IntersectionObserver" in window) {
-        var vigiaTira = new IntersectionObserver(function (es) {
-          if (es.some(function (e) { return e.isIntersecting; })) { vigiaTira.disconnect(); cargarTira(); }
-        }, { rootMargin: "800px 0px" });
-        vigiaTira.observe($("#redes"));
-      } else cargarTira();
+    function avanzar() { if (pista.firstElementChild) mover(-ancho(pista.firstElementChild), true); }
+    // Al terminar cada paso, la primera foto pasa al final y la tira vuelve a su sitio sin que se note
+    function asentar() {
+      if (x <= -ancho(pista.firstElementChild) + 1) { var d = ancho(pista.firstElementChild); pista.appendChild(pista.firstElementChild); mover(x + d, false); }
+      if (Math.abs(x) < 1) mover(0, false);
+      void pista.offsetWidth;
+      programar();
     }
+    pista.addEventListener("transitionend", function (e) { if (e.target === pista && e.propertyName === "transform") asentar(); });
+    // Arrastrar con el dedo o el ratón
+    var inicioX = 0, baseX = 0, movido = 0;
+    pista.addEventListener("pointerdown", function (e) {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      arrastrando = true; clearTimeout(temporizador);
+      var m = getComputedStyle(pista).transform;
+      var actual = m && m !== "none" ? parseFloat(m.split(",")[4]) || 0 : 0;
+      mover(actual, false);
+      inicioX = e.clientX; baseX = actual; movido = 0;
+      try { pista.setPointerCapture(e.pointerId); } catch (err) {}
+    });
+    pista.addEventListener("pointermove", function (e) {
+      if (!arrastrando) return;
+      movido = e.clientX - inicioX;
+      mover(baseX + movido, false);
+    });
+    var soltar = function () {
+      if (!arrastrando) return;
+      arrastrando = false;
+      var primero = pista.firstElementChild, desde = x;
+      if (movido > 30 && x > -ancho(primero) / 2) {
+        // Hacia la derecha: la última foto vuelve al principio
+        var ultimo = pista.lastElementChild, d = ancho(ultimo);
+        pista.insertBefore(ultimo, primero); mover(x - d, false); void pista.offsetWidth;
+        mover(0, true);
+      } else if (movido < -30 || x <= -ancho(primero) / 2) mover(-ancho(primero), true);
+      else mover(0, true);
+      // Si no hay que moverse (un toque sin arrastrar), no habrá transición: se sigue directamente
+      if (Math.abs(desde - x) < 1) asentar();
+    };
+    pista.addEventListener("pointerup", soltar);
+    pista.addEventListener("pointercancel", soltar);
+    pista.addEventListener("dragstart", function (e) { e.preventDefault(); });
+    document.addEventListener("visibilitychange", programar);
+    // Las fotos se cargan cuando la tira se acerca a la pantalla, y solo se mueve mientras se ve
+    var imgsTira = pista.querySelectorAll("img[data-src]");
+    var cargarTira = function () {
+      Array.prototype.forEach.call(imgsTira, function (img) { if (img.dataset.src) { img.src = img.dataset.src; img.removeAttribute("data-src"); } });
+    };
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) {
+        if (es.some(function (e) { return e.isIntersecting; })) cargarTira();
+      }, { rootMargin: "800px 0px" }).observe($("#redes"));
+      new IntersectionObserver(function (es) {
+        visible = es.some(function (e) { return e.isIntersecting; });
+        programar();
+      }).observe($("#redes-fotos"));
+    } else { cargarTira(); visible = true; programar(); }
   }
 
   // Si todos los arroces y fideuàs cuestan lo mismo, el precio se dice una vez arriba
