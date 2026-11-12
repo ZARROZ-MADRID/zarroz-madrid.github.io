@@ -654,7 +654,7 @@ body::before {
   .historia__iconos .historia__isotipo { width: clamp(64px, 20vw, 90px); }
 }
 @media (max-width: 560px) { .portada__claim { font-size: .8rem; letter-spacing: .08em; } }
-@media (max-width: 420px) { .franja-lema { font-size: .72rem; letter-spacing: .06em; white-space: nowrap; } }
+@media (max-width: 420px) { .franja-lema { font-size: .8rem; letter-spacing: .06em; white-space: nowrap; } }
 .formatos__ilus { display: flex; align-items: flex-end; gap: 10px; margin-bottom: 14px; }
 .formatos__ilus .ilu { margin: 0; }
 
@@ -665,8 +665,7 @@ body::before {
 .portada__fondo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
 .portada > .portada__agua { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 
-/* La franja del lema repite la frase de la portada: en el móvil se quita para que la portada suba */
-@media (max-width: 759px) { .franja-lema { display: none; } }
+/* La franja del lema se ve también en el móvil (12-11-2026): la portada ya no repite el lema */
 
 /* Zonas de toque de al menos 44 px (lo que recomienda Apple para el dedo) */
 .contador button { width: 40px; height: 40px; }
