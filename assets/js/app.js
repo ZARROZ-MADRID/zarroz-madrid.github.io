@@ -51,6 +51,47 @@
     if (usuario) $$("[data-ig-usuario]").forEach(function (e) { e.textContent = "@" + usuario; });
   }
 
+  /* ---------- Botón de WhatsApp siempre visible ----------
+     Se oculta cuando no hace falta: con el formulario del pedido o de eventos en pantalla
+     (ya tienen su botón de WhatsApp), al llegar al pie (allí están los contactos)
+     y, en ordenador, mientras se ve la carta, para no tapar el panel del pedido. */
+  var WF = C.whatsappFlotante || {};
+  if (C.whatsapp && WF.mostrar !== false) {
+    var color = (new URLSearchParams(location.search).get("wa") || WF.color || "teja");
+    var wa = document.createElement("a");
+    wa.className = "wa-flotante wa-flotante--" + (color === "verde" ? "verde" : "teja");
+    wa.href = "https://wa.me/" + C.whatsapp + (WF.mensaje ? "?text=" + encodeURIComponent(WF.mensaje) : "");
+    wa.target = "_blank"; wa.rel = "noopener";
+    wa.setAttribute("aria-label", "Escríbenos por WhatsApp");
+    wa.title = "Escríbenos por WhatsApp";
+    wa.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3Z"/><path fill="currentColor" d="M9.1 7.6c.3 0 .5 0 .7.5l.8 1.8c.1.3 0 .5-.1.7l-.6.7c.6 1.2 1.6 2.1 2.8 2.7l.7-.8c.2-.2.4-.3.7-.1l1.8.8c.3.1.4.4.3.7-.2 1-1 1.7-2 1.7-3.1-.2-6.2-3.3-6.4-6.4 0-1 .7-1.8 1.7-2Z"/></svg>';
+    document.body.appendChild(wa);
+
+    var ordenador = window.matchMedia ? matchMedia("(min-width: 1000px)") : { matches: false };
+    var enPantalla = new Map();
+    var revisarWa = function () {
+      var tapa = false;
+      enPantalla.forEach(function (visible, el) {
+        if (!visible || el.hidden || el.offsetParent === null) return;
+        if (el.id === "carta" && !ordenador.matches) return;
+        tapa = true;
+      });
+      wa.classList.toggle("wa-flotante--oculto", tapa);
+    };
+    if ("IntersectionObserver" in window) {
+      var obsWa = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { enPantalla.set(e.target, e.isIntersecting); });
+        revisarWa();
+      }, { rootMargin: "-100px 0px -40px 0px" });
+      ["#pedido-form", "#evento-form", ".pie", "#carta"].forEach(function (s) {
+        $$(s).forEach(function (el) { enPantalla.set(el, false); obsWa.observe(el); });
+      });
+      // El formulario del pedido aparece y desaparece con «Continuar»: se vuelve a mirar
+      document.addEventListener("click", function () { setTimeout(revisarWa, 50); });
+      if (ordenador.addEventListener) ordenador.addEventListener("change", revisarWa);
+    }
+  }
+
   /* ---------- Menú móvil ---------- */
   var botonMenu = $(".menu__abrir"), enlaces = $("#menu-enlaces");
   if (botonMenu) {

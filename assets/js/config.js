@@ -17,6 +17,16 @@ window.ZARROZ = {
   whatsapp: "34649119997",    // Solo números con prefijo, sin + ni espacios. Ejemplo: "34600000000"
   instagram: "https://www.instagram.com/_zarroz_/",       // Ejemplo: "https://www.instagram.com/zarroz"
 
+  // ---- Botón de WhatsApp siempre visible (abajo a la derecha) ----
+  // "mostrar": true para que salga, false para quitarlo.
+  // "color": "teja" (rojo de la marca) o "verde" (el verde de WhatsApp de la web).
+  // "mensaje": el texto que el cliente encuentra ya escrito al abrir WhatsApp.
+  whatsappFlotante: {
+    mostrar: true,
+    color: "teja",
+    mensaje: "Hola, os escribo desde la web de Zarroz. "
+  },
+
   // ---- Reglas de pedido ----
   racionesMin: 3,      // mínimo de raciones por arroz (una paella)
   racionesMax: 8,      // máximo por paella

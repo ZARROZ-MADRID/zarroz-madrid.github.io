@@ -712,3 +712,23 @@ body::before {
 .redes-tira__pista-fotos .redes-tira__foto { flex: none; width: clamp(140px, 17vw, 240px); height: auto; aspect-ratio: 1; object-fit: cover; border-radius: 6px; -webkit-user-drag: none; pointer-events: none; }
 .redes-tira__pista-fotos .redes-tira__foto--alta { aspect-ratio: 2 / 3; }
 @media (prefers-reduced-motion: reduce) { .redes-tira__pista { animation-duration: 60s; } }
+
+/* Botón de WhatsApp siempre visible (16-11-2026). Lo crea app.js; color y mensaje en config.js */
+.wa-flotante {
+  position: fixed; z-index: 25;
+  right: calc(18px + env(safe-area-inset-right, 0px)); bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  width: 56px; height: 56px; border-radius: 50%;
+  display: grid; place-items: center;
+  border: 2px solid var(--crema);
+  box-shadow: 0 4px 14px rgba(54, 43, 41, .28);
+  transition: opacity .25s ease, transform .25s ease, background-color .2s ease;
+}
+.wa-flotante svg { width: 30px; height: 30px; }
+.wa-flotante--teja { background: var(--teja); color: var(--crema); }
+.wa-flotante--teja:hover { background: var(--teja-osc); color: var(--crema); }
+.wa-flotante--verde { background: #1f7a4d; color: #fff; }
+.wa-flotante--verde:hover { background: #17603c; color: #fff; }
+.wa-flotante--oculto { opacity: 0; transform: translateY(12px); pointer-events: none; visibility: hidden; transition: opacity .25s ease, transform .25s ease, visibility 0s .25s; }
+@media (min-width: 861px) { .wa-flotante { right: 28px; bottom: 28px; width: 60px; height: 60px; } .wa-flotante svg { width: 32px; height: 32px; } }
+@media (prefers-reduced-motion: reduce) { .wa-flotante { transition: opacity .2s ease; } .wa-flotante--oculto { transform: none; } }
+@media print { .wa-flotante { display: none; } }
