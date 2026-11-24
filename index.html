@@ -13,7 +13,7 @@
   <link rel="preload" href="assets/fonts/big-shoulders-display-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" type="image/webp" href="assets/img/albufera-vertical.webp" media="(max-width: 759px)" fetchpriority="high">
   <link rel="preload" as="image" type="image/webp" href="assets/img/albufera-horizontal.webp" media="(min-width: 760px)" fetchpriority="high">
-  <link rel="stylesheet" href="assets/css/styles.css?v=72">
+  <link rel="stylesheet" href="assets/css/styles.css?v=74">
   <meta property="og:title" content="Zarroz · Sabor a Valencia. Acento de Madrid.">
   <meta property="og:description" content="Arroces a domicilio en Madrid, para anfitriones que quieren estar presentes.">
   <meta property="og:type" content="website">
@@ -160,11 +160,13 @@
             <div class="campos">
               <div class="campo"><label for="f-nombre">Nombre</label><input id="f-nombre" name="nombre" autocomplete="name" required></div>
               <div class="campo"><label for="f-tel">Teléfono de contacto</label><input id="f-tel" name="telefono" type="tel" autocomplete="tel" inputmode="tel" required></div>
+              <div class="campo"><label for="f-email">Email <span class="campo__opcional">(para mandarte la confirmación)</span></label><input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" spellcheck="false"></div>
               <div class="campo"><label for="f-dir">Dirección de entrega</label><input id="f-dir" name="direccion" autocomplete="street-address" required></div>
               <div class="campo campo--medio"><label for="f-cp">Código postal</label><input id="f-cp" name="cp" autocomplete="postal-code" inputmode="numeric" maxlength="5" required aria-describedby="cp-aviso"><p class="campo__aviso" id="cp-aviso" aria-live="polite"></p></div>
               <div class="campo campo--medio"><label for="f-hora">Hora</label><select id="f-hora" name="hora" required><option value="">Elige</option></select></div>
               <div class="campo"><label for="f-fecha">Día</label><input id="f-fecha" name="fecha" type="date" required aria-describedby="fecha-aviso"><p class="campo__aviso" id="fecha-aviso">Repartimos <span data-dias-servicio>viernes, sábados, domingos y festivos</span>.</p><p class="campo__especial" id="fecha-especial" role="status" hidden></p></div>
               <div class="campo"><label for="f-notas">Comentarios (opcional)</label><textarea id="f-notas" name="notas" placeholder="Alergias, timbre, si es una celebración…"></textarea></div>
+              <label class="campo casilla casilla--pedido" for="f-novedades"><input type="checkbox" id="f-novedades" name="novedades" value="Sí"> <span>Quiero recibir por email novedades y ofertas de Zarroz (opcional; puedes darte de baja cuando quieras).</span></label>
             </div>
             <p class="pedido__error" id="pedido-error" role="alert" hidden></p>
             <div class="pedido__acciones">
@@ -172,7 +174,7 @@
               <button class="boton" type="submit" data-canal="email">Enviar por email</button>
               <button class="boton boton--borde" type="button" data-canal="copiar">Copiar el pedido</button>
             </div>
-            <p class="pedido__ayuda">Te confirmamos el pedido <span data-confirmacion>lo antes posible</span>. Si no se abre tu correo, copia el pedido y envíalo a <a href="mailto:pedidos@zarroz.com" data-email>pedidos@zarroz.com</a><span data-si="telefono" hidden> o llámanos al <a data-tel href="#"></a></span>.</p>
+            <p class="pedido__ayuda">Te confirmamos el pedido <span data-confirmacion>lo antes posible</span>. Si tienes cualquier problema, copia el pedido y envíalo a <a href="mailto:pedidos@zarroz.com" data-email>pedidos@zarroz.com</a><span data-si="telefono" hidden> o llámanos al <a data-tel href="#"></a></span>.</p>
             <div class="pedido__ok" id="pedido-ok" role="status" hidden></div>
           </form>
         </aside>
@@ -286,7 +288,7 @@
   </footer>
 
 
-  <script src="assets/js/config.js?v=72"></script>
-  <script src="assets/js/app.js?v=72"></script>
+  <script src="assets/js/config.js?v=74"></script>
+  <script src="assets/js/app.js?v=74"></script>
 </body>
 </html>

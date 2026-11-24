@@ -154,6 +154,7 @@
       t += "Alergias o intolerancias: " + (d.alergias ? "sí" : "no") + "\n";
       t += "Nombre: " + d.nombre + "\nContacto: " + d.contacto + "\n";
       if (d.notas) t += "Comentarios: " + d.notas + "\n";
+    t += "Acepta recibir novedades por email: " + (d.novedades ? "Sí" : "No") + "\n";
       return t;
     }
     function evAsunto() { var d = evDatos(); return "Evento Zarroz · " + fechaBonita(d.fecha) + " · " + d.personas + " invitados"; }
@@ -321,7 +322,7 @@
 
   // Arroces y fideuà van en paella (tipo "arroz": mínimo y máximo de raciones)
   function platoPaellera(a, k, lista) {
-    pedido[k] = { nombre: a.nombre, precio: a.precio, cantidad: 0, tipo: "arroz" };
+    pedido[k] = { nombre: a.nombre, precio: a.precio, cantidad: 0, tipo: "arroz", icono: a.icono };
     var li = document.createElement("li");
     li.className = "plato"; li.dataset.fila = k;
     var info = [a.descripcion ? esc(a.descripcion) : "", precioUnico === null ? '<span class="plato__precio">' + euros(a.precio) + " / ración</span>" : ""].filter(Boolean).join(" · ");
@@ -350,7 +351,7 @@
       e.opciones.forEach(function (o, j) {
         var k = prefijo + i + "_" + j;
         var nombre = e.opciones.length > 1 ? e.nombre + " (" + o.nombre.toLowerCase() + ")" : e.nombre;
-        pedido[k] = { nombre: nombre, precio: o.precio, cantidad: 0, tipo: "entrante" };
+        pedido[k] = { nombre: nombre, precio: o.precio, cantidad: 0, tipo: "entrante", icono: e.icono, detalle: o.detalle || e.nota || "" };
         precios.push(e.opciones.length > 1 ? o.nombre + (o.detalle ? " (" + o.detalle + ")" : "") + " " + euros(o.precio) : euros(o.precio));
         opts += '<div class="opcion" data-fila="' + k + '">' +
           (e.opciones.length > 1 ? '<span class="opcion__etiqueta">' + esc(o.nombre) + '</span>' : "") +
@@ -564,8 +565,15 @@
     f.forEach(function (v, k) { o[k] = String(v).trim(); });
     return o;
   }
-  function validar() {
+  // Envío del pedido por email desde la propia web (EmailJS). Si faltan las claves en config.js, se usa el correo del cliente.
+  var EJ = C.emailjs || {};
+  var conEmailJS = !!(EJ.publicKey && EJ.servicio && EJ.plantillaZarroz);
+  var emailEl = $("#f-email");
+  if (!conEmailJS && emailEl) emailEl.closest(".campo").hidden = true;
+
+  function validar(porEmail) {
     var errores = [];
+    if (emailEl) emailEl.removeAttribute("required");
     $$("[aria-invalid]", form).forEach(function (e) { e.removeAttribute("aria-invalid"); });
     if (!lineas().length) errores.push("Elige al menos un plato de la carta.");
     else if (!lineas().some(function (p) { return p.tipo === "arroz"; })) errores.push("Añade al menos un arroz o una fideuà.");
@@ -576,6 +584,11 @@
     var env = envioDe(cp.value);
     if (cp.value.trim() && env === undefined) { cp.setAttribute("aria-invalid", "true"); errores.push("Escribe un código postal de 5 cifras."); }
     else if (env === null) { cp.setAttribute("aria-invalid", "true"); errores.push("De momento no repartimos en el código postal " + cp.value.trim() + ". Si quieres, llámanos y lo vemos."); }
+    if (emailEl && conEmailJS) {
+      var em = emailEl.value.trim();
+      if (porEmail && !em) { emailEl.setAttribute("aria-invalid", "true"); errores.push("Escribe tu email para enviarte la confirmación del pedido."); }
+      else if (em && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)) { emailEl.setAttribute("aria-invalid", "true"); errores.push("Revisa tu email: parece que le falta algo."); }
+    }
     if (fecha.value && fecha.value < fecha.min) { fecha.setAttribute("aria-invalid", "true"); errores.push("El día no puede ser anterior a hoy."); }
     else if (!diaDeServicio(fecha.value)) { fecha.setAttribute("aria-invalid", "true"); errores.push("Ese día no repartimos (servimos " + textoDias() + "). Si lo necesitas para otro día, escríbenos a " + C.email + (C.telefono ? " o llámanos al " + C.telefono : "") + "."); }
     errorEl.hidden = !errores.length;
@@ -601,6 +614,7 @@
     t += "Día: " + fechaBonita(d.fecha) + "\nHora: " + d.hora + "\n";
     t += "Dirección: " + d.direccion + ", " + d.cp + (d.cp === "28109" ? " La Moraleja (Alcobendas)" : " Madrid") + "\n";
     t += "Nombre: " + d.nombre + "\nTeléfono: " + d.telefono + "\n";
+    if (d.email) t += "Email: " + d.email + "\n";
     if (d.notas) t += "Comentarios: " + d.notas + "\n";
     t += "\nPago al recibir el pedido.";
     return t;
@@ -613,9 +627,108 @@
       (C.telefono ? " Si no te llega nuestra respuesta, llámanos al " + esc(C.telefono) + "." : "") + "</p>";
   }
 
+  /* ---------- Envío por email con EmailJS ---------- */
+  var enviando = false;
+  function mayus(t) { return t ? t.charAt(0).toUpperCase() + t.slice(1) : t; }
+  function referencia() {
+    var letras = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789", r = "";
+    for (var i = 0; i < 4; i++) r += letras.charAt(Math.floor(Math.random() * letras.length));
+    return "Z-" + r;
+  }
+  // Dirección de la web (sirve igual en zarroz-madrid.github.io y, tras el lanzamiento, en zarroz.com)
+  function baseWeb() { return location.origin + location.pathname.replace(/[^\/]*$/, ""); }
+  function lineasHtml() {
+    var img = baseWeb() + "assets/img/email/";
+    return lineas().map(function (p) {
+      var det = p.tipo === "arroz" ? p.cantidad + " raciones · " + euros(p.precio) + " la ración"
+        : p.cantidad + " × " + euros(p.precio) + (p.detalle ? " · " + p.detalle : "");
+      return '<tr><td width="64" valign="middle" style="padding:14px 0;border-bottom:1px solid #e6dcc6">' +
+        (p.icono ? '<img src="' + img + encodeURIComponent(p.icono) + '.png" width="52" height="52" alt="" style="display:block;border-radius:8px">' : "") + "</td>" +
+        '<td valign="middle" style="padding:14px 12px;border-bottom:1px solid #e6dcc6;font-family:Arial,Helvetica,sans-serif">' +
+        '<div style="font-weight:bold;font-size:16px;color:#362b29">' + esc(p.nombre) + "</div>" +
+        '<div style="font-size:14px;color:#7a6c62">' + esc(det) + "</div></td>" +
+        '<td align="right" valign="middle" style="padding:14px 0;border-bottom:1px solid #e6dcc6;white-space:nowrap;font-weight:bold;color:#362b29;font-family:Arial,Helvetica,sans-serif">' +
+        euros(p.precio * p.cantidad) + "</td></tr>";
+    }).join("");
+  }
+  function parametros(ref) {
+    var d = datos(), env = envioDe(d.cp);
+    return {
+      ref: ref,
+      nombre: d.nombre,
+      email: d.email || "",
+      telefono: d.telefono,
+      telefono_wa: (function (t) { t = (t || "").replace(/\D/g, "").replace(/^00/, ""); return t.length === 9 ? "34" + t : t; })(d.telefono),
+      dia: mayus(fechaBonita(d.fecha)),
+      hora: d.hora,
+      direccion: d.direccion,
+      cp_ciudad: d.cp + (d.cp === "28109" ? " La Moraleja (Alcobendas)" : " Madrid"),
+      novedades: d.novedades ? "Sí" : "No",
+      notas: d.notas || "",
+      notas_html: d.notas ? '<tr><td width="96" valign="top" style="padding:7px 0;font-size:12px;letter-spacing:1px;color:#9a8a7e;text-transform:uppercase;font-family:Arial,Helvetica,sans-serif">Notas</td><td style="padding:7px 0;font-size:15px;color:#362b29;font-family:Arial,Helvetica,sans-serif">' + esc(d.notas) + "</td></tr>" : "",
+      subtotal: euros(total()),
+      envio: precioEnvio(env),
+      total: euros(total() + env),
+      lineas_html: lineasHtml(),
+      pedido_texto: textoPedido(),
+      recogida: C.recogidaPaellera || "",
+      telefono_zarroz: C.telefono || "",
+      whatsapp_zarroz: C.whatsapp || "",
+      email_zarroz: C.email || "",
+      web: baseWeb()
+    };
+  }
+  function mandar(plantilla, params) {
+    return fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ service_id: EJ.servicio, template_id: plantilla, user_id: EJ.publicKey, template_params: params })
+    }).then(function (r) { if (!r.ok) throw new Error("EmailJS " + r.status); });
+  }
+  function botonesActivos(si) { $$(".pedido__acciones button", form).forEach(function (b) { b.disabled = !si; }); }
+  function enviarPorEmail() {
+    if (enviando) return;
+    enviando = true;
+    var ref = referencia(), params = parametros(ref), botonEmail = $('[data-canal="email"]'), textoBoton = botonEmail.textContent;
+    botonesActivos(false);
+    botonEmail.textContent = "Enviando…";
+    okEl.hidden = true;
+    mandar(EJ.plantillaZarroz, params).then(function () {
+      var alCliente = params.email && EJ.plantillaCliente
+        ? mandar(EJ.plantillaCliente, params).then(function () { return true; }, function () { return false; })
+        : Promise.resolve(false);
+      return alCliente.then(function (llegaCopia) {
+        confirmar("<p><strong>¡Pedido enviado! Tu referencia es " + esc(ref) + ".</strong></p>" +
+          (llegaCopia ? "<p>Te hemos mandado un email a " + esc(params.email) + " con el resumen. Si no lo ves, mira en la carpeta de spam o promociones.</p>" : "") +
+          despues());
+        enviado = true;
+      });
+    }).catch(function () {
+      // Si EmailJS falla (sin conexión, límite del plan…), se ofrece el camino de siempre
+      confirmar("<p><strong>No hemos podido enviar el pedido desde la web.</strong> Tus datos siguen aquí: envíalo por WhatsApp, " +
+        '<a href="mailto:' + esc(C.email) + "?subject=" + encodeURIComponent(asunto()) + "&body=" + encodeURIComponent(textoPedido()) + '">ábrelo en tu correo</a>' +
+        " o usa «Copiar el pedido»." + (C.telefono ? " También puedes llamarnos al " + esc(C.telefono) + "." : "") + "</p>");
+    }).then(function () {
+      enviando = false;
+      // Tras un envío correcto, los botones quedan bloqueados hasta que se cambie algo (evita pedidos repetidos)
+      botonesActivos(!enviado);
+      botonEmail.textContent = enviado ? "Pedido enviado ✓" : textoBoton;
+    });
+  }
+  var enviado = false;
+  function desbloquear() {
+    if (!enviado) return;
+    enviado = false;
+    botonesActivos(true);
+    $('[data-canal="email"]').textContent = "Enviar por email";
+  }
+  form.addEventListener("input", desbloquear);
+  document.addEventListener("click", function (ev) { if (ev.target.closest("[data-mas],[data-menos]")) desbloquear(); });
+
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
-    if (!validar()) return;
+    if (!validar(conEmailJS)) return;
+    if (conEmailJS && window.fetch) { enviarPorEmail(); return; }
     window.location.href = "mailto:" + C.email + "?subject=" + encodeURIComponent(asunto()) + "&body=" + encodeURIComponent(textoPedido());
     confirmar("<p><strong>Se ha abierto tu correo con el pedido escrito.</strong> Revísalo y pulsa enviar.</p>" + despues() + "<p>Si no se ha abierto, usa «Copiar el pedido» y pégalo en un email a " + esc(C.email) + ".</p>");
   });

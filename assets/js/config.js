@@ -57,6 +57,18 @@ window.ZARROZ = {
              "2027-10-12", "2027-11-01", "2027-12-06", "2027-12-08", "2027-12-25"]
     }
   },
+  // ---- Envío del pedido por email desde la web (EmailJS) ----
+  // Las claves salen de la cuenta de EmailJS. Mientras estén vacías "", el botón
+  // «Enviar por email» abre el correo del cliente, como antes.
+  // "publicKey": Account → Public Key · "servicio": Email Services → Service ID
+  // "plantillaZarroz": el aviso que nos llega · "plantillaCliente": el email «pedido recibido» al cliente
+  emailjs: {
+    publicKey: "kyQnVmyktLtOUDlv4",
+    servicio: "service_k5oaucs",
+    plantillaZarroz: "template_wgzxvg8",
+    plantillaCliente: "template_qydij5l"
+  },
+
   // Cuánto tardamos en confirmar un pedido (sale al enviarlo).
   confirmacion: "lo antes posible",
 
