@@ -632,7 +632,8 @@ body::before {
 @media (max-width: 999px) { #carta { scroll-margin-top: -38px; } }
 
 /* Espaciado uniforme entre secciones (~72px de hueco visible en ordenador) */
-#como-funciona { padding-top: clamp(32px, 4vw, 40px); }
+#como-funciona { padding-top: clamp(32px, 4vw, 40px); padding-bottom: clamp(32px, 4vw, 48px); }
+#carta { padding-top: clamp(28px, 3vw, 32px); }
 .opiniones + .seccion { padding-top: clamp(16px, 2vw, 22px); }
 .redes-tira + .seccion { padding-top: 0; }
 .eventos--resumen { padding-top: clamp(36px, 4vw, 48px); padding-bottom: clamp(44px, 5vw, 64px); }
