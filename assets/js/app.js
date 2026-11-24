@@ -610,7 +610,7 @@
         : "- " + p.cantidad + " x " + p.nombre + " (" + euros(p.precio * p.cantidad) + ")\n";
     });
     var env = envioDe(d.cp);
-    t += "\nPlatos: " + euros(total()) + "\nEnvío: " + precioEnvio(env) + "\nTotal: " + euros(total() + env) + "\n\n";
+    t += "\nPlatos: " + euros(total()) + "\nEnvío: " + precioEnvio(env) + "\nTotal (IVA incluido): " + euros(total() + env) + "\n\n";
     t += "Día: " + fechaBonita(d.fecha) + "\nHora: " + d.hora + "\n";
     t += "Dirección: " + d.direccion + ", " + d.cp + (d.cp === "28109" ? " La Moraleja (Alcobendas)" : " Madrid") + "\n";
     t += "Nombre: " + d.nombre + "\nTeléfono: " + d.telefono + "\n";
